@@ -40,6 +40,16 @@ export const PASSION_TOPICS = [
     blurb: "Like flying but wet",
   },
   {
+    slug: "sleeping",
+    label: "Sleeping",
+    blurb: "My only temptation",
+  },
+  {
+    slug: "animals",
+    label: "Animals",
+    blurb: "Like us, but cuter",
+  },
+  {
     slug: "reading",
     label: "Reading",
     blurb: "Share our sparks",

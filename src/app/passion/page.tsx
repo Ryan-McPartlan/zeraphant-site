@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
 
 import { EmberField } from "~/components/passion/ember-field";
+import { FireAmbience } from "~/components/passion/fire-ambience";
 
 export const metadata: Metadata = { title: "Passion" };
 
@@ -8,9 +9,6 @@ export default function PassionPage() {
   return (
     <main className="relative min-h-dvh overflow-hidden px-6 py-24 sm:px-12 lg:px-20">
       <div className="relative z-20 max-w-xl">
-        <p className="text-fire-gold mb-4 text-sm tracking-[0.22em] uppercase">
-          Room 01
-        </p>
         <h1 className="font-display text-fire-gold text-6xl leading-[0.95] tracking-tight sm:text-8xl">
           Passion
         </h1>
@@ -30,6 +28,7 @@ export default function PassionPage() {
       </div>
 
       <EmberField />
+      <FireAmbience />
     </main>
   );
 }

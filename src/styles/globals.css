@@ -312,6 +312,62 @@
     animation: ember-burn 1.6s ease-in-out infinite;
   }
 
+  @keyframes ember-haze {
+    0%,
+    100% {
+      opacity: 0.35;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.55;
+      transform: scale(1.04);
+    }
+  }
+
+  .animate-ember-haze {
+    animation: ember-haze 1.8s ease-in-out infinite;
+  }
+
+  @keyframes text-on-fire {
+    0%,
+    100% {
+      filter: brightness(1) drop-shadow(0 0 6px rgba(255, 120, 20, 0.55));
+      background-position: 0% 50%;
+    }
+    40% {
+      filter: brightness(1.25) drop-shadow(0 0 14px rgba(255, 200, 60, 0.85));
+      background-position: 60% 50%;
+    }
+    70% {
+      filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 60, 10, 0.7));
+      background-position: 100% 50%;
+    }
+  }
+
+  .animate-text-on-fire {
+    background-image: linear-gradient(
+      105deg,
+      #ffd166 0%,
+      #fff3c4 18%,
+      #ff7a18 42%,
+      #ff3b1f 68%,
+      #ffd166 100%
+    );
+    background-size: 220% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: text-on-fire 1.4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-text-on-fire {
+      background-image: none;
+      color: var(--color-fire-gold);
+      filter: none;
+    }
+  }
+
   .animate-ember-ash {
     animation: ember-ash 1.4s ease-in forwards;
   }
@@ -325,7 +381,9 @@
     .animate-fire-flicker-slow,
     .animate-ember-flare,
     .animate-ember-burn,
-    .animate-ember-ash {
+    .animate-ember-ash,
+    .animate-ember-haze,
+    .animate-text-on-fire {
       animation: none !important;
     }
   }
