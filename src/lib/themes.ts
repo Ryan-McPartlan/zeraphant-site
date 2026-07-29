@@ -3,6 +3,7 @@ export type ParticleThemeId =
   | "passion"
   | "honor"
   | "connection"
+  | "past"
   | "default";
 
 export type ParticleShape =
@@ -12,7 +13,8 @@ export type ParticleShape =
   | "ember"
   | "flake"
   | "orb"
-  | "ray";
+  | "ray"
+  | "sand";
 
 export type ThemeConfig = {
   id: ParticleThemeId;
@@ -74,6 +76,17 @@ export const THEMES: Record<ParticleThemeId, ThemeConfig> = {
       "border-gold/35 bg-gold/15 text-gold shadow-[0_0_28px_rgba(255,200,70,0.3)]",
     titleClass: "text-gold",
   },
+  past: {
+    id: "past",
+    caption: "Archives, scars, and origin stories",
+    particleColors: ["#e8d5a3", "#c4a574", "#a89060", "#dfc89a", "#8b7355"],
+    shapes: ["sand"],
+    glow: "rgba(196, 165, 116, 0.3)",
+    shellClass: "theme-default",
+    accentClass: "text-sky",
+    badgeClass: "border-foam/15 bg-moss/40 text-chartreuse",
+    titleClass: "text-foam",
+  },
   default: {
     id: "default",
     particleColors: ["#d4ff4a", "#ff5c4d", "#7ee0ff", "#e8fff6", "#ffd166"],
@@ -90,5 +103,6 @@ export function themeFromPath(pathname: string): ThemeConfig {
   if (pathname.startsWith("/passion")) return THEMES.passion;
   if (pathname.startsWith("/honor")) return THEMES.honor;
   if (pathname.startsWith("/connection")) return THEMES.connection;
+  if (pathname.startsWith("/the-past")) return THEMES.past;
   return THEMES.default;
 }

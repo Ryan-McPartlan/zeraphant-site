@@ -7,18 +7,20 @@ export function PagePlaceholder({
   theme,
 }: {
   title: string;
-  eyebrow: string;
+  eyebrow?: string;
   line: string;
   theme?: ThemeConfig;
 }) {
   return (
     <main className="relative flex min-h-dvh items-center px-6 py-24 sm:px-12 lg:px-20">
       <div className="mx-auto w-full max-w-5xl">
-        <p
-          className={`mb-4 text-sm tracking-[0.22em] uppercase ${theme?.accentClass ?? "text-sky"}`}
-        >
-          {eyebrow}
-        </p>
+        {eyebrow ? (
+          <p
+            className={`mb-4 text-sm tracking-[0.22em] uppercase ${theme?.accentClass ?? "text-sky"}`}
+          >
+            {eyebrow}
+          </p>
+        ) : null}
         <h1
           className={`font-display max-w-[14ch] text-6xl leading-[0.95] tracking-tight sm:text-8xl lg:text-9xl ${theme?.titleClass ?? "text-foam"}`}
         >

@@ -12,6 +12,7 @@ const ORB_A: Record<string, string> = {
   passion: "bg-fire/35",
   honor: "bg-iron-bright/15",
   connection: "bg-gold/30",
+  past: "bg-sky/15",
   default: "bg-sky/20",
 };
 
@@ -20,6 +21,7 @@ const ORB_B: Record<string, string> = {
   passion: "bg-fire-gold/30",
   honor: "bg-iron/50",
   connection: "bg-gold/20",
+  past: "bg-iron/30",
   default: "bg-coral/15",
 };
 

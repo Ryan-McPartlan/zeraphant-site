@@ -372,6 +372,125 @@
     animation: ember-ash 1.4s ease-in forwards;
   }
 
+  /* Past cursor — hourglass sand + flip */
+  @keyframes hourglass-flip {
+    0%,
+    42% {
+      transform: rotate(0deg);
+    }
+    50%,
+    92% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes hourglass-sand-top {
+    0% {
+      transform: scaleY(1);
+    }
+    40% {
+      transform: scaleY(0.02);
+    }
+    42%,
+    50% {
+      transform: scaleY(0);
+    }
+    52% {
+      transform: scaleY(0.02);
+    }
+    92% {
+      transform: scaleY(1);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes hourglass-sand-bottom {
+    0% {
+      transform: scaleY(0);
+    }
+    40% {
+      transform: scaleY(0.98);
+    }
+    42%,
+    50% {
+      transform: scaleY(1);
+    }
+    52% {
+      transform: scaleY(0.98);
+    }
+    92% {
+      transform: scaleY(0);
+    }
+    100% {
+      transform: scaleY(0);
+    }
+  }
+
+  @keyframes hourglass-stream {
+    0%,
+    40% {
+      opacity: 1;
+    }
+    42%,
+    50% {
+      opacity: 0;
+    }
+    52%,
+    90% {
+      opacity: 1;
+    }
+    92%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes hourglass-grain {
+    0% {
+      transform: translateY(0);
+      opacity: 0.15;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(10px);
+      opacity: 0.05;
+    }
+  }
+
+  .animate-hourglass-flip {
+    animation: hourglass-flip 27.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    transform-origin: center center;
+  }
+
+  .animate-hourglass-sand-top {
+    animation: hourglass-sand-top 27.5s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: top center;
+  }
+
+  .animate-hourglass-sand-bottom {
+    animation: hourglass-sand-bottom 27.5s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: bottom center;
+  }
+
+  .animate-hourglass-stream {
+    animation: hourglass-stream 27.5s linear infinite;
+  }
+
+  .animate-hourglass-grain {
+    animation: hourglass-grain 0.45s linear infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-page-in,
     .animate-float-orb,
@@ -383,7 +502,12 @@
     .animate-ember-burn,
     .animate-ember-ash,
     .animate-ember-haze,
-    .animate-text-on-fire {
+    .animate-text-on-fire,
+    .animate-hourglass-flip,
+    .animate-hourglass-sand-top,
+    .animate-hourglass-sand-bottom,
+    .animate-hourglass-stream,
+    .animate-hourglass-grain {
       animation: none !important;
     }
   }

@@ -8,7 +8,6 @@ export const metadata: Metadata = { title: "Honor" };
 export default function HonorPage() {
   return (
     <PagePlaceholder
-      eyebrow="Room 02"
       title="Honor"
       line="A player in the great game"
       theme={THEMES.honor}

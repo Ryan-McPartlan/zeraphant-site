@@ -55,6 +55,11 @@ export const PASSION_TOPICS = [
     blurb: "That one we all share",
   },
   {
+    slug: "escape-rooms",
+    label: "Escape Rooms",
+    blurb: "An escape from the mundane",
+  },
+  {
     slug: "reading",
     label: "Reading",
     blurb: "Share our sparks",

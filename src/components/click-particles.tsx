@@ -118,6 +118,25 @@ function drawParticle(ctx: CanvasRenderingContext2D, p: Particle, t: number) {
       ctx.fill();
       break;
     }
+    case "sand": {
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.ellipse(
+        0,
+        0,
+        p.size * 0.55,
+        p.size * 0.35,
+        p.rot * 0.3,
+        0,
+        Math.PI * 2,
+      );
+      ctx.fill();
+      ctx.globalAlpha = (1 - t) * 0.45;
+      ctx.beginPath();
+      ctx.arc(p.size * 0.15, -p.size * 0.1, p.size * 0.2, 0, Math.PI * 2);
+      ctx.fill();
+      break;
+    }
     case "ray": {
       ctx.fillStyle = p.color;
       ctx.fillRect(-p.size * 0.15, -p.size * 1.4, p.size * 0.3, p.size * 2.8);
@@ -186,37 +205,48 @@ export function ClickParticles({ pathname }: { pathname: string }) {
       }
 
       for (let i = 0; i < count; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed =
-          theme.id === "passion"
-            ? 2.5 + Math.random() * 8
-            : 2 + Math.random() * 7;
         const shape =
           theme.shapes[Math.floor(Math.random() * theme.shapes.length)]!;
-        const rising =
-          theme.id === "passion" || theme.id === "connection"
+        const isSand = theme.id === "past" || shape === "sand";
+
+        // Sand mostly falls down in a narrow cone
+        const angle = isSand
+          ? Math.PI / 2 + (Math.random() - 0.5) * 0.7
+          : Math.random() * Math.PI * 2;
+        const speed = isSand
+          ? 1.2 + Math.random() * 4.5
+          : theme.id === "passion"
+            ? 2.5 + Math.random() * 8
+            : 2 + Math.random() * 7;
+        const rising = isSand
+          ? 0.8 + Math.random() * 1.5
+          : theme.id === "passion" || theme.id === "connection"
             ? -2.2 - Math.random() * 2
             : -1.2;
 
         particles.current.push({
           x,
           y,
-          vx: Math.cos(angle) * speed,
+          vx: Math.cos(angle) * speed * (isSand ? 0.35 : 1),
           vy: Math.sin(angle) * speed + rising,
           life: 0,
-          maxLife:
-            theme.id === "passion"
+          maxLife: isSand
+            ? 40 + Math.random() * 28
+            : theme.id === "passion"
               ? 45 + Math.random() * 30
               : 35 + Math.random() * 25,
-          size:
-            shape === "heart"
+          size: isSand
+            ? 1.6 + Math.random() * 2.8
+            : shape === "heart"
               ? 10 + Math.random() * 10
               : 3 + Math.random() * (shape === "orb" ? 10 : 6),
           color:
             theme.particleColors[
               Math.floor(Math.random() * theme.particleColors.length)
             ]!,
-          spin: (Math.random() - 0.5) * (shape === "heart" ? 0.25 : 0.4),
+          spin:
+            (Math.random() - 0.5) *
+            (isSand ? 0.12 : shape === "heart" ? 0.25 : 0.4),
           rot: Math.random() * Math.PI * 2,
           shape,
           themeId: theme.id,
@@ -260,6 +290,9 @@ export function ClickParticles({ pathname }: { pathname: string }) {
         } else if (p.themeId === "connection") {
           p.vy -= 0.02;
           p.vx *= 0.99;
+        } else if (p.themeId === "past") {
+          p.vy += 0.22;
+          p.vx *= 0.96;
         } else {
           p.vy += 0.12;
           p.vx *= 0.98;

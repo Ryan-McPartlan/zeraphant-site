@@ -31,12 +31,13 @@ type AshSpeck = {
 type BodyMeta = {
   riseUntil: number;
   riseMs: number;
+  fallAt: number;
   bornAt: number;
   lifetimeMs: number;
   phase: Phase;
 };
 
-const CARD_RADIUS = 88;
+const CARD_RADIUS = 114;
 
 function subscribeReducedMotion(onChange: () => void) {
   const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -240,6 +241,12 @@ export function EmberField() {
             body,
             body.angularVelocity * 0.995 + (Math.random() - 0.5) * 0.004,
           );
+        } else if (now < meta.fallAt && meta.phase !== "ash") {
+          // Hold upward momentum ~1s before fall force kicks in
+          Body.applyForce(body, body.position, {
+            x: 0,
+            y: -0.85 * 0.001 * body.mass,
+          });
         } else if (meta.phase !== "ash") {
           Body.applyForce(body, body.position, {
             x: 0,
@@ -309,7 +316,7 @@ export function EmberField() {
       setEmbers((prev) =>
         prev.map((e) => (e.slug === slug ? { ...e, phase: "hidden" } : e)),
       );
-      schedule(slug, rand(500, 1250), () => ignite(slug));
+      schedule(slug, rand(2800, 6000), () => ignite(slug));
     };
 
     const beginAsh = (slug: string) => {
@@ -334,7 +341,7 @@ export function EmberField() {
 
       removeBody(slug);
 
-      const lifetimeMs = rand(2250, 3500);
+      const lifetimeMs = rand(3250, 4500);
       const riseMs = rand(1400, 2100);
       const bornAt = performance.now();
       const w = window.innerWidth;
@@ -378,6 +385,7 @@ export function EmberField() {
       metaRef.current.set(slug, {
         riseUntil: bornAt + riseMs,
         riseMs,
+        fallAt: bornAt + riseMs + 1000,
         bornAt,
         lifetimeMs,
         phase: "flare",
@@ -409,7 +417,7 @@ export function EmberField() {
 
     const order = [...PASSION_TOPICS].sort(() => Math.random() - 0.5);
     for (const topic of order) {
-      schedule(topic.slug, rand(100, 2750), () => ignite(topic.slug));
+      schedule(topic.slug, rand(600, 12000), () => ignite(topic.slug));
     }
 
     return () => {
@@ -438,7 +446,7 @@ export function EmberField() {
               <Link
                 href={`/passion/${ember.slug}`}
                 aria-label={`${ember.label} — open passion`}
-                className={`group pointer-events-auto relative flex items-center gap-2 overflow-hidden rounded-2xl px-5 py-3 text-left transition-[opacity,filter,scale] duration-500 ${
+                className={`group pointer-events-auto relative flex items-center gap-2.5 overflow-hidden rounded-2xl px-6 py-4 text-left transition-[opacity,filter,scale] duration-500 ${
                   flaring
                     ? "animate-ember-flare scale-110"
                     : cooling
@@ -455,7 +463,7 @@ export function EmberField() {
                   }`}
                 />
                 <span
-                  className={`font-display relative z-10 text-xl tracking-tight transition-colors duration-500 sm:text-2xl ${
+                  className={`font-display relative z-10 text-2xl tracking-tight transition-colors duration-500 sm:text-3xl ${
                     cooling
                       ? "text-zinc-400"
                       : "animate-text-on-fire group-hover:brightness-125"
@@ -465,7 +473,7 @@ export function EmberField() {
                 </span>
                 <span
                   aria-hidden
-                  className={`font-display relative z-10 text-lg transition-transform duration-300 ${
+                  className={`font-display relative z-10 text-xl transition-transform duration-300 ${
                     cooling
                       ? "text-zinc-500"
                       : "animate-text-on-fire group-hover:translate-x-0.5"

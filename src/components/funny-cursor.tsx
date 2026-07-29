@@ -72,16 +72,184 @@ function CursorGlyph({
       );
     case "honor":
       return (
-        <>
-          <div className="absolute inset-[18%] rotate-45 rounded-[3px] bg-[linear-gradient(135deg,#e8edf5,#5c6570_45%,#d7dde5_70%,#3a4048)] shadow-[0_0_14px_rgba(140,150,165,0.45)]" />
-          <div className="bg-iron-bright/90 absolute inset-x-[46%] inset-y-[8%]" />
-          <div className="bg-iron-bright/90 absolute inset-x-[8%] inset-y-[46%]" />
-          <div className="bg-iron absolute inset-[38%] rounded-sm border border-white/25" />
-          <div
-            ref={pupilRef}
-            className="bg-silver-bright relative z-10 size-1.5 rounded-full"
+        <svg
+          viewBox="0 0 40 52"
+          className="h-[3.25rem] w-10 drop-shadow-[0_0_10px_rgba(160,170,185,0.55)]"
+          aria-hidden
+        >
+          {/* Pointed tip — hotspot at top center */}
+          <path d="M20 0 L26 12 L20 10 L14 12 Z" fill="#f5f7fa" />
+          <path d="M20 10 L24 12.5 L20 20 L16 12.5 Z" fill="#8b949e" />
+          <path d="M20 10 L22.5 12 L20 16 L17.5 12 Z" fill="#cfd8e3" />
+          {/* Iron chain links */}
+          <ellipse
+            cx="20"
+            cy="23"
+            rx="5.4"
+            ry="3.8"
+            fill="none"
+            stroke="#e8edf5"
+            strokeWidth="2.5"
           />
-        </>
+          <ellipse
+            cx="20"
+            cy="23"
+            rx="5.4"
+            ry="3.8"
+            fill="none"
+            stroke="#5c6570"
+            strokeWidth="1.1"
+            opacity="0.75"
+          />
+          <ellipse
+            cx="20"
+            cy="31.5"
+            rx="5.4"
+            ry="3.8"
+            fill="none"
+            stroke="#b8c0c8"
+            strokeWidth="2.5"
+          />
+          <ellipse
+            cx="20"
+            cy="31.5"
+            rx="5.4"
+            ry="3.8"
+            fill="none"
+            stroke="#3a4048"
+            strokeWidth="1.1"
+            opacity="0.7"
+          />
+          <ellipse
+            cx="20"
+            cy="40"
+            rx="5.4"
+            ry="3.8"
+            fill="none"
+            stroke="#d7dde5"
+            strokeWidth="2.5"
+          />
+          <ellipse
+            cx="20"
+            cy="40"
+            rx="5.4"
+            ry="3.8"
+            fill="none"
+            stroke="#5c6570"
+            strokeWidth="1.1"
+            opacity="0.75"
+          />
+          <ellipse
+            cx="20"
+            cy="48"
+            rx="4.8"
+            ry="3.3"
+            fill="none"
+            stroke="#8b949e"
+            strokeWidth="2.3"
+          />
+        </svg>
+      );
+    case "past":
+      return (
+        <div className="relative flex h-12 w-8 flex-col items-center">
+          {/* Tip hotspot — stays upright */}
+          <svg viewBox="0 0 32 8" className="relative z-10 h-2 w-8" aria-hidden>
+            <path d="M16 0 L20 7 L16 5.5 L12 7 Z" fill="#e8edf5" />
+          </svg>
+          <div className="animate-hourglass-flip relative -mt-0.5">
+            <svg
+              viewBox="0 0 32 40"
+              className="h-10 w-8 drop-shadow-[0_0_10px_rgba(200,210,225,0.4)]"
+              aria-hidden
+            >
+              {/* Glass frame */}
+              <path
+                d="M8 4 H24 L16 20 L24 36 H8 L16 20 Z"
+                fill="none"
+                stroke="#cfd8e3"
+                strokeWidth="1.8"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M7 4 H25 M7 36 H25"
+                stroke="#e8edf5"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+
+              {/* Top sand — drains */}
+              <g className="animate-hourglass-sand-top">
+                <path d="M10 6 H22 L16 18 Z" fill="#c4a574" opacity="0.95" />
+                <circle cx="13.5" cy="9" r="0.7" fill="#e8d5a3" opacity="0.7" />
+                <circle
+                  cx="17"
+                  cy="11"
+                  r="0.55"
+                  fill="#dfc89a"
+                  opacity="0.55"
+                />
+              </g>
+
+              {/* Bottom sand — fills */}
+              <g className="animate-hourglass-sand-bottom">
+                <path d="M16 22 L22 34 H10 Z" fill="#a89060" opacity="0.95" />
+                <circle
+                  cx="15"
+                  cy="30"
+                  r="0.65"
+                  fill="#e8d5a3"
+                  opacity="0.45"
+                />
+              </g>
+
+              {/* Falling stream */}
+              <g className="animate-hourglass-stream">
+                <line
+                  x1="16"
+                  y1="18"
+                  x2="16"
+                  y2="23"
+                  stroke="#c4a574"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  opacity="0.75"
+                />
+                <circle
+                  className="animate-hourglass-grain"
+                  cx="16"
+                  cy="18.5"
+                  r="0.9"
+                  fill="#e8d5a3"
+                />
+                <circle
+                  className="animate-hourglass-grain"
+                  cx="15.4"
+                  cy="18.8"
+                  r="0.55"
+                  fill="#c4a574"
+                  style={{ animationDelay: "0.12s" }}
+                />
+                <circle
+                  className="animate-hourglass-grain"
+                  cx="16.5"
+                  cy="18.6"
+                  r="0.5"
+                  fill="#a89060"
+                  style={{ animationDelay: "0.24s" }}
+                />
+                <circle
+                  className="animate-hourglass-grain"
+                  cx="15.8"
+                  cy="18.4"
+                  r="0.45"
+                  fill="#dfc89a"
+                  style={{ animationDelay: "0.36s" }}
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
       );
     case "connection":
       return (
@@ -156,7 +324,12 @@ export function FunnyCursor({ themeId }: { themeId: ParticleThemeId }) {
       const el = cursorRef.current;
       const pupil = pupilRef.current;
       if (el) {
-        el.style.transform = `translate3d(${c.x}px, ${c.y}px, 0) translate(-50%, -50%)`;
+        // Honor chain / past hourglass tip sits at the top of the glyph
+        const origin =
+          themeId === "honor" || themeId === "past"
+            ? "translate(-50%, 0)"
+            : "translate(-50%, -50%)";
+        el.style.transform = `translate3d(${c.x}px, ${c.y}px, 0) ${origin}`;
       }
       if (pupil) {
         const dx = (t.x - c.x) * 0.12;
@@ -174,7 +347,7 @@ export function FunnyCursor({ themeId }: { themeId: ParticleThemeId }) {
       window.removeEventListener("pointerup", onUp);
       cancelAnimationFrame(frame);
     };
-  }, [enabled]);
+  }, [enabled, themeId]);
 
   if (!enabled) return null;
 
@@ -196,7 +369,11 @@ export function FunnyCursor({ themeId }: { themeId: ParticleThemeId }) {
     >
       <div
         key={themeId}
-        className={`relative grid size-10 place-items-center transition-transform duration-150 ${pressClass}`}
+        className={`relative grid place-items-center transition-transform duration-150 ${
+          themeId === "honor" || themeId === "past"
+            ? "h-12 w-10 items-start"
+            : "size-10"
+        } ${pressClass}`}
       >
         <CursorGlyph themeId={themeId} pupilRef={pupilRef} />
       </div>
