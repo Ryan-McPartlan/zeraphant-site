@@ -1,53 +1,45 @@
 import Link from "next/link";
 
-import { LatestPost } from "~/app/_components/post";
-import { api, HydrateClient } from "~/trpc/server";
+import { NAV_ITEMS } from "~/lib/nav";
 
-export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-
-  void api.post.getLatest.prefetch();
-
+export default function HomePage() {
   return (
-    <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello ? hello.greeting : "Loading tRPC query..."}
-            </p>
-          </div>
-
-          <LatestPost />
+    <main className="relative flex min-h-dvh flex-col justify-end px-6 pb-16 sm:px-12 sm:pb-20 lg:px-20">
+      <div className="absolute inset-0 overflow-hidden" aria-hidden>
+        <div className="font-display text-silver/15 absolute top-[18%] left-[8%] max-w-[min(90vw,28rem)] -rotate-6 text-[clamp(4.5rem,18vw,13rem)] leading-none tracking-tight select-none">
+          click
+          <br />
+          anything
         </div>
-      </main>
-    </HydrateClient>
+      </div>
+
+      <div className="relative z-10 max-w-4xl">
+        <p className="text-silver mb-5 text-sm tracking-[0.24em] uppercase">
+          Personal playground
+        </p>
+        <h1 className="font-display text-silver-bright text-[clamp(3.5rem,12vw,9rem)] leading-[0.88] tracking-tight">
+          Zeraphant
+        </h1>
+        <p className="text-mist mt-6 max-w-lg text-lg sm:text-xl">
+          Six rooms, one ridiculous cursor, and confetti for every click. Peek
+          into the bubble up top whenever you feel lost.
+        </p>
+
+        <div className="mt-10 flex flex-wrap gap-3">
+          <Link
+            href="/the-present"
+            className="bg-silver-bright text-ink rounded-full px-5 py-3 font-semibold transition-transform hover:scale-[1.03] active:scale-95"
+          >
+            Start in the present
+          </Link>
+          <Link
+            href={NAV_ITEMS[0]!.href}
+            className="border-silver/35 bg-silver/10 text-silver-bright hover:bg-silver/20 rounded-full border px-5 py-3 font-semibold transition-colors"
+          >
+            Wander into passion
+          </Link>
+        </div>
+      </div>
+    </main>
   );
 }
