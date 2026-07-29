@@ -50,6 +50,11 @@ export const PASSION_TOPICS = [
     blurb: "Like us, but cuter",
   },
   {
+    slug: "food",
+    label: "Food",
+    blurb: "That one we all share",
+  },
+  {
     slug: "reading",
     label: "Reading",
     blurb: "Share our sparks",
