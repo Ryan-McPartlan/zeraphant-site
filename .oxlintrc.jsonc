@@ -1,0 +1,78 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": true,
+    "typeCheck": true,
+  },
+  "ignorePatterns": [".next/**", "generated/**"],
+  "plugins": ["nextjs", "typescript", "import", "react", "unicorn"],
+  "jsPlugins": [
+    {
+      "name": "react-hooks-js",
+      "specifier": "eslint-plugin-react-hooks",
+    },
+    {
+      "name": "simple-import-sort-js",
+      "specifier": "eslint-plugin-simple-import-sort",
+    },
+  ],
+  "rules": {
+    // Typescript rules
+    "typescript/no-deprecated": "warn",
+    "typescript/array-type": "off",
+    "typescript/consistent-type-definitions": "off",
+    "typescript/consistent-type-imports": [
+      "warn",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "inline-type-imports",
+      },
+    ],
+    "typescript/no-unused-vars": [
+      "warn",
+      {
+        "args": "all",
+        "argsIgnorePattern": "^_",
+        "caughtErrors": "all",
+        "caughtErrorsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "ignoreRestSiblings": true,
+      },
+    ],
+    "typescript/require-await": "off",
+    "typescript/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": {
+          "attributes": false,
+        },
+      },
+    ],
+
+    // Simple import sort rules
+    "simple-import-sort-js/imports": "error",
+    "simple-import-sort-js/exports": "error",
+
+    // Import rules
+    "import/first": "error",
+    "import/no-duplicates": "error",
+
+    // React hooks (eslint-plugin-react-hooks via jsPlugins)
+    "react-hooks-js/config": "error",
+    "react-hooks-js/error-boundaries": "error",
+    "react-hooks-js/component-hook-factories": "error",
+    "react-hooks-js/gating": "error",
+    "react-hooks-js/globals": "error",
+    "react-hooks-js/immutability": "error",
+    "react-hooks-js/preserve-manual-memoization": "error",
+    "react-hooks-js/purity": "error",
+    "react-hooks-js/refs": "error",
+    "react-hooks-js/set-state-in-effect": "warn",
+    "react-hooks-js/set-state-in-render": "error",
+    "react-hooks-js/static-components": "error",
+    "react-hooks-js/unsupported-syntax": "warn",
+    "react-hooks-js/use-memo": "error",
+    "react-hooks-js/incompatible-library": "off",
+  },
+}
