@@ -26,6 +26,8 @@ type AshSpeck = {
   life: number;
   maxLife: number;
   size: number;
+  kind: "ash" | "flame";
+  hue: number;
 };
 
 type BodyMeta = {
@@ -58,7 +60,7 @@ function StaticPassionLinks() {
             href={`/passion/${topic.slug}`}
             className="border-fire/30 bg-fire/10 hover:bg-fire/20 block rounded-2xl border px-4 py-3 transition-colors"
           >
-            <span className="font-display text-fire-gold text-lg">
+            <span className="font-fire text-fire-gold text-lg tracking-wide">
               {topic.label}
             </span>
             <span className="text-mist mt-1 block text-sm">{topic.blurb}</span>
@@ -100,20 +102,46 @@ function EmberAshCanvas({
         const meta = metaRef.current.get(slug);
         if (!meta) continue;
         const age = now - meta.bornAt;
+        const burning =
+          (meta.phase === "flare" || meta.phase === "live") &&
+          age < meta.lifetimeMs * 0.85;
+        const rising = body.velocity.y < -0.15;
         const cooling = meta.phase === "ash" || age > meta.lifetimeMs * 0.45;
-        if (!cooling || Math.random() > 0.55) continue;
 
-        for (let i = 0; i < 2; i++) {
-          specks.current.push({
-            id: idRef.current++,
-            x: body.position.x + rand(-28, 28),
-            y: body.position.y + rand(-8, 12),
-            vx: rand(-0.4, 0.4),
-            vy: rand(0.6, 1.8),
-            life: 0,
-            maxLife: rand(35, 70),
-            size: rand(1.2, 3.2),
-          });
+        if (burning && rising) {
+          // Stronger spray while climbing hard
+          const lift = Math.min(1.6, Math.abs(body.velocity.y) / 2.4);
+          const count =
+            Math.random() < 0.35 + lift * 0.4 ? (lift > 0.7 ? 3 : 2) : 1;
+          for (let i = 0; i < count; i++) {
+            specks.current.push({
+              id: idRef.current++,
+              x: body.position.x + rand(-36, 36),
+              y: body.position.y + rand(6, 28),
+              vx: rand(-0.55, 0.55) + body.velocity.x * 0.08,
+              vy: rand(-2.8, -1.1) + body.velocity.y * 0.12,
+              life: 0,
+              maxLife: rand(22, 48),
+              size: rand(2.2, 5.5),
+              kind: "flame",
+              hue: rand(0, 1),
+            });
+          }
+        } else if (cooling && Math.random() > 0.45) {
+          for (let i = 0; i < 2; i++) {
+            specks.current.push({
+              id: idRef.current++,
+              x: body.position.x + rand(-28, 28),
+              y: body.position.y + rand(-8, 12),
+              vx: rand(-0.4, 0.4),
+              vy: rand(0.6, 1.8),
+              life: 0,
+              maxLife: rand(35, 70),
+              size: rand(1.2, 3.2),
+              kind: "ash",
+              hue: 0,
+            });
+          }
         }
       }
 
@@ -122,12 +150,61 @@ function EmberAshCanvas({
         s.life += 1;
         s.x += s.vx;
         s.y += s.vy;
-        s.vy += 0.02;
+        if (s.kind === "flame") {
+          s.vy *= 0.985;
+          s.vx *= 0.98;
+          s.vy -= 0.035;
+        } else {
+          s.vy += 0.02;
+        }
         const t = s.life / s.maxLife;
         if (t >= 1) return false;
-        ctx.globalAlpha = (1 - t) * 0.75;
-        ctx.fillStyle = t < 0.35 ? "#9a9a9a" : "#5c5c5c";
-        ctx.fillRect(s.x, s.y, s.size, s.size * 0.7);
+
+        if (s.kind === "flame") {
+          const alpha = (1 - t) * (t < 0.15 ? t / 0.15 : 1) * 0.95;
+          ctx.globalAlpha = alpha;
+          const color =
+            t < 0.25
+              ? "#fff1a8"
+              : t < 0.5
+                ? s.hue > 0.45
+                  ? "#ffd166"
+                  : "#ff9a3c"
+                : t < 0.75
+                  ? "#ff3b1f"
+                  : "#ff1e00";
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.ellipse(
+            s.x,
+            s.y,
+            s.size * (0.55 + (1 - t) * 0.35),
+            s.size * (0.9 + (1 - t) * 0.5),
+            0,
+            0,
+            Math.PI * 2,
+          );
+          ctx.fill();
+          if (t < 0.4) {
+            ctx.globalAlpha = alpha * 0.35;
+            ctx.fillStyle = "#fff8d6";
+            ctx.beginPath();
+            ctx.ellipse(
+              s.x,
+              s.y - s.size * 0.2,
+              s.size * 0.35,
+              s.size * 0.5,
+              0,
+              0,
+              Math.PI * 2,
+            );
+            ctx.fill();
+          }
+        } else {
+          ctx.globalAlpha = (1 - t) * 0.75;
+          ctx.fillStyle = t < 0.35 ? "#9a9a9a" : "#5c5c5c";
+          ctx.fillRect(s.x, s.y, s.size, s.size * 0.7);
+        }
         return true;
       });
       ctx.globalAlpha = 1;
@@ -145,7 +222,7 @@ function EmberAshCanvas({
     <canvas
       ref={canvasRef}
       aria-hidden
-      className="pointer-events-none absolute inset-0 z-[1]"
+      className="pointer-events-none absolute inset-0 z-[6]"
     />
   );
 }
@@ -316,7 +393,7 @@ export function EmberField() {
       setEmbers((prev) =>
         prev.map((e) => (e.slug === slug ? { ...e, phase: "hidden" } : e)),
       );
-      schedule(slug, rand(2800, 6000), () => ignite(slug));
+      schedule(slug, rand(1200, 10000), () => ignite(slug));
     };
 
     const beginAsh = (slug: string) => {
@@ -329,20 +406,20 @@ export function EmberField() {
       setEmbers((prev) =>
         prev.map((e) => (e.slug === slug ? { ...e, phase: "ash" } : e)),
       );
-      schedule(slug, 800, () => hide(slug));
+      schedule(slug, rand(350, 1800), () => hide(slug));
     };
 
     const ignite = (slug: string) => {
       const engine = engineRef.current;
       if (!engine) {
-        schedule(slug, 400, () => ignite(slug));
+        schedule(slug, rand(200, 900), () => ignite(slug));
         return;
       }
 
       removeBody(slug);
 
-      const lifetimeMs = rand(3250, 4500);
-      const riseMs = rand(1400, 2100);
+      const lifetimeMs = rand(2000, 7000);
+      const riseMs = rand(700, 3400);
       const bornAt = performance.now();
       const w = window.innerWidth;
       const h = window.innerHeight;
@@ -385,7 +462,7 @@ export function EmberField() {
       metaRef.current.set(slug, {
         riseUntil: bornAt + riseMs,
         riseMs,
-        fallAt: bornAt + riseMs + 1000,
+        fallAt: bornAt + riseMs + rand(300, 2200),
         bornAt,
         lifetimeMs,
         phase: "flare",
@@ -405,7 +482,7 @@ export function EmberField() {
         }
       });
 
-      schedule(slug, 350, () => {
+      schedule(slug, rand(180, 800), () => {
         const meta = metaRef.current.get(slug);
         if (meta) meta.phase = "live";
         setEmbers((prev) =>
@@ -417,7 +494,7 @@ export function EmberField() {
 
     const order = [...PASSION_TOPICS].sort(() => Math.random() - 0.5);
     for (const topic of order) {
-      schedule(topic.slug, rand(600, 12000), () => ignite(topic.slug));
+      schedule(topic.slug, rand(150, 20000), () => ignite(topic.slug));
     }
 
     return () => {
@@ -463,7 +540,7 @@ export function EmberField() {
                   }`}
                 />
                 <span
-                  className={`font-display relative z-10 text-2xl tracking-tight transition-colors duration-500 sm:text-3xl ${
+                  className={`font-fire relative z-10 text-2xl tracking-wide transition-colors duration-500 sm:text-3xl ${
                     cooling
                       ? "text-zinc-400"
                       : "animate-text-on-fire group-hover:brightness-125"
@@ -473,7 +550,7 @@ export function EmberField() {
                 </span>
                 <span
                   aria-hidden
-                  className={`font-display relative z-10 text-xl transition-transform duration-300 ${
+                  className={`font-fire relative z-10 text-xl tracking-wide transition-transform duration-300 ${
                     cooling
                       ? "text-zinc-500"
                       : "animate-text-on-fire group-hover:translate-x-0.5"

@@ -128,6 +128,15 @@ exports.Prisma.PostScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PraiseSubmissionScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  message: 'message',
+  fromName: 'fromName',
+  mediaData: 'mediaData',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -138,9 +147,19 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.PraiseKind = exports.$Enums.PraiseKind = {
+  MESSAGE: 'MESSAGE',
+  AUDIO: 'AUDIO',
+  DRAWING: 'DRAWING'
+};
 
 exports.Prisma.ModelName = {
-  Post: 'Post'
+  Post: 'Post',
+  PraiseSubmission: 'PraiseSubmission'
 };
 
 /**

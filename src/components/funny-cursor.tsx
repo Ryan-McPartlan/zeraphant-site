@@ -1,8 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { type ParticleThemeId } from "~/lib/themes";
+
+type CursorId = ParticleThemeId | "praise";
 
 type Pos = { x: number; y: number };
 
@@ -28,21 +31,74 @@ function CursorGlyph({
   themeId,
   pupilRef,
 }: {
-  themeId: ParticleThemeId;
+  themeId: CursorId;
   pupilRef: React.RefObject<HTMLDivElement | null>;
 }) {
   switch (themeId) {
+    case "praise":
+      return (
+        <svg
+          viewBox="0 0 28 44"
+          className="h-11 w-7 drop-shadow-[0_0_10px_rgba(255,209,102,0.45)]"
+          aria-hidden
+        >
+          {/* Tip — hotspot at top center */}
+          <path d="M14 0 L18.5 9 H9.5 Z" fill="#3a2a18" />
+          <path d="M14 1.5 L16.8 8 H11.2 Z" fill="#c4a574" />
+          <path d="M14 3 L15.2 7.2 H12.8 Z" fill="#1a1408" />
+          {/* Ferrule-free wood body */}
+          <rect x="9.5" y="9" width="9" height="24" rx="1" fill="#ffd24a" />
+          <rect
+            x="11.2"
+            y="9"
+            width="2.2"
+            height="24"
+            fill="#ffe566"
+            opacity="0.85"
+          />
+          <rect
+            x="16.2"
+            y="9"
+            width="1.4"
+            height="24"
+            fill="#c98912"
+            opacity="0.45"
+          />
+          {/* Metal band + eraser */}
+          <rect
+            x="9.2"
+            y="33"
+            width="9.6"
+            height="3.2"
+            rx="0.6"
+            fill="#cfd8e3"
+          />
+          <rect
+            x="9.5"
+            y="36.2"
+            width="9"
+            height="6.5"
+            rx="1.2"
+            fill="#ff7a9a"
+          />
+          <path
+            d="M11 36.2 H17 V41.5 C17 42.6 15.7 43.2 14 43.2 S11 42.6 11 41.5 Z"
+            fill="#ff5c7a"
+            opacity="0.55"
+          />
+        </svg>
+      );
     case "home":
       return (
-        <>
-          <div className="absolute inset-0 rounded-full bg-[linear-gradient(145deg,#f7f9fc_0%,#9aa7b8_45%,#e8edf5_70%,#6f7b8a_100%)] shadow-[0_0_20px_rgba(200,210,225,0.55)]" />
-          <div className="absolute top-1 left-2 h-2 w-3.5 rotate-[-20deg] rounded-full bg-white/70 blur-[1px]" />
-          <div className="bg-ink/20 absolute inset-[28%] rounded-full border border-white/30" />
-          <div
-            ref={pupilRef}
-            className="bg-iron relative z-10 size-2.5 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)]"
-          />
-        </>
+        <Image
+          src="/zeraph.png"
+          alt=""
+          width={56}
+          height={56}
+          priority
+          className="size-12 rounded-full object-cover shadow-[0_0_18px_rgba(120,160,220,0.55)] ring-1 ring-white/35"
+          draggable={false}
+        />
       );
     case "passion":
       return (
@@ -287,7 +343,19 @@ function CursorGlyph({
   }
 }
 
-export function FunnyCursor({ themeId }: { themeId: ParticleThemeId }) {
+export function FunnyCursor({
+  themeId,
+  pathname,
+}: {
+  themeId: ParticleThemeId;
+  pathname: string;
+}) {
+  const cursorId: CursorId = pathname.startsWith("/passion/praise")
+    ? "praise"
+    : themeId;
+  const tipHotspot =
+    cursorId === "honor" || cursorId === "past" || cursorId === "praise";
+
   const cursorRef = useRef<HTMLDivElement>(null);
   const pupilRef = useRef<HTMLDivElement>(null);
   const target = useRef<Pos>({ x: -100, y: -100 });
@@ -324,11 +392,9 @@ export function FunnyCursor({ themeId }: { themeId: ParticleThemeId }) {
       const el = cursorRef.current;
       const pupil = pupilRef.current;
       if (el) {
-        // Honor chain / past hourglass tip sits at the top of the glyph
-        const origin =
-          themeId === "honor" || themeId === "past"
-            ? "translate(-50%, 0)"
-            : "translate(-50%, -50%)";
+        const origin = tipHotspot
+          ? "translate(-50%, 0)"
+          : "translate(-50%, -50%)";
         el.style.transform = `translate3d(${c.x}px, ${c.y}px, 0) ${origin}`;
       }
       if (pupil) {
@@ -347,18 +413,22 @@ export function FunnyCursor({ themeId }: { themeId: ParticleThemeId }) {
       window.removeEventListener("pointerup", onUp);
       cancelAnimationFrame(frame);
     };
-  }, [enabled, themeId]);
+  }, [enabled, tipHotspot]);
 
   if (!enabled) return null;
 
   const pressClass =
-    themeId === "passion"
+    cursorId === "passion"
       ? pressed
         ? "scale-125 rotate-[-8deg]"
         : "scale-100"
-      : pressed
-        ? "scale-75 rotate-12"
-        : "scale-100";
+      : cursorId === "praise"
+        ? pressed
+          ? "scale-95 rotate-[-12deg] translate-y-0.5"
+          : "scale-100 rotate-[-6deg]"
+        : pressed
+          ? "scale-75 rotate-12"
+          : "scale-100";
 
   return (
     <div
@@ -368,14 +438,16 @@ export function FunnyCursor({ themeId }: { themeId: ParticleThemeId }) {
       style={{ transform: "translate3d(-100px, -100px, 0)" }}
     >
       <div
-        key={themeId}
+        key={cursorId}
         className={`relative grid place-items-center transition-transform duration-150 ${
-          themeId === "honor" || themeId === "past"
+          tipHotspot
             ? "h-12 w-10 items-start"
-            : "size-10"
+            : cursorId === "home"
+              ? "size-12"
+              : "size-10"
         } ${pressClass}`}
       >
-        <CursorGlyph themeId={themeId} pupilRef={pupilRef} />
+        <CursorGlyph themeId={cursorId} pupilRef={pupilRef} />
       </div>
     </div>
   );

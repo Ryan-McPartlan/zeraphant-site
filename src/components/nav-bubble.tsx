@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
@@ -39,13 +40,18 @@ export function NavBubble() {
         aria-controls={panelId}
         aria-label={open ? "Close navigation" : "Open navigation"}
         onClick={() => setOpen((v) => !v)}
-        className={`group border-foam/20 bg-moss/80 text-foam focus-visible:ring-chartreuse relative grid size-14 place-items-center rounded-full border shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-md transition-transform duration-300 hover:scale-105 focus-visible:ring-2 focus-visible:outline-none sm:size-16 ${
+        className={`group border-foam/20 bg-moss/80 text-foam focus-visible:ring-chartreuse relative size-14 overflow-hidden rounded-full border shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-md transition-transform duration-300 hover:scale-105 focus-visible:ring-2 focus-visible:outline-none sm:size-16 ${
           open ? "scale-95 rotate-[-8deg]" : "animate-wiggle"
         }`}
       >
-        <span className="font-display text-chartreuse text-xl tracking-tight sm:text-2xl">
-          Z
-        </span>
+        <Image
+          src="/zeraph.png"
+          alt=""
+          width={64}
+          height={64}
+          priority
+          className="size-full object-cover"
+        />
         <span
           aria-hidden
           className={`bg-coral absolute -right-0.5 -bottom-0.5 size-3 rounded-full transition-transform ${

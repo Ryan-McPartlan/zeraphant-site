@@ -10,9 +10,10 @@ import {
   buildThreadPathD,
   scrollTopToYear,
   yearToScrollTop,
+  yearToT,
 } from "~/lib/past/path";
 import { flattenDeltas } from "~/lib/past/stats";
-import { THREAD_PATHS } from "~/lib/past/threads";
+import { CRISIS_ZONE, THREAD_PATHS } from "~/lib/past/threads";
 import {
   clampYear,
   THREAD_COLORS,
@@ -62,10 +63,13 @@ export function LifeTimeline() {
     const y = clampYear(next);
     syncingFromSlider.current = true;
     setYear(y);
-    window.scrollTo({ top: yearToScrollTop(y), behavior: "auto" });
-    window.requestAnimationFrame(() => {
+    window.scrollTo({ top: yearToScrollTop(y), behavior: "smooth" });
+
+    const release = () => {
       syncingFromSlider.current = false;
-    });
+    };
+    window.addEventListener("scrollend", release, { once: true });
+    window.setTimeout(release, 1500);
   }, []);
 
   useEffect(() => {
@@ -164,6 +168,59 @@ export function LifeTimeline() {
           ))}
         </svg>
 
+        {/* Scratched black zone between crisis bubbles */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 z-[5] overflow-hidden"
+          style={{
+            top: yearToT(CRISIS_ZONE.endYear) * totalH,
+            height:
+              (yearToT(CRISIS_ZONE.startYear) - yearToT(CRISIS_ZONE.endYear)) *
+              totalH,
+          }}
+        >
+          <div className="absolute inset-0 bg-black" />
+          <div
+            className="absolute inset-0 opacity-40"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+              backgroundSize: "180px 180px",
+              mixBlendMode: "overlay",
+            }}
+          />
+          <svg
+            className="absolute inset-0 size-full opacity-70"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            {[
+              "M0 8 L18 6 L40 14 L65 4 L100 10",
+              "M0 32 L22 36 L48 28 L72 40 L100 30",
+              "M0 55 L28 60 L52 50 L78 64 L100 56",
+              "M0 78 L18 72 L45 86 L70 68 L100 80",
+              "M6 0 L9 38 L4 68 L14 100",
+              "M42 0 L40 34 L48 62 L44 100",
+              "M72 0 L78 28 L70 58 L82 100",
+              "M94 0 L90 42 L97 74 L91 100",
+              "M12 22 L38 58",
+              "M58 12 L88 46",
+              "M22 70 L50 96",
+              "M52 58 L92 86",
+              "M18 38 L8 82",
+            ].map((d) => (
+              <path
+                key={d}
+                d={d}
+                fill="none"
+                stroke="rgba(200,200,200,0.28)"
+                strokeWidth="0.35"
+              />
+            ))}
+          </svg>
+          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-transparent to-black/0" />
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-transparent to-black/0" />
+        </div>
+
         {/* Year bands with headers on the demarcation lines */}
         {years().map((y) => (
           <div
@@ -193,6 +250,8 @@ export function LifeTimeline() {
           );
           const color = THREAD_COLORS[bubble.thread];
           const gains = flattenDeltas(bubble.deltas);
+          const isSilver = bubble.thread === "silver";
+          const isVoid = bubble.thread === "void";
           return (
             <button
               key={bubble.id}
@@ -203,19 +262,24 @@ export function LifeTimeline() {
               aria-label={`${bubble.title}, ${Math.floor(bubble.year)}`}
             >
               <span
-                className="flex size-12 items-center justify-center rounded-full border-2 sm:size-14"
+                className={`flex items-center justify-center rounded-full border-2 ${
+                  isSilver ? "size-14 sm:size-16" : "size-12 sm:size-14"
+                }`}
                 style={{
                   borderColor: color.stroke,
-                  background:
-                    bubble.thread === "void"
-                      ? "#050505"
+                  background: isVoid
+                    ? "#050505"
+                    : isSilver
+                      ? "radial-gradient(circle at 35% 30%, #f5f7fa, #9aa7b8 55%, #5c6570 100%)"
                       : `radial-gradient(circle at 35% 30%, ${color.stroke}bb, #0a0c10 72%)`,
-                  boxShadow: `0 0 22px ${color.glow}`,
+                  boxShadow: isSilver
+                    ? `0 0 28px ${color.glow}, 0 0 8px #5b8def88, 0 0 8px #ff3b1f66, 0 0 8px #ffd24a66`
+                    : `0 0 22px ${color.glow}`,
                 }}
               >
                 <span
                   className="font-display text-xs tabular-nums sm:text-sm"
-                  style={{ color: color.stroke }}
+                  style={{ color: isSilver ? "#1a1f2a" : color.stroke }}
                 >
                   {String(Math.floor(bubble.year)).slice(2)}
                 </span>
@@ -230,7 +294,11 @@ export function LifeTimeline() {
                     .join(" · ")}
                 </span>
               ) : null}
-              <span className="text-mist/85 max-w-[8rem] truncate text-center text-[11px]">
+              <span
+                className={`max-w-[9rem] truncate text-center text-[11px] ${
+                  isSilver ? "text-silver-bright/90" : "text-mist/85"
+                }`}
+              >
                 {bubble.title}
               </span>
             </button>

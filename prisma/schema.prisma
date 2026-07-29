@@ -19,3 +19,24 @@ model Post {
 
   @@index([name])
 }
+
+enum PraiseKind {
+  MESSAGE
+  AUDIO
+  DRAWING
+}
+
+model PraiseSubmission {
+  id        String     @id @default(cuid())
+  kind      PraiseKind
+  /// Admiration text, or optional note for audio/drawing
+  message   String?
+  /// Optional signer name
+  fromName  String?
+  /// data URL for audio (webm/ogg) or drawing (png)
+  mediaData String?
+  createdAt DateTime   @default(now())
+
+  @@index([kind])
+  @@index([createdAt])
+}

@@ -21,7 +21,7 @@ export function FoodPage() {
         <p className="text-fire-gold mt-8 text-sm tracking-[0.22em] uppercase">
           Passion · Food
         </p>
-        <h1 className="font-display text-fire-gold mt-4 text-5xl leading-[0.95] tracking-tight sm:text-7xl">
+        <h1 className="font-fire text-fire-gold mt-4 text-5xl leading-[0.95] tracking-wide sm:text-7xl">
           Food
         </h1>
         <p className="font-display text-fire-gold/80 mt-4 text-xl sm:text-2xl">

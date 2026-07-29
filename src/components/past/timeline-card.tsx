@@ -162,7 +162,7 @@ export function TimelineCard({
             className="text-xs tracking-[0.2em] uppercase"
             style={{ color: thread.stroke }}
           >
-            {thread.label} · {Math.floor(bubble.year)}
+            {Math.floor(bubble.year)}
           </p>
           <h3
             id={titleId}
@@ -181,9 +181,11 @@ export function TimelineCard({
       </div>
 
       <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-5 pb-7 sm:px-7">
-        <p className="text-mist mt-4 text-base leading-relaxed">
-          {bubble.body}
-        </p>
+        <div className="text-mist mt-4 space-y-4 text-base leading-relaxed">
+          {bubble.body.split(/\n\n+/).map((paragraph) => (
+            <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+          ))}
+        </div>
 
         {gainList.length > 0 ? (
           <div
@@ -193,10 +195,7 @@ export function TimelineCard({
               background: `${thread.stroke}14`,
             }}
           >
-            <p className="text-foam/70 text-xs tracking-[0.18em] uppercase">
-              Gains on this beat
-            </p>
-            <ul className="mt-2 flex flex-wrap gap-2">
+            <ul className="flex flex-wrap gap-2">
               {gainList.map((g) => (
                 <li
                   key={`${g.group}-${g.key}`}

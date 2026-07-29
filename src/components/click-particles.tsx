@@ -48,7 +48,14 @@ function drawHeart(ctx: CanvasRenderingContext2D, size: number, color: string) {
 
 function drawParticle(ctx: CanvasRenderingContext2D, p: Particle, t: number) {
   ctx.save();
-  ctx.globalAlpha = 1 - t;
+  // Passion sparks stay bright while alive, then snuff out near the end
+  const fade =
+    p.themeId === "passion"
+      ? t < 0.55
+        ? 1
+        : Math.max(0, 1 - (t - 0.55) / 0.45)
+      : 1 - t;
+  ctx.globalAlpha = fade;
   ctx.translate(p.x, p.y);
   ctx.rotate(p.rot);
 
@@ -56,7 +63,7 @@ function drawParticle(ctx: CanvasRenderingContext2D, p: Particle, t: number) {
     case "heart": {
       drawHeart(ctx, p.size, p.color);
       // flame tip
-      ctx.globalAlpha = (1 - t) * 0.85;
+      ctx.globalAlpha = fade * 0.85;
       ctx.fillStyle = "#ffd166";
       ctx.beginPath();
       ctx.moveTo(0, -p.size * 0.35);
@@ -86,7 +93,7 @@ function drawParticle(ctx: CanvasRenderingContext2D, p: Particle, t: number) {
       ctx.closePath();
       ctx.fill();
       if (p.themeId === "home" || p.themeId === "honor") {
-        ctx.globalAlpha = (1 - t) * 0.5;
+        ctx.globalAlpha = fade * 0.5;
         ctx.strokeStyle = "#ffffff";
         ctx.lineWidth = 0.8;
         ctx.stroke();
@@ -131,7 +138,7 @@ function drawParticle(ctx: CanvasRenderingContext2D, p: Particle, t: number) {
         Math.PI * 2,
       );
       ctx.fill();
-      ctx.globalAlpha = (1 - t) * 0.45;
+      ctx.globalAlpha = fade * 0.45;
       ctx.beginPath();
       ctx.arc(p.size * 0.15, -p.size * 0.1, p.size * 0.2, 0, Math.PI * 2);
       ctx.fill();
@@ -140,7 +147,7 @@ function drawParticle(ctx: CanvasRenderingContext2D, p: Particle, t: number) {
     case "ray": {
       ctx.fillStyle = p.color;
       ctx.fillRect(-p.size * 0.15, -p.size * 1.4, p.size * 0.3, p.size * 2.8);
-      ctx.globalAlpha = (1 - t) * 0.45;
+      ctx.globalAlpha = fade * 0.45;
       ctx.fillRect(-p.size * 0.5, -p.size * 0.2, p.size, p.size * 0.4);
       break;
     }
@@ -183,26 +190,41 @@ export function ClickParticles({ pathname }: { pathname: string }) {
     resize();
     window.addEventListener("resize", resize);
 
-    const spawn = (x: number, y: number) => {
-      const theme = themeRef.current;
-      const count =
-        theme.id === "passion"
-          ? 22 + Math.floor(Math.random() * 12)
-          : 16 + Math.floor(Math.random() * 10);
+    type Burn = {
+      x: number;
+      y: number;
+      startedAt: number;
+      lastEmitAt: number;
+      durationMs: number;
+      emitEveryMs: number;
+      ended: boolean;
+    };
+    const burns: Burn[] = [];
 
-      if (theme.glow) {
-        flashes.current.push({
-          x,
-          y,
-          life: 0,
-          maxLife: theme.id === "passion" ? 28 : 18,
-          color: theme.glow,
-          radius:
-            theme.id === "passion"
-              ? 90 + Math.random() * 50
-              : 50 + Math.random() * 30,
-        });
-      }
+    const pushFlash = (x: number, y: number, sustained = false) => {
+      const theme = themeRef.current;
+      if (!theme.glow) return;
+      flashes.current.push({
+        x,
+        y,
+        life: 0,
+        maxLife: sustained
+          ? theme.id === "passion"
+            ? 18
+            : 14
+          : theme.id === "passion"
+            ? 28
+            : 18,
+        color: theme.glow,
+        radius:
+          theme.id === "passion"
+            ? (sustained ? 55 : 90) + Math.random() * (sustained ? 35 : 50)
+            : 50 + Math.random() * 30,
+      });
+    };
+
+    const spawnParticles = (x: number, y: number, count: number) => {
+      const theme = themeRef.current;
 
       for (let i = 0; i < count; i++) {
         const shape =
@@ -212,33 +234,39 @@ export function ClickParticles({ pathname }: { pathname: string }) {
         // Sand mostly falls down in a narrow cone
         const angle = isSand
           ? Math.PI / 2 + (Math.random() - 0.5) * 0.7
-          : Math.random() * Math.PI * 2;
+          : theme.id === "passion"
+            ? // Bias upward so the fire reads as a continuous flame column
+              -Math.PI / 2 + (Math.random() - 0.5) * 1.1
+            : Math.random() * Math.PI * 2;
         const speed = isSand
           ? 1.2 + Math.random() * 4.5
           : theme.id === "passion"
-            ? 2.5 + Math.random() * 8
+            ? 1.4 + Math.random() * 3.2
             : 2 + Math.random() * 7;
         const rising = isSand
           ? 0.8 + Math.random() * 1.5
-          : theme.id === "passion" || theme.id === "connection"
-            ? -2.2 - Math.random() * 2
-            : -1.2;
+          : theme.id === "passion"
+            ? -1.6 - Math.random() * 1.8
+            : theme.id === "connection"
+              ? -2.2 - Math.random() * 2
+              : -1.2;
 
         particles.current.push({
-          x,
-          y,
+          x: theme.id === "passion" ? x + (Math.random() - 0.5) * 18 : x,
+          y: theme.id === "passion" ? y + (Math.random() - 0.5) * 10 : y,
           vx: Math.cos(angle) * speed * (isSand ? 0.35 : 1),
           vy: Math.sin(angle) * speed + rising,
           life: 0,
           maxLife: isSand
             ? 40 + Math.random() * 28
             : theme.id === "passion"
-              ? 45 + Math.random() * 30
+              ? // Short-lived sparks; continuous emit keeps the flame full
+                16 + Math.random() * 50
               : 35 + Math.random() * 25,
           size: isSand
             ? 1.6 + Math.random() * 2.8
             : shape === "heart"
-              ? 10 + Math.random() * 10
+              ? 8 + Math.random() * 8
               : 3 + Math.random() * (shape === "orb" ? 10 : 6),
           color:
             theme.particleColors[
@@ -254,13 +282,61 @@ export function ClickParticles({ pathname }: { pathname: string }) {
       }
     };
 
+    const spawnBurst = (x: number, y: number) => {
+      const count = 16 + Math.floor(Math.random() * 10);
+      pushFlash(x, y);
+      spawnParticles(x, y, count);
+    };
+
+    const startBurn = (x: number, y: number) => {
+      const now = performance.now();
+      burns.push({
+        x,
+        y,
+        startedAt: now,
+        lastEmitAt: now,
+        // Keep a continuous burn feel, but let duration wander widely
+        durationMs: 450 + Math.random() * 1600,
+        emitEveryMs: 22 + Math.random() * 55,
+        ended: false,
+      });
+      pushFlash(x, y, true);
+      // Immediate kick so the flame appears on the first frame
+      spawnParticles(x, y, 6 + Math.floor(Math.random() * 4));
+    };
+
     const onPointerDown = (e: PointerEvent) => {
-      spawn(e.clientX, e.clientY);
+      if (themeRef.current.id === "passion") {
+        startBurn(e.clientX, e.clientY);
+      } else {
+        spawnBurst(e.clientX, e.clientY);
+      }
     };
     window.addEventListener("pointerdown", onPointerDown);
 
     let frame = 0;
     const tick = () => {
+      const now = performance.now();
+
+      for (const burn of burns) {
+        if (burn.ended) continue;
+        const age = now - burn.startedAt;
+        if (age >= burn.durationMs) {
+          burn.ended = true;
+          continue;
+        }
+        if (now - burn.lastEmitAt >= burn.emitEveryMs) {
+          burn.lastEmitAt = now;
+          spawnParticles(burn.x, burn.y, 2 + Math.floor(Math.random() * 3));
+          // Soft sustained glow while burning
+          if (Math.random() < 0.45) pushFlash(burn.x, burn.y, true);
+        }
+      }
+      // Drop finished burns once their emit window is over
+      for (let i = burns.length - 1; i >= 0; i--) {
+        if (burns[i]!.ended) burns.splice(i, 1);
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       flashes.current = flashes.current.filter((f) => {

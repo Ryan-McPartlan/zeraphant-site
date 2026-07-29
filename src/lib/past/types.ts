@@ -1,7 +1,7 @@
 export const TIMELINE_START = 2008;
 export const TIMELINE_END = 2026;
 
-export type ThreadId = "honor" | "passion" | "connection" | "void";
+export type ThreadId = "honor" | "passion" | "connection" | "void" | "silver";
 
 export type HonorStats = {
   resilience: number;
@@ -88,6 +88,11 @@ export const THREAD_COLORS: Record<
     stroke: "#1a1a1a",
     glow: "rgba(0, 0, 0, 0.65)",
     label: "Void",
+  },
+  silver: {
+    stroke: "#e8edf5",
+    glow: "rgba(200, 210, 225, 0.55)",
+    label: "Convergence",
   },
 };
 

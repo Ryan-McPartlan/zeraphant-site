@@ -18,6 +18,29 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
+/**
+ * Model PraiseSubmission
+ * 
+ */
+export type PraiseSubmission = $Result.DefaultSelection<Prisma.$PraiseSubmissionPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const PraiseKind: {
+  MESSAGE: 'MESSAGE',
+  AUDIO: 'AUDIO',
+  DRAWING: 'DRAWING'
+};
+
+export type PraiseKind = (typeof PraiseKind)[keyof typeof PraiseKind]
+
+}
+
+export type PraiseKind = $Enums.PraiseKind
+
+export const PraiseKind: typeof $Enums.PraiseKind
 
 /**
  * ##  Prisma Client ʲˢ
@@ -146,6 +169,16 @@ export class PrismaClient<
     * ```
     */
   get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.praiseSubmission`: Exposes CRUD operations for the **PraiseSubmission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PraiseSubmissions
+    * const praiseSubmissions = await prisma.praiseSubmission.findMany()
+    * ```
+    */
+  get praiseSubmission(): Prisma.PraiseSubmissionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -587,7 +620,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Post: 'Post'
+    Post: 'Post',
+    PraiseSubmission: 'PraiseSubmission'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -606,7 +640,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post"
+      modelProps: "post" | "praiseSubmission"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -681,6 +715,80 @@ export namespace Prisma {
           count: {
             args: Prisma.PostCountArgs<ExtArgs>
             result: $Utils.Optional<PostCountAggregateOutputType> | number
+          }
+        }
+      }
+      PraiseSubmission: {
+        payload: Prisma.$PraiseSubmissionPayload<ExtArgs>
+        fields: Prisma.PraiseSubmissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PraiseSubmissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PraiseSubmissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PraiseSubmissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PraiseSubmissionPayload>
+          }
+          findFirst: {
+            args: Prisma.PraiseSubmissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PraiseSubmissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PraiseSubmissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PraiseSubmissionPayload>
+          }
+          findMany: {
+            args: Prisma.PraiseSubmissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PraiseSubmissionPayload>[]
+          }
+          create: {
+            args: Prisma.PraiseSubmissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PraiseSubmissionPayload>
+          }
+          createMany: {
+            args: Prisma.PraiseSubmissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PraiseSubmissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PraiseSubmissionPayload>[]
+          }
+          delete: {
+            args: Prisma.PraiseSubmissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PraiseSubmissionPayload>
+          }
+          update: {
+            args: Prisma.PraiseSubmissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PraiseSubmissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.PraiseSubmissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PraiseSubmissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PraiseSubmissionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PraiseSubmissionPayload>[]
+          }
+          upsert: {
+            args: Prisma.PraiseSubmissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PraiseSubmissionPayload>
+          }
+          aggregate: {
+            args: Prisma.PraiseSubmissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePraiseSubmission>
+          }
+          groupBy: {
+            args: Prisma.PraiseSubmissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PraiseSubmissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PraiseSubmissionCountArgs<ExtArgs>
+            result: $Utils.Optional<PraiseSubmissionCountAggregateOutputType> | number
           }
         }
       }
@@ -781,6 +889,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     post?: PostOmit
+    praiseSubmission?: PraiseSubmissionOmit
   }
 
   /* Types for Logging */
@@ -1878,6 +1987,1023 @@ export namespace Prisma {
 
 
   /**
+   * Model PraiseSubmission
+   */
+
+  export type AggregatePraiseSubmission = {
+    _count: PraiseSubmissionCountAggregateOutputType | null
+    _min: PraiseSubmissionMinAggregateOutputType | null
+    _max: PraiseSubmissionMaxAggregateOutputType | null
+  }
+
+  export type PraiseSubmissionMinAggregateOutputType = {
+    id: string | null
+    kind: $Enums.PraiseKind | null
+    message: string | null
+    fromName: string | null
+    mediaData: string | null
+    createdAt: Date | null
+  }
+
+  export type PraiseSubmissionMaxAggregateOutputType = {
+    id: string | null
+    kind: $Enums.PraiseKind | null
+    message: string | null
+    fromName: string | null
+    mediaData: string | null
+    createdAt: Date | null
+  }
+
+  export type PraiseSubmissionCountAggregateOutputType = {
+    id: number
+    kind: number
+    message: number
+    fromName: number
+    mediaData: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PraiseSubmissionMinAggregateInputType = {
+    id?: true
+    kind?: true
+    message?: true
+    fromName?: true
+    mediaData?: true
+    createdAt?: true
+  }
+
+  export type PraiseSubmissionMaxAggregateInputType = {
+    id?: true
+    kind?: true
+    message?: true
+    fromName?: true
+    mediaData?: true
+    createdAt?: true
+  }
+
+  export type PraiseSubmissionCountAggregateInputType = {
+    id?: true
+    kind?: true
+    message?: true
+    fromName?: true
+    mediaData?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PraiseSubmissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PraiseSubmission to aggregate.
+     */
+    where?: PraiseSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PraiseSubmissions to fetch.
+     */
+    orderBy?: PraiseSubmissionOrderByWithRelationInput | PraiseSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PraiseSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PraiseSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PraiseSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PraiseSubmissions
+    **/
+    _count?: true | PraiseSubmissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PraiseSubmissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PraiseSubmissionMaxAggregateInputType
+  }
+
+  export type GetPraiseSubmissionAggregateType<T extends PraiseSubmissionAggregateArgs> = {
+        [P in keyof T & keyof AggregatePraiseSubmission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePraiseSubmission[P]>
+      : GetScalarType<T[P], AggregatePraiseSubmission[P]>
+  }
+
+
+
+
+  export type PraiseSubmissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PraiseSubmissionWhereInput
+    orderBy?: PraiseSubmissionOrderByWithAggregationInput | PraiseSubmissionOrderByWithAggregationInput[]
+    by: PraiseSubmissionScalarFieldEnum[] | PraiseSubmissionScalarFieldEnum
+    having?: PraiseSubmissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PraiseSubmissionCountAggregateInputType | true
+    _min?: PraiseSubmissionMinAggregateInputType
+    _max?: PraiseSubmissionMaxAggregateInputType
+  }
+
+  export type PraiseSubmissionGroupByOutputType = {
+    id: string
+    kind: $Enums.PraiseKind
+    message: string | null
+    fromName: string | null
+    mediaData: string | null
+    createdAt: Date
+    _count: PraiseSubmissionCountAggregateOutputType | null
+    _min: PraiseSubmissionMinAggregateOutputType | null
+    _max: PraiseSubmissionMaxAggregateOutputType | null
+  }
+
+  type GetPraiseSubmissionGroupByPayload<T extends PraiseSubmissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PraiseSubmissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PraiseSubmissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PraiseSubmissionGroupByOutputType[P]>
+            : GetScalarType<T[P], PraiseSubmissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PraiseSubmissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kind?: boolean
+    message?: boolean
+    fromName?: boolean
+    mediaData?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["praiseSubmission"]>
+
+  export type PraiseSubmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kind?: boolean
+    message?: boolean
+    fromName?: boolean
+    mediaData?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["praiseSubmission"]>
+
+  export type PraiseSubmissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kind?: boolean
+    message?: boolean
+    fromName?: boolean
+    mediaData?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["praiseSubmission"]>
+
+  export type PraiseSubmissionSelectScalar = {
+    id?: boolean
+    kind?: boolean
+    message?: boolean
+    fromName?: boolean
+    mediaData?: boolean
+    createdAt?: boolean
+  }
+
+  export type PraiseSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "kind" | "message" | "fromName" | "mediaData" | "createdAt", ExtArgs["result"]["praiseSubmission"]>
+
+  export type $PraiseSubmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PraiseSubmission"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      kind: $Enums.PraiseKind
+      /**
+       * Admiration text, or optional note for audio/drawing
+       */
+      message: string | null
+      /**
+       * Optional signer name
+       */
+      fromName: string | null
+      /**
+       * data URL for audio (webm/ogg) or drawing (png)
+       */
+      mediaData: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["praiseSubmission"]>
+    composites: {}
+  }
+
+  type PraiseSubmissionGetPayload<S extends boolean | null | undefined | PraiseSubmissionDefaultArgs> = $Result.GetResult<Prisma.$PraiseSubmissionPayload, S>
+
+  type PraiseSubmissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PraiseSubmissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PraiseSubmissionCountAggregateInputType | true
+    }
+
+  export interface PraiseSubmissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PraiseSubmission'], meta: { name: 'PraiseSubmission' } }
+    /**
+     * Find zero or one PraiseSubmission that matches the filter.
+     * @param {PraiseSubmissionFindUniqueArgs} args - Arguments to find a PraiseSubmission
+     * @example
+     * // Get one PraiseSubmission
+     * const praiseSubmission = await prisma.praiseSubmission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PraiseSubmissionFindUniqueArgs>(args: SelectSubset<T, PraiseSubmissionFindUniqueArgs<ExtArgs>>): Prisma__PraiseSubmissionClient<$Result.GetResult<Prisma.$PraiseSubmissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PraiseSubmission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PraiseSubmissionFindUniqueOrThrowArgs} args - Arguments to find a PraiseSubmission
+     * @example
+     * // Get one PraiseSubmission
+     * const praiseSubmission = await prisma.praiseSubmission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PraiseSubmissionFindUniqueOrThrowArgs>(args: SelectSubset<T, PraiseSubmissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PraiseSubmissionClient<$Result.GetResult<Prisma.$PraiseSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PraiseSubmission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PraiseSubmissionFindFirstArgs} args - Arguments to find a PraiseSubmission
+     * @example
+     * // Get one PraiseSubmission
+     * const praiseSubmission = await prisma.praiseSubmission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PraiseSubmissionFindFirstArgs>(args?: SelectSubset<T, PraiseSubmissionFindFirstArgs<ExtArgs>>): Prisma__PraiseSubmissionClient<$Result.GetResult<Prisma.$PraiseSubmissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PraiseSubmission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PraiseSubmissionFindFirstOrThrowArgs} args - Arguments to find a PraiseSubmission
+     * @example
+     * // Get one PraiseSubmission
+     * const praiseSubmission = await prisma.praiseSubmission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PraiseSubmissionFindFirstOrThrowArgs>(args?: SelectSubset<T, PraiseSubmissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__PraiseSubmissionClient<$Result.GetResult<Prisma.$PraiseSubmissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PraiseSubmissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PraiseSubmissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PraiseSubmissions
+     * const praiseSubmissions = await prisma.praiseSubmission.findMany()
+     * 
+     * // Get first 10 PraiseSubmissions
+     * const praiseSubmissions = await prisma.praiseSubmission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const praiseSubmissionWithIdOnly = await prisma.praiseSubmission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PraiseSubmissionFindManyArgs>(args?: SelectSubset<T, PraiseSubmissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PraiseSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PraiseSubmission.
+     * @param {PraiseSubmissionCreateArgs} args - Arguments to create a PraiseSubmission.
+     * @example
+     * // Create one PraiseSubmission
+     * const PraiseSubmission = await prisma.praiseSubmission.create({
+     *   data: {
+     *     // ... data to create a PraiseSubmission
+     *   }
+     * })
+     * 
+     */
+    create<T extends PraiseSubmissionCreateArgs>(args: SelectSubset<T, PraiseSubmissionCreateArgs<ExtArgs>>): Prisma__PraiseSubmissionClient<$Result.GetResult<Prisma.$PraiseSubmissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PraiseSubmissions.
+     * @param {PraiseSubmissionCreateManyArgs} args - Arguments to create many PraiseSubmissions.
+     * @example
+     * // Create many PraiseSubmissions
+     * const praiseSubmission = await prisma.praiseSubmission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PraiseSubmissionCreateManyArgs>(args?: SelectSubset<T, PraiseSubmissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PraiseSubmissions and returns the data saved in the database.
+     * @param {PraiseSubmissionCreateManyAndReturnArgs} args - Arguments to create many PraiseSubmissions.
+     * @example
+     * // Create many PraiseSubmissions
+     * const praiseSubmission = await prisma.praiseSubmission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PraiseSubmissions and only return the `id`
+     * const praiseSubmissionWithIdOnly = await prisma.praiseSubmission.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PraiseSubmissionCreateManyAndReturnArgs>(args?: SelectSubset<T, PraiseSubmissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PraiseSubmissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PraiseSubmission.
+     * @param {PraiseSubmissionDeleteArgs} args - Arguments to delete one PraiseSubmission.
+     * @example
+     * // Delete one PraiseSubmission
+     * const PraiseSubmission = await prisma.praiseSubmission.delete({
+     *   where: {
+     *     // ... filter to delete one PraiseSubmission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PraiseSubmissionDeleteArgs>(args: SelectSubset<T, PraiseSubmissionDeleteArgs<ExtArgs>>): Prisma__PraiseSubmissionClient<$Result.GetResult<Prisma.$PraiseSubmissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PraiseSubmission.
+     * @param {PraiseSubmissionUpdateArgs} args - Arguments to update one PraiseSubmission.
+     * @example
+     * // Update one PraiseSubmission
+     * const praiseSubmission = await prisma.praiseSubmission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PraiseSubmissionUpdateArgs>(args: SelectSubset<T, PraiseSubmissionUpdateArgs<ExtArgs>>): Prisma__PraiseSubmissionClient<$Result.GetResult<Prisma.$PraiseSubmissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PraiseSubmissions.
+     * @param {PraiseSubmissionDeleteManyArgs} args - Arguments to filter PraiseSubmissions to delete.
+     * @example
+     * // Delete a few PraiseSubmissions
+     * const { count } = await prisma.praiseSubmission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PraiseSubmissionDeleteManyArgs>(args?: SelectSubset<T, PraiseSubmissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PraiseSubmissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PraiseSubmissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PraiseSubmissions
+     * const praiseSubmission = await prisma.praiseSubmission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PraiseSubmissionUpdateManyArgs>(args: SelectSubset<T, PraiseSubmissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PraiseSubmissions and returns the data updated in the database.
+     * @param {PraiseSubmissionUpdateManyAndReturnArgs} args - Arguments to update many PraiseSubmissions.
+     * @example
+     * // Update many PraiseSubmissions
+     * const praiseSubmission = await prisma.praiseSubmission.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PraiseSubmissions and only return the `id`
+     * const praiseSubmissionWithIdOnly = await prisma.praiseSubmission.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PraiseSubmissionUpdateManyAndReturnArgs>(args: SelectSubset<T, PraiseSubmissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PraiseSubmissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PraiseSubmission.
+     * @param {PraiseSubmissionUpsertArgs} args - Arguments to update or create a PraiseSubmission.
+     * @example
+     * // Update or create a PraiseSubmission
+     * const praiseSubmission = await prisma.praiseSubmission.upsert({
+     *   create: {
+     *     // ... data to create a PraiseSubmission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PraiseSubmission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PraiseSubmissionUpsertArgs>(args: SelectSubset<T, PraiseSubmissionUpsertArgs<ExtArgs>>): Prisma__PraiseSubmissionClient<$Result.GetResult<Prisma.$PraiseSubmissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PraiseSubmissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PraiseSubmissionCountArgs} args - Arguments to filter PraiseSubmissions to count.
+     * @example
+     * // Count the number of PraiseSubmissions
+     * const count = await prisma.praiseSubmission.count({
+     *   where: {
+     *     // ... the filter for the PraiseSubmissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends PraiseSubmissionCountArgs>(
+      args?: Subset<T, PraiseSubmissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PraiseSubmissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PraiseSubmission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PraiseSubmissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PraiseSubmissionAggregateArgs>(args: Subset<T, PraiseSubmissionAggregateArgs>): Prisma.PrismaPromise<GetPraiseSubmissionAggregateType<T>>
+
+    /**
+     * Group by PraiseSubmission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PraiseSubmissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PraiseSubmissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PraiseSubmissionGroupByArgs['orderBy'] }
+        : { orderBy?: PraiseSubmissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PraiseSubmissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPraiseSubmissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PraiseSubmission model
+   */
+  readonly fields: PraiseSubmissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PraiseSubmission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PraiseSubmissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PraiseSubmission model
+   */
+  interface PraiseSubmissionFieldRefs {
+    readonly id: FieldRef<"PraiseSubmission", 'String'>
+    readonly kind: FieldRef<"PraiseSubmission", 'PraiseKind'>
+    readonly message: FieldRef<"PraiseSubmission", 'String'>
+    readonly fromName: FieldRef<"PraiseSubmission", 'String'>
+    readonly mediaData: FieldRef<"PraiseSubmission", 'String'>
+    readonly createdAt: FieldRef<"PraiseSubmission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PraiseSubmission findUnique
+   */
+  export type PraiseSubmissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+    /**
+     * Filter, which PraiseSubmission to fetch.
+     */
+    where: PraiseSubmissionWhereUniqueInput
+  }
+
+  /**
+   * PraiseSubmission findUniqueOrThrow
+   */
+  export type PraiseSubmissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+    /**
+     * Filter, which PraiseSubmission to fetch.
+     */
+    where: PraiseSubmissionWhereUniqueInput
+  }
+
+  /**
+   * PraiseSubmission findFirst
+   */
+  export type PraiseSubmissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+    /**
+     * Filter, which PraiseSubmission to fetch.
+     */
+    where?: PraiseSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PraiseSubmissions to fetch.
+     */
+    orderBy?: PraiseSubmissionOrderByWithRelationInput | PraiseSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PraiseSubmissions.
+     */
+    cursor?: PraiseSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PraiseSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PraiseSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PraiseSubmissions.
+     */
+    distinct?: PraiseSubmissionScalarFieldEnum | PraiseSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * PraiseSubmission findFirstOrThrow
+   */
+  export type PraiseSubmissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+    /**
+     * Filter, which PraiseSubmission to fetch.
+     */
+    where?: PraiseSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PraiseSubmissions to fetch.
+     */
+    orderBy?: PraiseSubmissionOrderByWithRelationInput | PraiseSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PraiseSubmissions.
+     */
+    cursor?: PraiseSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PraiseSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PraiseSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PraiseSubmissions.
+     */
+    distinct?: PraiseSubmissionScalarFieldEnum | PraiseSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * PraiseSubmission findMany
+   */
+  export type PraiseSubmissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+    /**
+     * Filter, which PraiseSubmissions to fetch.
+     */
+    where?: PraiseSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PraiseSubmissions to fetch.
+     */
+    orderBy?: PraiseSubmissionOrderByWithRelationInput | PraiseSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PraiseSubmissions.
+     */
+    cursor?: PraiseSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PraiseSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PraiseSubmissions.
+     */
+    skip?: number
+    distinct?: PraiseSubmissionScalarFieldEnum | PraiseSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * PraiseSubmission create
+   */
+  export type PraiseSubmissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+    /**
+     * The data needed to create a PraiseSubmission.
+     */
+    data: XOR<PraiseSubmissionCreateInput, PraiseSubmissionUncheckedCreateInput>
+  }
+
+  /**
+   * PraiseSubmission createMany
+   */
+  export type PraiseSubmissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PraiseSubmissions.
+     */
+    data: PraiseSubmissionCreateManyInput | PraiseSubmissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PraiseSubmission createManyAndReturn
+   */
+  export type PraiseSubmissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+    /**
+     * The data used to create many PraiseSubmissions.
+     */
+    data: PraiseSubmissionCreateManyInput | PraiseSubmissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PraiseSubmission update
+   */
+  export type PraiseSubmissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+    /**
+     * The data needed to update a PraiseSubmission.
+     */
+    data: XOR<PraiseSubmissionUpdateInput, PraiseSubmissionUncheckedUpdateInput>
+    /**
+     * Choose, which PraiseSubmission to update.
+     */
+    where: PraiseSubmissionWhereUniqueInput
+  }
+
+  /**
+   * PraiseSubmission updateMany
+   */
+  export type PraiseSubmissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PraiseSubmissions.
+     */
+    data: XOR<PraiseSubmissionUpdateManyMutationInput, PraiseSubmissionUncheckedUpdateManyInput>
+    /**
+     * Filter which PraiseSubmissions to update
+     */
+    where?: PraiseSubmissionWhereInput
+    /**
+     * Limit how many PraiseSubmissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PraiseSubmission updateManyAndReturn
+   */
+  export type PraiseSubmissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+    /**
+     * The data used to update PraiseSubmissions.
+     */
+    data: XOR<PraiseSubmissionUpdateManyMutationInput, PraiseSubmissionUncheckedUpdateManyInput>
+    /**
+     * Filter which PraiseSubmissions to update
+     */
+    where?: PraiseSubmissionWhereInput
+    /**
+     * Limit how many PraiseSubmissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PraiseSubmission upsert
+   */
+  export type PraiseSubmissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+    /**
+     * The filter to search for the PraiseSubmission to update in case it exists.
+     */
+    where: PraiseSubmissionWhereUniqueInput
+    /**
+     * In case the PraiseSubmission found by the `where` argument doesn't exist, create a new PraiseSubmission with this data.
+     */
+    create: XOR<PraiseSubmissionCreateInput, PraiseSubmissionUncheckedCreateInput>
+    /**
+     * In case the PraiseSubmission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PraiseSubmissionUpdateInput, PraiseSubmissionUncheckedUpdateInput>
+  }
+
+  /**
+   * PraiseSubmission delete
+   */
+  export type PraiseSubmissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+    /**
+     * Filter which PraiseSubmission to delete.
+     */
+    where: PraiseSubmissionWhereUniqueInput
+  }
+
+  /**
+   * PraiseSubmission deleteMany
+   */
+  export type PraiseSubmissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PraiseSubmissions to delete
+     */
+    where?: PraiseSubmissionWhereInput
+    /**
+     * Limit how many PraiseSubmissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PraiseSubmission without action
+   */
+  export type PraiseSubmissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PraiseSubmission
+     */
+    select?: PraiseSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PraiseSubmission
+     */
+    omit?: PraiseSubmissionOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -1901,6 +3027,18 @@ export namespace Prisma {
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
 
 
+  export const PraiseSubmissionScalarFieldEnum: {
+    id: 'id',
+    kind: 'kind',
+    message: 'message',
+    fromName: 'fromName',
+    mediaData: 'mediaData',
+    createdAt: 'createdAt'
+  };
+
+  export type PraiseSubmissionScalarFieldEnum = (typeof PraiseSubmissionScalarFieldEnum)[keyof typeof PraiseSubmissionScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -1915,6 +3053,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -1961,6 +3107,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PraiseKind'
+   */
+  export type EnumPraiseKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PraiseKind'>
+    
+
+
+  /**
+   * Reference to a field of type 'PraiseKind[]'
+   */
+  export type ListEnumPraiseKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PraiseKind[]'>
     
 
 
@@ -2030,6 +3190,63 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
   }
 
+  export type PraiseSubmissionWhereInput = {
+    AND?: PraiseSubmissionWhereInput | PraiseSubmissionWhereInput[]
+    OR?: PraiseSubmissionWhereInput[]
+    NOT?: PraiseSubmissionWhereInput | PraiseSubmissionWhereInput[]
+    id?: StringFilter<"PraiseSubmission"> | string
+    kind?: EnumPraiseKindFilter<"PraiseSubmission"> | $Enums.PraiseKind
+    message?: StringNullableFilter<"PraiseSubmission"> | string | null
+    fromName?: StringNullableFilter<"PraiseSubmission"> | string | null
+    mediaData?: StringNullableFilter<"PraiseSubmission"> | string | null
+    createdAt?: DateTimeFilter<"PraiseSubmission"> | Date | string
+  }
+
+  export type PraiseSubmissionOrderByWithRelationInput = {
+    id?: SortOrder
+    kind?: SortOrder
+    message?: SortOrderInput | SortOrder
+    fromName?: SortOrderInput | SortOrder
+    mediaData?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PraiseSubmissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PraiseSubmissionWhereInput | PraiseSubmissionWhereInput[]
+    OR?: PraiseSubmissionWhereInput[]
+    NOT?: PraiseSubmissionWhereInput | PraiseSubmissionWhereInput[]
+    kind?: EnumPraiseKindFilter<"PraiseSubmission"> | $Enums.PraiseKind
+    message?: StringNullableFilter<"PraiseSubmission"> | string | null
+    fromName?: StringNullableFilter<"PraiseSubmission"> | string | null
+    mediaData?: StringNullableFilter<"PraiseSubmission"> | string | null
+    createdAt?: DateTimeFilter<"PraiseSubmission"> | Date | string
+  }, "id">
+
+  export type PraiseSubmissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    kind?: SortOrder
+    message?: SortOrderInput | SortOrder
+    fromName?: SortOrderInput | SortOrder
+    mediaData?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: PraiseSubmissionCountOrderByAggregateInput
+    _max?: PraiseSubmissionMaxOrderByAggregateInput
+    _min?: PraiseSubmissionMinOrderByAggregateInput
+  }
+
+  export type PraiseSubmissionScalarWhereWithAggregatesInput = {
+    AND?: PraiseSubmissionScalarWhereWithAggregatesInput | PraiseSubmissionScalarWhereWithAggregatesInput[]
+    OR?: PraiseSubmissionScalarWhereWithAggregatesInput[]
+    NOT?: PraiseSubmissionScalarWhereWithAggregatesInput | PraiseSubmissionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PraiseSubmission"> | string
+    kind?: EnumPraiseKindWithAggregatesFilter<"PraiseSubmission"> | $Enums.PraiseKind
+    message?: StringNullableWithAggregatesFilter<"PraiseSubmission"> | string | null
+    fromName?: StringNullableWithAggregatesFilter<"PraiseSubmission"> | string | null
+    mediaData?: StringNullableWithAggregatesFilter<"PraiseSubmission"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PraiseSubmission"> | Date | string
+  }
+
   export type PostCreateInput = {
     name: string
     createdAt?: Date | string
@@ -2074,6 +3291,69 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PraiseSubmissionCreateInput = {
+    id?: string
+    kind: $Enums.PraiseKind
+    message?: string | null
+    fromName?: string | null
+    mediaData?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PraiseSubmissionUncheckedCreateInput = {
+    id?: string
+    kind: $Enums.PraiseKind
+    message?: string | null
+    fromName?: string | null
+    mediaData?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PraiseSubmissionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumPraiseKindFieldUpdateOperationsInput | $Enums.PraiseKind
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    fromName?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PraiseSubmissionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumPraiseKindFieldUpdateOperationsInput | $Enums.PraiseKind
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    fromName?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PraiseSubmissionCreateManyInput = {
+    id?: string
+    kind: $Enums.PraiseKind
+    message?: string | null
+    fromName?: string | null
+    mediaData?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PraiseSubmissionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumPraiseKindFieldUpdateOperationsInput | $Enums.PraiseKind
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    fromName?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PraiseSubmissionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumPraiseKindFieldUpdateOperationsInput | $Enums.PraiseKind
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    fromName?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -2190,6 +3470,88 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumPraiseKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.PraiseKind | EnumPraiseKindFieldRefInput<$PrismaModel>
+    in?: $Enums.PraiseKind[] | ListEnumPraiseKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PraiseKind[] | ListEnumPraiseKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumPraiseKindFilter<$PrismaModel> | $Enums.PraiseKind
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type PraiseSubmissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    kind?: SortOrder
+    message?: SortOrder
+    fromName?: SortOrder
+    mediaData?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PraiseSubmissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    kind?: SortOrder
+    message?: SortOrder
+    fromName?: SortOrder
+    mediaData?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PraiseSubmissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    kind?: SortOrder
+    message?: SortOrder
+    fromName?: SortOrder
+    mediaData?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumPraiseKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PraiseKind | EnumPraiseKindFieldRefInput<$PrismaModel>
+    in?: $Enums.PraiseKind[] | ListEnumPraiseKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PraiseKind[] | ListEnumPraiseKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumPraiseKindWithAggregatesFilter<$PrismaModel> | $Enums.PraiseKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPraiseKindFilter<$PrismaModel>
+    _max?: NestedEnumPraiseKindFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2204,6 +3566,14 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumPraiseKindFieldUpdateOperationsInput = {
+    set?: $Enums.PraiseKind
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -2298,6 +3668,65 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPraiseKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.PraiseKind | EnumPraiseKindFieldRefInput<$PrismaModel>
+    in?: $Enums.PraiseKind[] | ListEnumPraiseKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PraiseKind[] | ListEnumPraiseKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumPraiseKindFilter<$PrismaModel> | $Enums.PraiseKind
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedEnumPraiseKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PraiseKind | EnumPraiseKindFieldRefInput<$PrismaModel>
+    in?: $Enums.PraiseKind[] | ListEnumPraiseKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PraiseKind[] | ListEnumPraiseKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumPraiseKindWithAggregatesFilter<$PrismaModel> | $Enums.PraiseKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPraiseKindFilter<$PrismaModel>
+    _max?: NestedEnumPraiseKindFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
 

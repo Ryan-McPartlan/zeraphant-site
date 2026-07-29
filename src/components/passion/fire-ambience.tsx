@@ -101,7 +101,7 @@ function startFireGraph(ctx: AudioContext, master: GainNode): FireNodes {
   const scheduleCracks = () => {
     if (stopped) return;
     spitCrack();
-    crackleTimer = window.setTimeout(scheduleCracks, 40 + Math.random() * 180);
+    crackleTimer = window.setTimeout(scheduleCracks, 15 + Math.random() * 420);
   };
   scheduleCracks();
 

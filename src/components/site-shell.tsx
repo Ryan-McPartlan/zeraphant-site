@@ -53,7 +53,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       </div>
 
       <NavBubble />
-      <FunnyCursor themeId={theme.id} />
+      <FunnyCursor themeId={theme.id} pathname={pathname} />
       <ClickParticles pathname={pathname} />
 
       <div key={pathname} className="animate-page-in relative z-10">

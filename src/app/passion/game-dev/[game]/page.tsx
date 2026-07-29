@@ -34,7 +34,7 @@ export default async function GameDevGameRoute({ params }: Props) {
         >
           ← Back to Game Dev
         </Link>
-        <h1 className="font-display text-fire-gold mt-6 text-5xl leading-[0.95] tracking-tight sm:text-7xl">
+        <h1 className="font-fire text-fire-gold mt-6 text-5xl leading-[0.95] tracking-wide sm:text-7xl">
           {game.label}
         </h1>
         <p className="text-mist mt-5 max-w-md text-lg">{game.blurb}</p>

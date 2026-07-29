@@ -16,7 +16,7 @@ export function GameDevPage() {
         <p className="text-fire-gold mt-8 text-sm tracking-[0.22em] uppercase">
           Passion · Game Dev
         </p>
-        <h1 className="font-display text-fire-gold mt-4 text-5xl leading-[0.95] tracking-tight sm:text-7xl">
+        <h1 className="font-fire text-fire-gold mt-4 text-5xl leading-[0.95] tracking-wide sm:text-7xl">
           Game Dev
         </h1>
         <p className="font-display text-fire-gold/80 mt-4 text-xl sm:text-2xl">

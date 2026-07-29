@@ -1,7 +1,12 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
-import { Bricolage_Grotesque, Nunito } from "next/font/google";
+import {
+  Annie_Use_Your_Telescope,
+  Bricolage_Grotesque,
+  Metal_Mania,
+  Nunito,
+} from "next/font/google";
 
 import { SiteShell } from "~/components/site-shell";
 import { TRPCReactProvider } from "~/trpc/react";
@@ -12,7 +17,10 @@ export const metadata: Metadata = {
     template: "%s · Zeraphant",
   },
   description: "A personal site with too much personality and a weird cursor.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [
+    { rel: "icon", url: "/zeraph.png", type: "image/png" },
+    { rel: "apple-touch-icon", url: "/zeraph.png" },
+  ],
 };
 
 const display = Bricolage_Grotesque({
@@ -27,11 +35,26 @@ const sans = Nunito({
   weight: ["400", "600", "700"],
 });
 
+const connectionHand = Annie_Use_Your_Telescope({
+  subsets: ["latin"],
+  variable: "--font-annie",
+  weight: "400",
+});
+
+const passionDisplay = Metal_Mania({
+  subsets: ["latin"],
+  variable: "--font-metal",
+  weight: "400",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${sans.variable} ${connectionHand.variable} ${passionDisplay.variable}`}
+    >
       <body>
         <TRPCReactProvider>
           <SiteShell>{children}</SiteShell>

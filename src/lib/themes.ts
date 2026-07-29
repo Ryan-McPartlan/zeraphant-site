@@ -66,7 +66,7 @@ export const THEMES: Record<ParticleThemeId, ThemeConfig> = {
   },
   connection: {
     id: "connection",
-    caption: "Dance with me the great garden",
+    caption: "A dancer in the great garden",
     particleColors: ["#ffe566", "#ffcc33", "#fff1a8", "#f5b942", "#fff8d6"],
     shapes: ["orb", "ray"],
     glow: "rgba(255, 210, 80, 0.45)",

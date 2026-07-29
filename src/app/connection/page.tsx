@@ -9,7 +9,7 @@ export default function ConnectionPage() {
   return (
     <PagePlaceholder
       title="Connection"
-      line="Dance with me the great garden"
+      line="A dancer in the great garden"
       theme={THEMES.connection}
     />
   );

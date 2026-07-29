@@ -64,6 +64,11 @@ export const PASSION_TOPICS = [
     label: "Reading",
     blurb: "Share our sparks",
   },
+  {
+    slug: "praise",
+    label: "Praise",
+    blurb: "Oh ya. I know.",
+  },
 ] as const;
 
 export type PassionTopic = (typeof PASSION_TOPICS)[number];

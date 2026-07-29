@@ -12,7 +12,7 @@ export const NAV_ITEMS = [
   {
     href: "/connection",
     label: "Connection",
-    blurb: "Dance with me the great garden",
+    blurb: "A dancer in the great garden",
   },
   {
     href: "/the-past",

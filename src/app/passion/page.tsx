@@ -9,10 +9,10 @@ export default function PassionPage() {
   return (
     <main className="relative min-h-dvh overflow-hidden px-6 py-24 sm:px-12 lg:px-20">
       <div className="relative z-20 max-w-xl">
-        <h1 className="font-display text-fire-gold text-6xl leading-[0.95] tracking-tight sm:text-8xl">
+        <h1 className="font-fire text-fire-gold text-6xl leading-[0.95] tracking-wide sm:text-8xl">
           Passion
         </h1>
-        <p className="font-display text-fire-gold/80 mt-5 text-xl sm:text-2xl">
+        <p className="font-fire text-fire-gold/80 mt-5 text-xl tracking-wide sm:text-2xl">
           A glutton at the great table
         </p>
         <div className="text-mist mt-6 max-w-lg space-y-4 text-lg">
@@ -24,6 +24,7 @@ export default function PassionPage() {
             Passions are all the things we would enjoy all the same in an empty
             world, where there are no ghosts inside the other shells.
           </p>
+          <p>Our passion is all that we live for</p>
         </div>
       </div>
 

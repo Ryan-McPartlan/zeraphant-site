@@ -1,8 +1,4 @@
-import {
-  type PathWaypoint,
-  TIMELINE_END,
-  TIMELINE_START,
-} from "~/lib/past/types";
+import { type PathWaypoint, TIMELINE_END, yearCount } from "~/lib/past/types";
 
 /** Linear interpolate x at a given year from waypoints. */
 export function xAtYear(waypoints: PathWaypoint[], year: number): number {
@@ -17,7 +13,6 @@ export function xAtYear(waypoints: PathWaypoint[], year: number): number {
     const b = sorted[i + 1]!;
     if (year >= a.year && year <= b.year) {
       const t = (year - a.year) / (b.year - a.year || 1);
-      // Smoothstep for gentler bends
       const s = t * t * (3 - 2 * t);
       return a.x + (b.x - a.x) * s;
     }
@@ -27,10 +22,12 @@ export function xAtYear(waypoints: PathWaypoint[], year: number): number {
 
 /**
  * Year → vertical progress 0..1 through the timeline.
- * 2026 (present) is at the top (0); 2008 is at the bottom (1).
+ * Present (2026) near the top; 2008 at the bottom.
+ * Each integer year owns one viewport band; fractions move within that band
+ * (e.g. 2019.5 = halfway through 2019, lower on the page than 2019.75).
  */
 export function yearToT(year: number) {
-  return (TIMELINE_END - year) / (TIMELINE_END - TIMELINE_START || 1);
+  return (TIMELINE_END + 1 - year) / yearCount();
 }
 
 /** Document scroll Y for a given year (one viewport per year). */
@@ -38,7 +35,7 @@ export function yearToScrollTop(
   year: number,
   vh = typeof window !== "undefined" ? window.innerHeight : 800,
 ) {
-  return (TIMELINE_END - year) * vh;
+  return (TIMELINE_END - Math.floor(year)) * vh;
 }
 
 /** Year from current scroll position. */
@@ -59,11 +56,11 @@ export function buildThreadPathD(
   const centerX = width / 2;
   const lane = width * 0.38;
   const parts: string[] = [];
+  const count = yearCount();
 
   for (let i = 0; i <= samples; i += 1) {
     const t = i / samples;
-    // Top (t=0) = TIMELINE_END, bottom (t=1) = TIMELINE_START
-    const year = TIMELINE_END - t * (TIMELINE_END - TIMELINE_START);
+    const year = TIMELINE_END + 1 - t * count;
     const x = centerX + xAtYear(waypoints, year) * lane;
     const y = t * height;
     parts.push(`${i === 0 ? "M" : "L"} ${x.toFixed(1)} ${y.toFixed(1)}`);
