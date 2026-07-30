@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { type ReactNode,useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 type RoomId = "honor" | "passion" | "connection";
 
@@ -55,7 +55,7 @@ const HEADER_KEY: Record<RoomId, string> = {
 
 const WELCOME: Record<RoomId, string> = {
   honor:
-    "There is more work to be done. Find what you need, quickly, and then get back to it.",
+    "There is more work to be done. Find what you need, quickly, and then get back to it. Let me know if I can help.",
   passion:
     "Welcome to the greatest personal site of all time. Kinda checks out that it would be mine. Have fun.",
   connection:
@@ -102,12 +102,151 @@ const CONNECTION_SPARKLES = [
   { left: "40%", top: "56%", delay: "0.2s", dur: "3s", size: "3px" },
 ];
 
+const FIRE_COLORS = ["#fff1a8", "#ffd166", "#ff9a3c", "#ff7a18", "#ff3b1f"];
+
+type FloorSpark = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+  maxLife: number;
+  size: number;
+  color: string;
+};
+
+function PassionFloorFire({ active }: { active: boolean }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const activeRef = useRef(active);
+
+  useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduce) return;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const sparks: FloorSpark[] = [];
+    let frame = 0;
+    let lastSpawn = 0;
+
+    const spawn = (count: number) => {
+      const w = canvas.width;
+      const h = canvas.height;
+      for (let i = 0; i < count; i++) {
+        sparks.push({
+          x: Math.random() * w,
+          y: h + Math.random() * 20,
+          vx: (Math.random() - 0.5) * 1.2,
+          vy: -(1.6 + Math.random() * 3.4),
+          life: 0,
+          maxLife: 40 + Math.random() * 55,
+          size: 2.5 + Math.random() * 5,
+          color: FIRE_COLORS[Math.floor(Math.random() * FIRE_COLORS.length)]!,
+        });
+      }
+    };
+
+    const tick = (now: number) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (activeRef.current) {
+        if (now - lastSpawn > 28) {
+          lastSpawn = now;
+          spawn(3 + Math.floor(Math.random() * 4));
+        }
+      }
+
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const s = sparks[i]!;
+        s.life += 1;
+        s.x += s.vx;
+        s.y += s.vy;
+        s.vy -= 0.035;
+        s.vx *= 0.99;
+        const t = s.life / s.maxLife;
+        if (t >= 1) {
+          sparks.splice(i, 1);
+          continue;
+        }
+        const alpha = (1 - t) * (t < 0.12 ? t / 0.12 : 1);
+        ctx.globalCompositeOperation = "lighter";
+        ctx.globalAlpha = alpha * 0.95;
+        ctx.fillStyle = s.color;
+        ctx.beginPath();
+        ctx.ellipse(
+          s.x,
+          s.y,
+          s.size * (0.55 + (1 - t) * 0.4),
+          s.size * (0.95 + (1 - t) * 0.55),
+          0,
+          0,
+          Math.PI * 2,
+        );
+        ctx.fill();
+        if (t < 0.35) {
+          ctx.globalAlpha = alpha * 0.4;
+          ctx.fillStyle = "#fff8d6";
+          ctx.beginPath();
+          ctx.ellipse(
+            s.x,
+            s.y - s.size * 0.15,
+            s.size * 0.3,
+            s.size * 0.45,
+            0,
+            0,
+            Math.PI * 2,
+          );
+          ctx.fill();
+        }
+      }
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = "source-over";
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden
+      className={`pointer-events-none absolute inset-0 z-[25] transition-opacity duration-500 ${
+        active ? "opacity-100" : "opacity-0"
+      }`}
+    />
+  );
+}
+
 export function HomeTriptych() {
   const [hovered, setHovered] = useState<RoomId | null>(null);
   const highlight: RoomId = hovered ?? "honor";
+  const passionHot = hovered === "passion";
 
   return (
     <main className="home-triptych relative h-dvh w-full overflow-hidden">
+      <PassionFloorFire active={passionHot} />
+
       <h1 className="pointer-events-none absolute inset-x-0 top-[10%] z-30 text-center sm:top-[12%]">
         <span
           key={HEADER_KEY[highlight]}
@@ -118,9 +257,6 @@ export function HomeTriptych() {
           } ${highlight === "passion" ? "text-fire-gold" : ""}`}
         >
           {HEADER[highlight]}
-        </span>
-        <span className="text-silver-bright/85 mt-4 block text-xl tracking-[0.22em] uppercase sm:text-3xl">
-          Who am I?
         </span>
         <span
           key={`welcome-${highlight}`}
@@ -143,7 +279,8 @@ export function HomeTriptych() {
         {ROOMS.map((room) => {
           const isHot = hovered === room.id;
           const isDim = hovered !== null && !isHot;
-          const grow = isHot ? 1.85 : isDim ? 0.85 : room.baseGrow;
+          const hotGrow = room.id === "connection" ? 2.75 : 1.85;
+          const grow = isHot ? hotGrow : isDim ? 0.85 : room.baseGrow;
 
           return (
             <Link
@@ -224,6 +361,17 @@ export function HomeTriptych() {
                       : "px-4 sm:px-6"
                 } ${isDim ? "pointer-events-none opacity-0" : "opacity-100"}`}
               >
+                <p
+                  className={`${LABEL_FONT[room.id]} mb-2 text-lg tracking-[0.18em] uppercase sm:mb-3 sm:text-2xl ${
+                    room.id === "connection"
+                      ? "tracking-normal normal-case"
+                      : room.id === "passion"
+                        ? "tracking-wide"
+                        : ""
+                  } ${isHot ? "opacity-100" : "opacity-80"}`}
+                >
+                  Who am I?
+                </p>
                 <p
                   className={`${LABEL_FONT[room.id]} text-[clamp(3rem,7.5vw,6.4rem)] leading-[0.95] whitespace-nowrap transition-transform duration-500 ${
                     room.id === "connection"

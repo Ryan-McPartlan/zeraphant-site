@@ -203,7 +203,7 @@ export function ClickParticles({ pathname }: { pathname: string }) {
 
     const pushFlash = (x: number, y: number, sustained = false) => {
       const theme = themeRef.current;
-      if (!theme.glow) return;
+      const color = theme.glow ?? "rgba(232, 255, 246, 0.45)";
       flashes.current.push({
         x,
         y,
@@ -211,15 +211,15 @@ export function ClickParticles({ pathname }: { pathname: string }) {
         maxLife: sustained
           ? theme.id === "passion"
             ? 18
-            : 14
+            : 16
           : theme.id === "passion"
             ? 28
-            : 18,
-        color: theme.glow,
+            : 22,
+        color,
         radius:
           theme.id === "passion"
             ? (sustained ? 55 : 90) + Math.random() * (sustained ? 35 : 50)
-            : 50 + Math.random() * 30,
+            : 70 + Math.random() * 45,
       });
     };
 
