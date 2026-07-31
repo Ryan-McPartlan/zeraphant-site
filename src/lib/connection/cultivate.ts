@@ -1,9 +1,4 @@
-export type CultivateTabId =
-  | "home"
-  | "making-new"
-  | "watering"
-  | "letters"
-  | "events";
+export type CultivateTabId = "home" | "watering" | "letters" | "events";
 
 export type CultivateTab = {
   id: CultivateTabId;
@@ -12,7 +7,6 @@ export type CultivateTab = {
 
 export const CULTIVATE_TABS: readonly CultivateTab[] = [
   { id: "home", label: "Cultivating our connections" },
-  { id: "making-new", label: "Making new connections" },
   { id: "watering", label: "Watering the garden" },
   { id: "letters", label: "Letters" },
   { id: "events", label: "Gathering" },

@@ -74,6 +74,11 @@ function ExpandedBubble({
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#140806] via-transparent to-transparent" />
+          <span className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-black/35">
+            <span className="font-display text-fire-gold/95 border-fire-gold/40 rounded-full border bg-[#140806]/75 px-4 py-2 text-sm tracking-[0.18em] uppercase shadow-[0_0_24px_rgba(0,0,0,0.45)] sm:text-base">
+              AI placeholder
+            </span>
+          </span>
         </div>
 
         <div className="flex shrink-0 items-start justify-between gap-4 px-5 pt-5 sm:px-8">
@@ -152,9 +157,6 @@ export function WorldBubbles() {
                   />
                   <span className="font-display text-fire-gold text-sm leading-tight sm:text-base">
                     {bubble.title}
-                  </span>
-                  <span className="text-mist/80 mt-2 line-clamp-3 text-[11px] sm:text-xs">
-                    {bubble.teaser}
                   </span>
                 </button>
               </li>

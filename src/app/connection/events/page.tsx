@@ -1,11 +1,5 @@
-import { type Metadata } from "next";
+import { permanentRedirect } from "next/navigation";
 
-import { CultivatePage } from "~/components/connection/cultivate-page";
-
-export const metadata: Metadata = {
-  title: "Cultivating our connections · Connection",
-};
-
-export default function CultivateRoute() {
-  return <CultivatePage />;
+export default function CultivateEventsRedirect() {
+  permanentRedirect("/connection/cultivation");
 }

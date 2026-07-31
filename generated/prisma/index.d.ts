@@ -33,6 +33,16 @@ export type GardenTip = $Result.DefaultSelection<Prisma.$GardenTipPayload>
  * Someone who has spoken an Honor oath aloud and recorded their name
  */
 export type OathTaking = $Result.DefaultSelection<Prisma.$OathTakingPayload>
+/**
+ * Model GroupStorySentence
+ * Collaborative Paragon group story — one sentence per contribution
+ */
+export type GroupStorySentence = $Result.DefaultSelection<Prisma.$GroupStorySentencePayload>
+/**
+ * Model GroupStoryChatMessage
+ * Freeform chat beside the group story
+ */
+export type GroupStoryChatMessage = $Result.DefaultSelection<Prisma.$GroupStoryChatMessagePayload>
 
 /**
  * Enums
@@ -209,6 +219,26 @@ export class PrismaClient<
     * ```
     */
   get oathTaking(): Prisma.OathTakingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.groupStorySentence`: Exposes CRUD operations for the **GroupStorySentence** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GroupStorySentences
+    * const groupStorySentences = await prisma.groupStorySentence.findMany()
+    * ```
+    */
+  get groupStorySentence(): Prisma.GroupStorySentenceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.groupStoryChatMessage`: Exposes CRUD operations for the **GroupStoryChatMessage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GroupStoryChatMessages
+    * const groupStoryChatMessages = await prisma.groupStoryChatMessage.findMany()
+    * ```
+    */
+  get groupStoryChatMessage(): Prisma.GroupStoryChatMessageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -653,7 +683,9 @@ export namespace Prisma {
     Post: 'Post',
     PraiseSubmission: 'PraiseSubmission',
     GardenTip: 'GardenTip',
-    OathTaking: 'OathTaking'
+    OathTaking: 'OathTaking',
+    GroupStorySentence: 'GroupStorySentence',
+    GroupStoryChatMessage: 'GroupStoryChatMessage'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -672,7 +704,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "praiseSubmission" | "gardenTip" | "oathTaking"
+      modelProps: "post" | "praiseSubmission" | "gardenTip" | "oathTaking" | "groupStorySentence" | "groupStoryChatMessage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -972,6 +1004,154 @@ export namespace Prisma {
           }
         }
       }
+      GroupStorySentence: {
+        payload: Prisma.$GroupStorySentencePayload<ExtArgs>
+        fields: Prisma.GroupStorySentenceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GroupStorySentenceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStorySentencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GroupStorySentenceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStorySentencePayload>
+          }
+          findFirst: {
+            args: Prisma.GroupStorySentenceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStorySentencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GroupStorySentenceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStorySentencePayload>
+          }
+          findMany: {
+            args: Prisma.GroupStorySentenceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStorySentencePayload>[]
+          }
+          create: {
+            args: Prisma.GroupStorySentenceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStorySentencePayload>
+          }
+          createMany: {
+            args: Prisma.GroupStorySentenceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GroupStorySentenceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStorySentencePayload>[]
+          }
+          delete: {
+            args: Prisma.GroupStorySentenceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStorySentencePayload>
+          }
+          update: {
+            args: Prisma.GroupStorySentenceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStorySentencePayload>
+          }
+          deleteMany: {
+            args: Prisma.GroupStorySentenceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GroupStorySentenceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GroupStorySentenceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStorySentencePayload>[]
+          }
+          upsert: {
+            args: Prisma.GroupStorySentenceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStorySentencePayload>
+          }
+          aggregate: {
+            args: Prisma.GroupStorySentenceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGroupStorySentence>
+          }
+          groupBy: {
+            args: Prisma.GroupStorySentenceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GroupStorySentenceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GroupStorySentenceCountArgs<ExtArgs>
+            result: $Utils.Optional<GroupStorySentenceCountAggregateOutputType> | number
+          }
+        }
+      }
+      GroupStoryChatMessage: {
+        payload: Prisma.$GroupStoryChatMessagePayload<ExtArgs>
+        fields: Prisma.GroupStoryChatMessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GroupStoryChatMessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStoryChatMessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GroupStoryChatMessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStoryChatMessagePayload>
+          }
+          findFirst: {
+            args: Prisma.GroupStoryChatMessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStoryChatMessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GroupStoryChatMessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStoryChatMessagePayload>
+          }
+          findMany: {
+            args: Prisma.GroupStoryChatMessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStoryChatMessagePayload>[]
+          }
+          create: {
+            args: Prisma.GroupStoryChatMessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStoryChatMessagePayload>
+          }
+          createMany: {
+            args: Prisma.GroupStoryChatMessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GroupStoryChatMessageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStoryChatMessagePayload>[]
+          }
+          delete: {
+            args: Prisma.GroupStoryChatMessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStoryChatMessagePayload>
+          }
+          update: {
+            args: Prisma.GroupStoryChatMessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStoryChatMessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.GroupStoryChatMessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GroupStoryChatMessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GroupStoryChatMessageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStoryChatMessagePayload>[]
+          }
+          upsert: {
+            args: Prisma.GroupStoryChatMessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupStoryChatMessagePayload>
+          }
+          aggregate: {
+            args: Prisma.GroupStoryChatMessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGroupStoryChatMessage>
+          }
+          groupBy: {
+            args: Prisma.GroupStoryChatMessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GroupStoryChatMessageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GroupStoryChatMessageCountArgs<ExtArgs>
+            result: $Utils.Optional<GroupStoryChatMessageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1072,6 +1252,8 @@ export namespace Prisma {
     praiseSubmission?: PraiseSubmissionOmit
     gardenTip?: GardenTipOmit
     oathTaking?: OathTakingOmit
+    groupStorySentence?: GroupStorySentenceOmit
+    groupStoryChatMessage?: GroupStoryChatMessageOmit
   }
 
   /* Types for Logging */
@@ -5203,6 +5385,1973 @@ export namespace Prisma {
 
 
   /**
+   * Model GroupStorySentence
+   */
+
+  export type AggregateGroupStorySentence = {
+    _count: GroupStorySentenceCountAggregateOutputType | null
+    _min: GroupStorySentenceMinAggregateOutputType | null
+    _max: GroupStorySentenceMaxAggregateOutputType | null
+  }
+
+  export type GroupStorySentenceMinAggregateOutputType = {
+    id: string | null
+    text: string | null
+    author: string | null
+    createdAt: Date | null
+  }
+
+  export type GroupStorySentenceMaxAggregateOutputType = {
+    id: string | null
+    text: string | null
+    author: string | null
+    createdAt: Date | null
+  }
+
+  export type GroupStorySentenceCountAggregateOutputType = {
+    id: number
+    text: number
+    author: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GroupStorySentenceMinAggregateInputType = {
+    id?: true
+    text?: true
+    author?: true
+    createdAt?: true
+  }
+
+  export type GroupStorySentenceMaxAggregateInputType = {
+    id?: true
+    text?: true
+    author?: true
+    createdAt?: true
+  }
+
+  export type GroupStorySentenceCountAggregateInputType = {
+    id?: true
+    text?: true
+    author?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GroupStorySentenceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroupStorySentence to aggregate.
+     */
+    where?: GroupStorySentenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupStorySentences to fetch.
+     */
+    orderBy?: GroupStorySentenceOrderByWithRelationInput | GroupStorySentenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GroupStorySentenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupStorySentences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupStorySentences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GroupStorySentences
+    **/
+    _count?: true | GroupStorySentenceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GroupStorySentenceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GroupStorySentenceMaxAggregateInputType
+  }
+
+  export type GetGroupStorySentenceAggregateType<T extends GroupStorySentenceAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroupStorySentence]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroupStorySentence[P]>
+      : GetScalarType<T[P], AggregateGroupStorySentence[P]>
+  }
+
+
+
+
+  export type GroupStorySentenceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupStorySentenceWhereInput
+    orderBy?: GroupStorySentenceOrderByWithAggregationInput | GroupStorySentenceOrderByWithAggregationInput[]
+    by: GroupStorySentenceScalarFieldEnum[] | GroupStorySentenceScalarFieldEnum
+    having?: GroupStorySentenceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GroupStorySentenceCountAggregateInputType | true
+    _min?: GroupStorySentenceMinAggregateInputType
+    _max?: GroupStorySentenceMaxAggregateInputType
+  }
+
+  export type GroupStorySentenceGroupByOutputType = {
+    id: string
+    text: string
+    author: string
+    createdAt: Date
+    _count: GroupStorySentenceCountAggregateOutputType | null
+    _min: GroupStorySentenceMinAggregateOutputType | null
+    _max: GroupStorySentenceMaxAggregateOutputType | null
+  }
+
+  type GetGroupStorySentenceGroupByPayload<T extends GroupStorySentenceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GroupStorySentenceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GroupStorySentenceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GroupStorySentenceGroupByOutputType[P]>
+            : GetScalarType<T[P], GroupStorySentenceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GroupStorySentenceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    text?: boolean
+    author?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["groupStorySentence"]>
+
+  export type GroupStorySentenceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    text?: boolean
+    author?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["groupStorySentence"]>
+
+  export type GroupStorySentenceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    text?: boolean
+    author?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["groupStorySentence"]>
+
+  export type GroupStorySentenceSelectScalar = {
+    id?: boolean
+    text?: boolean
+    author?: boolean
+    createdAt?: boolean
+  }
+
+  export type GroupStorySentenceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "text" | "author" | "createdAt", ExtArgs["result"]["groupStorySentence"]>
+
+  export type $GroupStorySentencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GroupStorySentence"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      /**
+       * Exact text as submitted (spacing & characters preserved), max 250
+       */
+      text: string
+      author: string
+      createdAt: Date
+    }, ExtArgs["result"]["groupStorySentence"]>
+    composites: {}
+  }
+
+  type GroupStorySentenceGetPayload<S extends boolean | null | undefined | GroupStorySentenceDefaultArgs> = $Result.GetResult<Prisma.$GroupStorySentencePayload, S>
+
+  type GroupStorySentenceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GroupStorySentenceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GroupStorySentenceCountAggregateInputType | true
+    }
+
+  export interface GroupStorySentenceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GroupStorySentence'], meta: { name: 'GroupStorySentence' } }
+    /**
+     * Find zero or one GroupStorySentence that matches the filter.
+     * @param {GroupStorySentenceFindUniqueArgs} args - Arguments to find a GroupStorySentence
+     * @example
+     * // Get one GroupStorySentence
+     * const groupStorySentence = await prisma.groupStorySentence.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GroupStorySentenceFindUniqueArgs>(args: SelectSubset<T, GroupStorySentenceFindUniqueArgs<ExtArgs>>): Prisma__GroupStorySentenceClient<$Result.GetResult<Prisma.$GroupStorySentencePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GroupStorySentence that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GroupStorySentenceFindUniqueOrThrowArgs} args - Arguments to find a GroupStorySentence
+     * @example
+     * // Get one GroupStorySentence
+     * const groupStorySentence = await prisma.groupStorySentence.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GroupStorySentenceFindUniqueOrThrowArgs>(args: SelectSubset<T, GroupStorySentenceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GroupStorySentenceClient<$Result.GetResult<Prisma.$GroupStorySentencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GroupStorySentence that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStorySentenceFindFirstArgs} args - Arguments to find a GroupStorySentence
+     * @example
+     * // Get one GroupStorySentence
+     * const groupStorySentence = await prisma.groupStorySentence.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GroupStorySentenceFindFirstArgs>(args?: SelectSubset<T, GroupStorySentenceFindFirstArgs<ExtArgs>>): Prisma__GroupStorySentenceClient<$Result.GetResult<Prisma.$GroupStorySentencePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GroupStorySentence that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStorySentenceFindFirstOrThrowArgs} args - Arguments to find a GroupStorySentence
+     * @example
+     * // Get one GroupStorySentence
+     * const groupStorySentence = await prisma.groupStorySentence.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GroupStorySentenceFindFirstOrThrowArgs>(args?: SelectSubset<T, GroupStorySentenceFindFirstOrThrowArgs<ExtArgs>>): Prisma__GroupStorySentenceClient<$Result.GetResult<Prisma.$GroupStorySentencePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GroupStorySentences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStorySentenceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GroupStorySentences
+     * const groupStorySentences = await prisma.groupStorySentence.findMany()
+     * 
+     * // Get first 10 GroupStorySentences
+     * const groupStorySentences = await prisma.groupStorySentence.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const groupStorySentenceWithIdOnly = await prisma.groupStorySentence.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GroupStorySentenceFindManyArgs>(args?: SelectSubset<T, GroupStorySentenceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupStorySentencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GroupStorySentence.
+     * @param {GroupStorySentenceCreateArgs} args - Arguments to create a GroupStorySentence.
+     * @example
+     * // Create one GroupStorySentence
+     * const GroupStorySentence = await prisma.groupStorySentence.create({
+     *   data: {
+     *     // ... data to create a GroupStorySentence
+     *   }
+     * })
+     * 
+     */
+    create<T extends GroupStorySentenceCreateArgs>(args: SelectSubset<T, GroupStorySentenceCreateArgs<ExtArgs>>): Prisma__GroupStorySentenceClient<$Result.GetResult<Prisma.$GroupStorySentencePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GroupStorySentences.
+     * @param {GroupStorySentenceCreateManyArgs} args - Arguments to create many GroupStorySentences.
+     * @example
+     * // Create many GroupStorySentences
+     * const groupStorySentence = await prisma.groupStorySentence.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GroupStorySentenceCreateManyArgs>(args?: SelectSubset<T, GroupStorySentenceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GroupStorySentences and returns the data saved in the database.
+     * @param {GroupStorySentenceCreateManyAndReturnArgs} args - Arguments to create many GroupStorySentences.
+     * @example
+     * // Create many GroupStorySentences
+     * const groupStorySentence = await prisma.groupStorySentence.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GroupStorySentences and only return the `id`
+     * const groupStorySentenceWithIdOnly = await prisma.groupStorySentence.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GroupStorySentenceCreateManyAndReturnArgs>(args?: SelectSubset<T, GroupStorySentenceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupStorySentencePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GroupStorySentence.
+     * @param {GroupStorySentenceDeleteArgs} args - Arguments to delete one GroupStorySentence.
+     * @example
+     * // Delete one GroupStorySentence
+     * const GroupStorySentence = await prisma.groupStorySentence.delete({
+     *   where: {
+     *     // ... filter to delete one GroupStorySentence
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GroupStorySentenceDeleteArgs>(args: SelectSubset<T, GroupStorySentenceDeleteArgs<ExtArgs>>): Prisma__GroupStorySentenceClient<$Result.GetResult<Prisma.$GroupStorySentencePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GroupStorySentence.
+     * @param {GroupStorySentenceUpdateArgs} args - Arguments to update one GroupStorySentence.
+     * @example
+     * // Update one GroupStorySentence
+     * const groupStorySentence = await prisma.groupStorySentence.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GroupStorySentenceUpdateArgs>(args: SelectSubset<T, GroupStorySentenceUpdateArgs<ExtArgs>>): Prisma__GroupStorySentenceClient<$Result.GetResult<Prisma.$GroupStorySentencePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GroupStorySentences.
+     * @param {GroupStorySentenceDeleteManyArgs} args - Arguments to filter GroupStorySentences to delete.
+     * @example
+     * // Delete a few GroupStorySentences
+     * const { count } = await prisma.groupStorySentence.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GroupStorySentenceDeleteManyArgs>(args?: SelectSubset<T, GroupStorySentenceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroupStorySentences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStorySentenceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GroupStorySentences
+     * const groupStorySentence = await prisma.groupStorySentence.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GroupStorySentenceUpdateManyArgs>(args: SelectSubset<T, GroupStorySentenceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroupStorySentences and returns the data updated in the database.
+     * @param {GroupStorySentenceUpdateManyAndReturnArgs} args - Arguments to update many GroupStorySentences.
+     * @example
+     * // Update many GroupStorySentences
+     * const groupStorySentence = await prisma.groupStorySentence.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GroupStorySentences and only return the `id`
+     * const groupStorySentenceWithIdOnly = await prisma.groupStorySentence.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GroupStorySentenceUpdateManyAndReturnArgs>(args: SelectSubset<T, GroupStorySentenceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupStorySentencePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GroupStorySentence.
+     * @param {GroupStorySentenceUpsertArgs} args - Arguments to update or create a GroupStorySentence.
+     * @example
+     * // Update or create a GroupStorySentence
+     * const groupStorySentence = await prisma.groupStorySentence.upsert({
+     *   create: {
+     *     // ... data to create a GroupStorySentence
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GroupStorySentence we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GroupStorySentenceUpsertArgs>(args: SelectSubset<T, GroupStorySentenceUpsertArgs<ExtArgs>>): Prisma__GroupStorySentenceClient<$Result.GetResult<Prisma.$GroupStorySentencePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GroupStorySentences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStorySentenceCountArgs} args - Arguments to filter GroupStorySentences to count.
+     * @example
+     * // Count the number of GroupStorySentences
+     * const count = await prisma.groupStorySentence.count({
+     *   where: {
+     *     // ... the filter for the GroupStorySentences we want to count
+     *   }
+     * })
+    **/
+    count<T extends GroupStorySentenceCountArgs>(
+      args?: Subset<T, GroupStorySentenceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GroupStorySentenceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GroupStorySentence.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStorySentenceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GroupStorySentenceAggregateArgs>(args: Subset<T, GroupStorySentenceAggregateArgs>): Prisma.PrismaPromise<GetGroupStorySentenceAggregateType<T>>
+
+    /**
+     * Group by GroupStorySentence.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStorySentenceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GroupStorySentenceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GroupStorySentenceGroupByArgs['orderBy'] }
+        : { orderBy?: GroupStorySentenceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GroupStorySentenceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroupStorySentenceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GroupStorySentence model
+   */
+  readonly fields: GroupStorySentenceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GroupStorySentence.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GroupStorySentenceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GroupStorySentence model
+   */
+  interface GroupStorySentenceFieldRefs {
+    readonly id: FieldRef<"GroupStorySentence", 'String'>
+    readonly text: FieldRef<"GroupStorySentence", 'String'>
+    readonly author: FieldRef<"GroupStorySentence", 'String'>
+    readonly createdAt: FieldRef<"GroupStorySentence", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GroupStorySentence findUnique
+   */
+  export type GroupStorySentenceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+    /**
+     * Filter, which GroupStorySentence to fetch.
+     */
+    where: GroupStorySentenceWhereUniqueInput
+  }
+
+  /**
+   * GroupStorySentence findUniqueOrThrow
+   */
+  export type GroupStorySentenceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+    /**
+     * Filter, which GroupStorySentence to fetch.
+     */
+    where: GroupStorySentenceWhereUniqueInput
+  }
+
+  /**
+   * GroupStorySentence findFirst
+   */
+  export type GroupStorySentenceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+    /**
+     * Filter, which GroupStorySentence to fetch.
+     */
+    where?: GroupStorySentenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupStorySentences to fetch.
+     */
+    orderBy?: GroupStorySentenceOrderByWithRelationInput | GroupStorySentenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupStorySentences.
+     */
+    cursor?: GroupStorySentenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupStorySentences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupStorySentences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupStorySentences.
+     */
+    distinct?: GroupStorySentenceScalarFieldEnum | GroupStorySentenceScalarFieldEnum[]
+  }
+
+  /**
+   * GroupStorySentence findFirstOrThrow
+   */
+  export type GroupStorySentenceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+    /**
+     * Filter, which GroupStorySentence to fetch.
+     */
+    where?: GroupStorySentenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupStorySentences to fetch.
+     */
+    orderBy?: GroupStorySentenceOrderByWithRelationInput | GroupStorySentenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupStorySentences.
+     */
+    cursor?: GroupStorySentenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupStorySentences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupStorySentences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupStorySentences.
+     */
+    distinct?: GroupStorySentenceScalarFieldEnum | GroupStorySentenceScalarFieldEnum[]
+  }
+
+  /**
+   * GroupStorySentence findMany
+   */
+  export type GroupStorySentenceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+    /**
+     * Filter, which GroupStorySentences to fetch.
+     */
+    where?: GroupStorySentenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupStorySentences to fetch.
+     */
+    orderBy?: GroupStorySentenceOrderByWithRelationInput | GroupStorySentenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GroupStorySentences.
+     */
+    cursor?: GroupStorySentenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupStorySentences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupStorySentences.
+     */
+    skip?: number
+    distinct?: GroupStorySentenceScalarFieldEnum | GroupStorySentenceScalarFieldEnum[]
+  }
+
+  /**
+   * GroupStorySentence create
+   */
+  export type GroupStorySentenceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+    /**
+     * The data needed to create a GroupStorySentence.
+     */
+    data: XOR<GroupStorySentenceCreateInput, GroupStorySentenceUncheckedCreateInput>
+  }
+
+  /**
+   * GroupStorySentence createMany
+   */
+  export type GroupStorySentenceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GroupStorySentences.
+     */
+    data: GroupStorySentenceCreateManyInput | GroupStorySentenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GroupStorySentence createManyAndReturn
+   */
+  export type GroupStorySentenceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+    /**
+     * The data used to create many GroupStorySentences.
+     */
+    data: GroupStorySentenceCreateManyInput | GroupStorySentenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GroupStorySentence update
+   */
+  export type GroupStorySentenceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+    /**
+     * The data needed to update a GroupStorySentence.
+     */
+    data: XOR<GroupStorySentenceUpdateInput, GroupStorySentenceUncheckedUpdateInput>
+    /**
+     * Choose, which GroupStorySentence to update.
+     */
+    where: GroupStorySentenceWhereUniqueInput
+  }
+
+  /**
+   * GroupStorySentence updateMany
+   */
+  export type GroupStorySentenceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GroupStorySentences.
+     */
+    data: XOR<GroupStorySentenceUpdateManyMutationInput, GroupStorySentenceUncheckedUpdateManyInput>
+    /**
+     * Filter which GroupStorySentences to update
+     */
+    where?: GroupStorySentenceWhereInput
+    /**
+     * Limit how many GroupStorySentences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroupStorySentence updateManyAndReturn
+   */
+  export type GroupStorySentenceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+    /**
+     * The data used to update GroupStorySentences.
+     */
+    data: XOR<GroupStorySentenceUpdateManyMutationInput, GroupStorySentenceUncheckedUpdateManyInput>
+    /**
+     * Filter which GroupStorySentences to update
+     */
+    where?: GroupStorySentenceWhereInput
+    /**
+     * Limit how many GroupStorySentences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroupStorySentence upsert
+   */
+  export type GroupStorySentenceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+    /**
+     * The filter to search for the GroupStorySentence to update in case it exists.
+     */
+    where: GroupStorySentenceWhereUniqueInput
+    /**
+     * In case the GroupStorySentence found by the `where` argument doesn't exist, create a new GroupStorySentence with this data.
+     */
+    create: XOR<GroupStorySentenceCreateInput, GroupStorySentenceUncheckedCreateInput>
+    /**
+     * In case the GroupStorySentence was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GroupStorySentenceUpdateInput, GroupStorySentenceUncheckedUpdateInput>
+  }
+
+  /**
+   * GroupStorySentence delete
+   */
+  export type GroupStorySentenceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+    /**
+     * Filter which GroupStorySentence to delete.
+     */
+    where: GroupStorySentenceWhereUniqueInput
+  }
+
+  /**
+   * GroupStorySentence deleteMany
+   */
+  export type GroupStorySentenceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroupStorySentences to delete
+     */
+    where?: GroupStorySentenceWhereInput
+    /**
+     * Limit how many GroupStorySentences to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroupStorySentence without action
+   */
+  export type GroupStorySentenceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStorySentence
+     */
+    select?: GroupStorySentenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStorySentence
+     */
+    omit?: GroupStorySentenceOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GroupStoryChatMessage
+   */
+
+  export type AggregateGroupStoryChatMessage = {
+    _count: GroupStoryChatMessageCountAggregateOutputType | null
+    _min: GroupStoryChatMessageMinAggregateOutputType | null
+    _max: GroupStoryChatMessageMaxAggregateOutputType | null
+  }
+
+  export type GroupStoryChatMessageMinAggregateOutputType = {
+    id: string | null
+    body: string | null
+    author: string | null
+    createdAt: Date | null
+  }
+
+  export type GroupStoryChatMessageMaxAggregateOutputType = {
+    id: string | null
+    body: string | null
+    author: string | null
+    createdAt: Date | null
+  }
+
+  export type GroupStoryChatMessageCountAggregateOutputType = {
+    id: number
+    body: number
+    author: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GroupStoryChatMessageMinAggregateInputType = {
+    id?: true
+    body?: true
+    author?: true
+    createdAt?: true
+  }
+
+  export type GroupStoryChatMessageMaxAggregateInputType = {
+    id?: true
+    body?: true
+    author?: true
+    createdAt?: true
+  }
+
+  export type GroupStoryChatMessageCountAggregateInputType = {
+    id?: true
+    body?: true
+    author?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GroupStoryChatMessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroupStoryChatMessage to aggregate.
+     */
+    where?: GroupStoryChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupStoryChatMessages to fetch.
+     */
+    orderBy?: GroupStoryChatMessageOrderByWithRelationInput | GroupStoryChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GroupStoryChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupStoryChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupStoryChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GroupStoryChatMessages
+    **/
+    _count?: true | GroupStoryChatMessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GroupStoryChatMessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GroupStoryChatMessageMaxAggregateInputType
+  }
+
+  export type GetGroupStoryChatMessageAggregateType<T extends GroupStoryChatMessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroupStoryChatMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroupStoryChatMessage[P]>
+      : GetScalarType<T[P], AggregateGroupStoryChatMessage[P]>
+  }
+
+
+
+
+  export type GroupStoryChatMessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupStoryChatMessageWhereInput
+    orderBy?: GroupStoryChatMessageOrderByWithAggregationInput | GroupStoryChatMessageOrderByWithAggregationInput[]
+    by: GroupStoryChatMessageScalarFieldEnum[] | GroupStoryChatMessageScalarFieldEnum
+    having?: GroupStoryChatMessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GroupStoryChatMessageCountAggregateInputType | true
+    _min?: GroupStoryChatMessageMinAggregateInputType
+    _max?: GroupStoryChatMessageMaxAggregateInputType
+  }
+
+  export type GroupStoryChatMessageGroupByOutputType = {
+    id: string
+    body: string
+    author: string | null
+    createdAt: Date
+    _count: GroupStoryChatMessageCountAggregateOutputType | null
+    _min: GroupStoryChatMessageMinAggregateOutputType | null
+    _max: GroupStoryChatMessageMaxAggregateOutputType | null
+  }
+
+  type GetGroupStoryChatMessageGroupByPayload<T extends GroupStoryChatMessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GroupStoryChatMessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GroupStoryChatMessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GroupStoryChatMessageGroupByOutputType[P]>
+            : GetScalarType<T[P], GroupStoryChatMessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GroupStoryChatMessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    body?: boolean
+    author?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["groupStoryChatMessage"]>
+
+  export type GroupStoryChatMessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    body?: boolean
+    author?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["groupStoryChatMessage"]>
+
+  export type GroupStoryChatMessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    body?: boolean
+    author?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["groupStoryChatMessage"]>
+
+  export type GroupStoryChatMessageSelectScalar = {
+    id?: boolean
+    body?: boolean
+    author?: boolean
+    createdAt?: boolean
+  }
+
+  export type GroupStoryChatMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "body" | "author" | "createdAt", ExtArgs["result"]["groupStoryChatMessage"]>
+
+  export type $GroupStoryChatMessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GroupStoryChatMessage"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      body: string
+      author: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["groupStoryChatMessage"]>
+    composites: {}
+  }
+
+  type GroupStoryChatMessageGetPayload<S extends boolean | null | undefined | GroupStoryChatMessageDefaultArgs> = $Result.GetResult<Prisma.$GroupStoryChatMessagePayload, S>
+
+  type GroupStoryChatMessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GroupStoryChatMessageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GroupStoryChatMessageCountAggregateInputType | true
+    }
+
+  export interface GroupStoryChatMessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GroupStoryChatMessage'], meta: { name: 'GroupStoryChatMessage' } }
+    /**
+     * Find zero or one GroupStoryChatMessage that matches the filter.
+     * @param {GroupStoryChatMessageFindUniqueArgs} args - Arguments to find a GroupStoryChatMessage
+     * @example
+     * // Get one GroupStoryChatMessage
+     * const groupStoryChatMessage = await prisma.groupStoryChatMessage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GroupStoryChatMessageFindUniqueArgs>(args: SelectSubset<T, GroupStoryChatMessageFindUniqueArgs<ExtArgs>>): Prisma__GroupStoryChatMessageClient<$Result.GetResult<Prisma.$GroupStoryChatMessagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GroupStoryChatMessage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GroupStoryChatMessageFindUniqueOrThrowArgs} args - Arguments to find a GroupStoryChatMessage
+     * @example
+     * // Get one GroupStoryChatMessage
+     * const groupStoryChatMessage = await prisma.groupStoryChatMessage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GroupStoryChatMessageFindUniqueOrThrowArgs>(args: SelectSubset<T, GroupStoryChatMessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GroupStoryChatMessageClient<$Result.GetResult<Prisma.$GroupStoryChatMessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GroupStoryChatMessage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStoryChatMessageFindFirstArgs} args - Arguments to find a GroupStoryChatMessage
+     * @example
+     * // Get one GroupStoryChatMessage
+     * const groupStoryChatMessage = await prisma.groupStoryChatMessage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GroupStoryChatMessageFindFirstArgs>(args?: SelectSubset<T, GroupStoryChatMessageFindFirstArgs<ExtArgs>>): Prisma__GroupStoryChatMessageClient<$Result.GetResult<Prisma.$GroupStoryChatMessagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GroupStoryChatMessage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStoryChatMessageFindFirstOrThrowArgs} args - Arguments to find a GroupStoryChatMessage
+     * @example
+     * // Get one GroupStoryChatMessage
+     * const groupStoryChatMessage = await prisma.groupStoryChatMessage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GroupStoryChatMessageFindFirstOrThrowArgs>(args?: SelectSubset<T, GroupStoryChatMessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__GroupStoryChatMessageClient<$Result.GetResult<Prisma.$GroupStoryChatMessagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GroupStoryChatMessages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStoryChatMessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GroupStoryChatMessages
+     * const groupStoryChatMessages = await prisma.groupStoryChatMessage.findMany()
+     * 
+     * // Get first 10 GroupStoryChatMessages
+     * const groupStoryChatMessages = await prisma.groupStoryChatMessage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const groupStoryChatMessageWithIdOnly = await prisma.groupStoryChatMessage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GroupStoryChatMessageFindManyArgs>(args?: SelectSubset<T, GroupStoryChatMessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupStoryChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GroupStoryChatMessage.
+     * @param {GroupStoryChatMessageCreateArgs} args - Arguments to create a GroupStoryChatMessage.
+     * @example
+     * // Create one GroupStoryChatMessage
+     * const GroupStoryChatMessage = await prisma.groupStoryChatMessage.create({
+     *   data: {
+     *     // ... data to create a GroupStoryChatMessage
+     *   }
+     * })
+     * 
+     */
+    create<T extends GroupStoryChatMessageCreateArgs>(args: SelectSubset<T, GroupStoryChatMessageCreateArgs<ExtArgs>>): Prisma__GroupStoryChatMessageClient<$Result.GetResult<Prisma.$GroupStoryChatMessagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GroupStoryChatMessages.
+     * @param {GroupStoryChatMessageCreateManyArgs} args - Arguments to create many GroupStoryChatMessages.
+     * @example
+     * // Create many GroupStoryChatMessages
+     * const groupStoryChatMessage = await prisma.groupStoryChatMessage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GroupStoryChatMessageCreateManyArgs>(args?: SelectSubset<T, GroupStoryChatMessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GroupStoryChatMessages and returns the data saved in the database.
+     * @param {GroupStoryChatMessageCreateManyAndReturnArgs} args - Arguments to create many GroupStoryChatMessages.
+     * @example
+     * // Create many GroupStoryChatMessages
+     * const groupStoryChatMessage = await prisma.groupStoryChatMessage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GroupStoryChatMessages and only return the `id`
+     * const groupStoryChatMessageWithIdOnly = await prisma.groupStoryChatMessage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GroupStoryChatMessageCreateManyAndReturnArgs>(args?: SelectSubset<T, GroupStoryChatMessageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupStoryChatMessagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GroupStoryChatMessage.
+     * @param {GroupStoryChatMessageDeleteArgs} args - Arguments to delete one GroupStoryChatMessage.
+     * @example
+     * // Delete one GroupStoryChatMessage
+     * const GroupStoryChatMessage = await prisma.groupStoryChatMessage.delete({
+     *   where: {
+     *     // ... filter to delete one GroupStoryChatMessage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GroupStoryChatMessageDeleteArgs>(args: SelectSubset<T, GroupStoryChatMessageDeleteArgs<ExtArgs>>): Prisma__GroupStoryChatMessageClient<$Result.GetResult<Prisma.$GroupStoryChatMessagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GroupStoryChatMessage.
+     * @param {GroupStoryChatMessageUpdateArgs} args - Arguments to update one GroupStoryChatMessage.
+     * @example
+     * // Update one GroupStoryChatMessage
+     * const groupStoryChatMessage = await prisma.groupStoryChatMessage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GroupStoryChatMessageUpdateArgs>(args: SelectSubset<T, GroupStoryChatMessageUpdateArgs<ExtArgs>>): Prisma__GroupStoryChatMessageClient<$Result.GetResult<Prisma.$GroupStoryChatMessagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GroupStoryChatMessages.
+     * @param {GroupStoryChatMessageDeleteManyArgs} args - Arguments to filter GroupStoryChatMessages to delete.
+     * @example
+     * // Delete a few GroupStoryChatMessages
+     * const { count } = await prisma.groupStoryChatMessage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GroupStoryChatMessageDeleteManyArgs>(args?: SelectSubset<T, GroupStoryChatMessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroupStoryChatMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStoryChatMessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GroupStoryChatMessages
+     * const groupStoryChatMessage = await prisma.groupStoryChatMessage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GroupStoryChatMessageUpdateManyArgs>(args: SelectSubset<T, GroupStoryChatMessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroupStoryChatMessages and returns the data updated in the database.
+     * @param {GroupStoryChatMessageUpdateManyAndReturnArgs} args - Arguments to update many GroupStoryChatMessages.
+     * @example
+     * // Update many GroupStoryChatMessages
+     * const groupStoryChatMessage = await prisma.groupStoryChatMessage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GroupStoryChatMessages and only return the `id`
+     * const groupStoryChatMessageWithIdOnly = await prisma.groupStoryChatMessage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GroupStoryChatMessageUpdateManyAndReturnArgs>(args: SelectSubset<T, GroupStoryChatMessageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupStoryChatMessagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GroupStoryChatMessage.
+     * @param {GroupStoryChatMessageUpsertArgs} args - Arguments to update or create a GroupStoryChatMessage.
+     * @example
+     * // Update or create a GroupStoryChatMessage
+     * const groupStoryChatMessage = await prisma.groupStoryChatMessage.upsert({
+     *   create: {
+     *     // ... data to create a GroupStoryChatMessage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GroupStoryChatMessage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GroupStoryChatMessageUpsertArgs>(args: SelectSubset<T, GroupStoryChatMessageUpsertArgs<ExtArgs>>): Prisma__GroupStoryChatMessageClient<$Result.GetResult<Prisma.$GroupStoryChatMessagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GroupStoryChatMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStoryChatMessageCountArgs} args - Arguments to filter GroupStoryChatMessages to count.
+     * @example
+     * // Count the number of GroupStoryChatMessages
+     * const count = await prisma.groupStoryChatMessage.count({
+     *   where: {
+     *     // ... the filter for the GroupStoryChatMessages we want to count
+     *   }
+     * })
+    **/
+    count<T extends GroupStoryChatMessageCountArgs>(
+      args?: Subset<T, GroupStoryChatMessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GroupStoryChatMessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GroupStoryChatMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStoryChatMessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GroupStoryChatMessageAggregateArgs>(args: Subset<T, GroupStoryChatMessageAggregateArgs>): Prisma.PrismaPromise<GetGroupStoryChatMessageAggregateType<T>>
+
+    /**
+     * Group by GroupStoryChatMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupStoryChatMessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GroupStoryChatMessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GroupStoryChatMessageGroupByArgs['orderBy'] }
+        : { orderBy?: GroupStoryChatMessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GroupStoryChatMessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroupStoryChatMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GroupStoryChatMessage model
+   */
+  readonly fields: GroupStoryChatMessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GroupStoryChatMessage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GroupStoryChatMessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GroupStoryChatMessage model
+   */
+  interface GroupStoryChatMessageFieldRefs {
+    readonly id: FieldRef<"GroupStoryChatMessage", 'String'>
+    readonly body: FieldRef<"GroupStoryChatMessage", 'String'>
+    readonly author: FieldRef<"GroupStoryChatMessage", 'String'>
+    readonly createdAt: FieldRef<"GroupStoryChatMessage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GroupStoryChatMessage findUnique
+   */
+  export type GroupStoryChatMessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+    /**
+     * Filter, which GroupStoryChatMessage to fetch.
+     */
+    where: GroupStoryChatMessageWhereUniqueInput
+  }
+
+  /**
+   * GroupStoryChatMessage findUniqueOrThrow
+   */
+  export type GroupStoryChatMessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+    /**
+     * Filter, which GroupStoryChatMessage to fetch.
+     */
+    where: GroupStoryChatMessageWhereUniqueInput
+  }
+
+  /**
+   * GroupStoryChatMessage findFirst
+   */
+  export type GroupStoryChatMessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+    /**
+     * Filter, which GroupStoryChatMessage to fetch.
+     */
+    where?: GroupStoryChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupStoryChatMessages to fetch.
+     */
+    orderBy?: GroupStoryChatMessageOrderByWithRelationInput | GroupStoryChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupStoryChatMessages.
+     */
+    cursor?: GroupStoryChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupStoryChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupStoryChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupStoryChatMessages.
+     */
+    distinct?: GroupStoryChatMessageScalarFieldEnum | GroupStoryChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * GroupStoryChatMessage findFirstOrThrow
+   */
+  export type GroupStoryChatMessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+    /**
+     * Filter, which GroupStoryChatMessage to fetch.
+     */
+    where?: GroupStoryChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupStoryChatMessages to fetch.
+     */
+    orderBy?: GroupStoryChatMessageOrderByWithRelationInput | GroupStoryChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupStoryChatMessages.
+     */
+    cursor?: GroupStoryChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupStoryChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupStoryChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupStoryChatMessages.
+     */
+    distinct?: GroupStoryChatMessageScalarFieldEnum | GroupStoryChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * GroupStoryChatMessage findMany
+   */
+  export type GroupStoryChatMessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+    /**
+     * Filter, which GroupStoryChatMessages to fetch.
+     */
+    where?: GroupStoryChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupStoryChatMessages to fetch.
+     */
+    orderBy?: GroupStoryChatMessageOrderByWithRelationInput | GroupStoryChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GroupStoryChatMessages.
+     */
+    cursor?: GroupStoryChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupStoryChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupStoryChatMessages.
+     */
+    skip?: number
+    distinct?: GroupStoryChatMessageScalarFieldEnum | GroupStoryChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * GroupStoryChatMessage create
+   */
+  export type GroupStoryChatMessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+    /**
+     * The data needed to create a GroupStoryChatMessage.
+     */
+    data: XOR<GroupStoryChatMessageCreateInput, GroupStoryChatMessageUncheckedCreateInput>
+  }
+
+  /**
+   * GroupStoryChatMessage createMany
+   */
+  export type GroupStoryChatMessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GroupStoryChatMessages.
+     */
+    data: GroupStoryChatMessageCreateManyInput | GroupStoryChatMessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GroupStoryChatMessage createManyAndReturn
+   */
+  export type GroupStoryChatMessageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+    /**
+     * The data used to create many GroupStoryChatMessages.
+     */
+    data: GroupStoryChatMessageCreateManyInput | GroupStoryChatMessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GroupStoryChatMessage update
+   */
+  export type GroupStoryChatMessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+    /**
+     * The data needed to update a GroupStoryChatMessage.
+     */
+    data: XOR<GroupStoryChatMessageUpdateInput, GroupStoryChatMessageUncheckedUpdateInput>
+    /**
+     * Choose, which GroupStoryChatMessage to update.
+     */
+    where: GroupStoryChatMessageWhereUniqueInput
+  }
+
+  /**
+   * GroupStoryChatMessage updateMany
+   */
+  export type GroupStoryChatMessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GroupStoryChatMessages.
+     */
+    data: XOR<GroupStoryChatMessageUpdateManyMutationInput, GroupStoryChatMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which GroupStoryChatMessages to update
+     */
+    where?: GroupStoryChatMessageWhereInput
+    /**
+     * Limit how many GroupStoryChatMessages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroupStoryChatMessage updateManyAndReturn
+   */
+  export type GroupStoryChatMessageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+    /**
+     * The data used to update GroupStoryChatMessages.
+     */
+    data: XOR<GroupStoryChatMessageUpdateManyMutationInput, GroupStoryChatMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which GroupStoryChatMessages to update
+     */
+    where?: GroupStoryChatMessageWhereInput
+    /**
+     * Limit how many GroupStoryChatMessages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroupStoryChatMessage upsert
+   */
+  export type GroupStoryChatMessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+    /**
+     * The filter to search for the GroupStoryChatMessage to update in case it exists.
+     */
+    where: GroupStoryChatMessageWhereUniqueInput
+    /**
+     * In case the GroupStoryChatMessage found by the `where` argument doesn't exist, create a new GroupStoryChatMessage with this data.
+     */
+    create: XOR<GroupStoryChatMessageCreateInput, GroupStoryChatMessageUncheckedCreateInput>
+    /**
+     * In case the GroupStoryChatMessage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GroupStoryChatMessageUpdateInput, GroupStoryChatMessageUncheckedUpdateInput>
+  }
+
+  /**
+   * GroupStoryChatMessage delete
+   */
+  export type GroupStoryChatMessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+    /**
+     * Filter which GroupStoryChatMessage to delete.
+     */
+    where: GroupStoryChatMessageWhereUniqueInput
+  }
+
+  /**
+   * GroupStoryChatMessage deleteMany
+   */
+  export type GroupStoryChatMessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroupStoryChatMessages to delete
+     */
+    where?: GroupStoryChatMessageWhereInput
+    /**
+     * Limit how many GroupStoryChatMessages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroupStoryChatMessage without action
+   */
+  export type GroupStoryChatMessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupStoryChatMessage
+     */
+    select?: GroupStoryChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupStoryChatMessage
+     */
+    omit?: GroupStoryChatMessageOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5257,6 +7406,26 @@ export namespace Prisma {
   };
 
   export type OathTakingScalarFieldEnum = (typeof OathTakingScalarFieldEnum)[keyof typeof OathTakingScalarFieldEnum]
+
+
+  export const GroupStorySentenceScalarFieldEnum: {
+    id: 'id',
+    text: 'text',
+    author: 'author',
+    createdAt: 'createdAt'
+  };
+
+  export type GroupStorySentenceScalarFieldEnum = (typeof GroupStorySentenceScalarFieldEnum)[keyof typeof GroupStorySentenceScalarFieldEnum]
+
+
+  export const GroupStoryChatMessageScalarFieldEnum: {
+    id: 'id',
+    body: 'body',
+    author: 'author',
+    createdAt: 'createdAt'
+  };
+
+  export type GroupStoryChatMessageScalarFieldEnum = (typeof GroupStoryChatMessageScalarFieldEnum)[keyof typeof GroupStoryChatMessageScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5568,6 +7737,100 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"OathTaking"> | Date | string
   }
 
+  export type GroupStorySentenceWhereInput = {
+    AND?: GroupStorySentenceWhereInput | GroupStorySentenceWhereInput[]
+    OR?: GroupStorySentenceWhereInput[]
+    NOT?: GroupStorySentenceWhereInput | GroupStorySentenceWhereInput[]
+    id?: StringFilter<"GroupStorySentence"> | string
+    text?: StringFilter<"GroupStorySentence"> | string
+    author?: StringFilter<"GroupStorySentence"> | string
+    createdAt?: DateTimeFilter<"GroupStorySentence"> | Date | string
+  }
+
+  export type GroupStorySentenceOrderByWithRelationInput = {
+    id?: SortOrder
+    text?: SortOrder
+    author?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GroupStorySentenceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GroupStorySentenceWhereInput | GroupStorySentenceWhereInput[]
+    OR?: GroupStorySentenceWhereInput[]
+    NOT?: GroupStorySentenceWhereInput | GroupStorySentenceWhereInput[]
+    text?: StringFilter<"GroupStorySentence"> | string
+    author?: StringFilter<"GroupStorySentence"> | string
+    createdAt?: DateTimeFilter<"GroupStorySentence"> | Date | string
+  }, "id">
+
+  export type GroupStorySentenceOrderByWithAggregationInput = {
+    id?: SortOrder
+    text?: SortOrder
+    author?: SortOrder
+    createdAt?: SortOrder
+    _count?: GroupStorySentenceCountOrderByAggregateInput
+    _max?: GroupStorySentenceMaxOrderByAggregateInput
+    _min?: GroupStorySentenceMinOrderByAggregateInput
+  }
+
+  export type GroupStorySentenceScalarWhereWithAggregatesInput = {
+    AND?: GroupStorySentenceScalarWhereWithAggregatesInput | GroupStorySentenceScalarWhereWithAggregatesInput[]
+    OR?: GroupStorySentenceScalarWhereWithAggregatesInput[]
+    NOT?: GroupStorySentenceScalarWhereWithAggregatesInput | GroupStorySentenceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GroupStorySentence"> | string
+    text?: StringWithAggregatesFilter<"GroupStorySentence"> | string
+    author?: StringWithAggregatesFilter<"GroupStorySentence"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"GroupStorySentence"> | Date | string
+  }
+
+  export type GroupStoryChatMessageWhereInput = {
+    AND?: GroupStoryChatMessageWhereInput | GroupStoryChatMessageWhereInput[]
+    OR?: GroupStoryChatMessageWhereInput[]
+    NOT?: GroupStoryChatMessageWhereInput | GroupStoryChatMessageWhereInput[]
+    id?: StringFilter<"GroupStoryChatMessage"> | string
+    body?: StringFilter<"GroupStoryChatMessage"> | string
+    author?: StringNullableFilter<"GroupStoryChatMessage"> | string | null
+    createdAt?: DateTimeFilter<"GroupStoryChatMessage"> | Date | string
+  }
+
+  export type GroupStoryChatMessageOrderByWithRelationInput = {
+    id?: SortOrder
+    body?: SortOrder
+    author?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GroupStoryChatMessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GroupStoryChatMessageWhereInput | GroupStoryChatMessageWhereInput[]
+    OR?: GroupStoryChatMessageWhereInput[]
+    NOT?: GroupStoryChatMessageWhereInput | GroupStoryChatMessageWhereInput[]
+    body?: StringFilter<"GroupStoryChatMessage"> | string
+    author?: StringNullableFilter<"GroupStoryChatMessage"> | string | null
+    createdAt?: DateTimeFilter<"GroupStoryChatMessage"> | Date | string
+  }, "id">
+
+  export type GroupStoryChatMessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    body?: SortOrder
+    author?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: GroupStoryChatMessageCountOrderByAggregateInput
+    _max?: GroupStoryChatMessageMaxOrderByAggregateInput
+    _min?: GroupStoryChatMessageMinOrderByAggregateInput
+  }
+
+  export type GroupStoryChatMessageScalarWhereWithAggregatesInput = {
+    AND?: GroupStoryChatMessageScalarWhereWithAggregatesInput | GroupStoryChatMessageScalarWhereWithAggregatesInput[]
+    OR?: GroupStoryChatMessageScalarWhereWithAggregatesInput[]
+    NOT?: GroupStoryChatMessageScalarWhereWithAggregatesInput | GroupStoryChatMessageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GroupStoryChatMessage"> | string
+    body?: StringWithAggregatesFilter<"GroupStoryChatMessage"> | string
+    author?: StringNullableWithAggregatesFilter<"GroupStoryChatMessage"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"GroupStoryChatMessage"> | Date | string
+  }
+
   export type PostCreateInput = {
     name: string
     createdAt?: Date | string
@@ -5779,6 +8042,104 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     oathId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupStorySentenceCreateInput = {
+    id?: string
+    text: string
+    author: string
+    createdAt?: Date | string
+  }
+
+  export type GroupStorySentenceUncheckedCreateInput = {
+    id?: string
+    text: string
+    author: string
+    createdAt?: Date | string
+  }
+
+  export type GroupStorySentenceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    author?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupStorySentenceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    author?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupStorySentenceCreateManyInput = {
+    id?: string
+    text: string
+    author: string
+    createdAt?: Date | string
+  }
+
+  export type GroupStorySentenceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    author?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupStorySentenceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    author?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupStoryChatMessageCreateInput = {
+    id?: string
+    body: string
+    author?: string | null
+    createdAt?: Date | string
+  }
+
+  export type GroupStoryChatMessageUncheckedCreateInput = {
+    id?: string
+    body: string
+    author?: string | null
+    createdAt?: Date | string
+  }
+
+  export type GroupStoryChatMessageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    author?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupStoryChatMessageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    author?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupStoryChatMessageCreateManyInput = {
+    id?: string
+    body: string
+    author?: string | null
+    createdAt?: Date | string
+  }
+
+  export type GroupStoryChatMessageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    author?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupStoryChatMessageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    author?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6028,6 +8389,48 @@ export namespace Prisma {
     id?: SortOrder
     oathId?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GroupStorySentenceCountOrderByAggregateInput = {
+    id?: SortOrder
+    text?: SortOrder
+    author?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GroupStorySentenceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    text?: SortOrder
+    author?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GroupStorySentenceMinOrderByAggregateInput = {
+    id?: SortOrder
+    text?: SortOrder
+    author?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GroupStoryChatMessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    body?: SortOrder
+    author?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GroupStoryChatMessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    body?: SortOrder
+    author?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GroupStoryChatMessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    body?: SortOrder
+    author?: SortOrder
     createdAt?: SortOrder
   }
 

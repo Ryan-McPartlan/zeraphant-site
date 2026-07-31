@@ -152,6 +152,20 @@ exports.Prisma.OathTakingScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.GroupStorySentenceScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  author: 'author',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.GroupStoryChatMessageScalarFieldEnum = {
+  id: 'id',
+  body: 'body',
+  author: 'author',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -176,7 +190,9 @@ exports.Prisma.ModelName = {
   Post: 'Post',
   PraiseSubmission: 'PraiseSubmission',
   GardenTip: 'GardenTip',
-  OathTaking: 'OathTaking'
+  OathTaking: 'OathTaking',
+  GroupStorySentence: 'GroupStorySentence',
+  GroupStoryChatMessage: 'GroupStoryChatMessage'
 };
 
 /**

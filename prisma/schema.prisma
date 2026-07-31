@@ -64,3 +64,24 @@ model OathTaking {
   @@index([oathId])
   @@index([oathId, createdAt])
 }
+
+/// Collaborative Paragon group story — one sentence per contribution
+model GroupStorySentence {
+  id        String   @id @default(cuid())
+  /// Exact text as submitted (spacing & characters preserved), max 250
+  text      String
+  author    String
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+/// Freeform chat beside the group story
+model GroupStoryChatMessage {
+  id        String   @id @default(cuid())
+  body      String
+  author    String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}

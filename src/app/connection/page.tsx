@@ -41,15 +41,15 @@ export default function ConnectionPage() {
           </p>
           <p>
             Connection&apos;s{" "}
-            <span className="text-gold font-medium">wisdom</span> allows us to
-            choose our path well.
+            <span className="text-gold font-medium">wisdom</span> guides us to
+            paths worth choosing.
           </p>
         </div>
       </div>
 
       <div className="pointer-events-auto fixed bottom-6 left-5 z-30 flex flex-col items-center gap-3.5 sm:bottom-8 sm:left-8 sm:gap-4">
         <Link
-          href="/connection/events"
+          href="/connection/cultivation"
           className={`${orbClassName} text-base leading-snug sm:text-lg`}
           style={{ animationDelay: "-1.6s" }}
         >

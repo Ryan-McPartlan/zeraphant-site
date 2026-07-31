@@ -219,6 +219,19 @@
     animation: fire-flicker 2.6s ease-in-out infinite reverse;
   }
 
+  .group-story-draft {
+    min-width: 1ch;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .group-story-draft[data-empty="true"]::before {
+    content: attr(data-placeholder);
+    color: color-mix(in oklab, var(--color-mist) 40%, transparent);
+    pointer-events: none;
+  }
+
   .good-boy-send {
     position: relative;
     isolation: isolate;

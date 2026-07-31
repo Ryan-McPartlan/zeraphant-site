@@ -16,7 +16,7 @@ const bubbleClass =
   "connection-invite-orb font-hand flex size-[5.5rem] shrink-0 items-center justify-center rounded-full border-2 px-1.5 text-center text-[0.65rem] leading-snug transition-[box-shadow,transform,opacity] duration-300 sm:size-[6.75rem] sm:px-2.5 sm:text-sm lg:size-32 lg:px-3 lg:text-base";
 
 export function CultivatePage() {
-  const [tab, setTab] = useState<CultivateTabId>("home");
+  const [tab, setTab] = useState<CultivateTabId>("watering");
 
   return (
     <main className="relative min-h-dvh overflow-x-hidden px-6 py-24 sm:px-12 lg:px-20">
@@ -71,7 +71,6 @@ export function CultivatePage() {
           className="mt-12"
         >
           {tab === "home" ? <HomePanel /> : null}
-          {tab === "making-new" ? <MakingNewPanel /> : null}
           {tab === "watering" ? <WateringPanel /> : null}
           {tab === "letters" ? <LettersPanel /> : null}
           {tab === "events" ? <EventsPanel /> : null}
@@ -92,30 +91,6 @@ function HomePanel() {
         Here are the things I do. You should too! You are the average of the
         people you surround yourself with — finding and building up the best of
         us makes you better too!
-      </p>
-    </div>
-  );
-}
-
-function MakingNewPanel() {
-  return (
-    <div className="text-gold/85 space-y-5 text-lg">
-      <p>
-        There is ONLY ONE WAY to make new connections — its to DO COOL SHIT.
-        With PASSION and DEVOTION.
-      </p>
-      <p>
-        Do you love overwatch? Join a &ldquo;minor league&rdquo; competitive
-        team that is at the same skill level as you, but is dedicated: Watching
-        your replays, meeting at consistent scheduled times, etc.
-      </p>
-      <p>
-        Do you love dgg? Show up to every community event, and bring that fire
-        with you
-      </p>
-      <p>
-        Do you love art or music or game development? There is a discord server
-        full of people who share your passions
       </p>
     </div>
   );

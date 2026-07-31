@@ -1,11 +1,12 @@
 import Link from "next/link";
 
+import { GroupStory } from "~/components/passion/group-story";
 import { WorldBubbles } from "~/components/passion/world-bubbles";
 
 export function WritingPage() {
   return (
     <main className="relative min-h-dvh px-6 py-24 sm:px-12 lg:px-20">
-      <div className="relative z-10 mx-auto max-w-4xl">
+      <div className="relative z-10 mx-auto max-w-6xl">
         <Link
           href="/passion"
           className="text-fire-gold/70 hover:text-fire-gold text-sm tracking-[0.18em] uppercase transition-colors"
@@ -37,7 +38,7 @@ export function WritingPage() {
           </p>
         </div>
 
-        <section className="mt-24 pb-16">
+        <section className="mt-24">
           <h2 className="font-display text-fire-gold text-3xl tracking-tight sm:text-4xl">
             Learn about my world!
           </h2>
@@ -46,6 +47,8 @@ export function WritingPage() {
           </p>
           <WorldBubbles />
         </section>
+
+        <GroupStory />
       </div>
     </main>
   );
