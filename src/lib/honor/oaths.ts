@@ -1,6 +1,7 @@
 export type OathSegment = {
   text: string;
-  accent?: boolean;
+  /** true / "honor" = sky, "passion" = fire, "connection" = gold */
+  accent?: boolean | "honor" | "passion" | "connection";
   href?: string;
 };
 
@@ -27,7 +28,11 @@ export const oaths: Oath[] = [
     body: [
       { text: "I pledge myself", accent: true },
       {
-        text: " to the Union, to Justice, to Tranquility, to the general Welfare, and to securing the Blessings of Liberty for ourselves and our Posterity.",
+        text: " to the Union and its Constitution, to Justice, to Tranquility, to the general Welfare, and to securing the Blessings of Liberty for ourselves and our Posterity.\n\n",
+      },
+      { text: "I do solemnly swear", accent: true },
+      {
+        text: " that I will faithfully and to the best of my ability, preserve, protect and defend the Constitution of the United States.",
       },
     ],
   },
@@ -54,8 +59,7 @@ export const oaths: Oath[] = [
     id: "scout-oath",
     title: "The Scout Oath",
     body: [
-      { text: "On my " },
-      { text: "honor", accent: true },
+      { text: "On my honor", accent: true },
       { text: " I will do my best to " },
       { text: "do my duty", accent: true },
       {
@@ -86,47 +90,6 @@ export const oaths: Oath[] = [
     ],
   },
   {
-    id: "animal-welfare",
-    title: "Animal Welfare",
-    body: [
-      { text: "I pledge", accent: true },
-      {
-        text: " to minimize the unnecessary suffering I cause to animals.",
-      },
-    ],
-  },
-  {
-    id: "pledge-to-love",
-    title: "Pledge to Love",
-    body: [
-      { text: "I pledge", accent: true },
-      {
-        text: " to nurture and cultivate love wherever it arises.",
-      },
-    ],
-  },
-  {
-    id: "grace",
-    title: "Grace",
-    body: [
-      { text: "I pledge", accent: true },
-      {
-        text: " to see the best in people, to have no enemies — but to fight vigorously against the bad ideas that possess them.",
-      },
-    ],
-  },
-  {
-    id: "path-of-the-sage",
-    title: "The Path of the Sage",
-    body: [
-      { text: "To Sam, " },
-      { text: "I pledge", accent: true },
-      {
-        text: " to be both firm and gentle for all my days. To see the narrow way through.",
-      },
-    ],
-  },
-  {
     id: "pledge-to-give",
     title: "Pledge to Give",
     href: "https://www.givingwhatwecan.org/pledge",
@@ -149,6 +112,56 @@ export const oaths: Oath[] = [
       {
         text: "I make this pledge freely, openly, and sincerely.",
         accent: true,
+      },
+    ],
+  },
+  {
+    id: "animal-welfare",
+    title: "Animal Welfare",
+    body: [
+      { text: "I pledge", accent: true },
+      {
+        text: " to minimize the unnecessary suffering I cause to animals.",
+      },
+    ],
+  },
+  {
+    id: "pledge-to-love",
+    title: "Love",
+    body: [
+      { text: "I will", accent: true },
+      { text: " " },
+      { text: "nurture and cultivate love", accent: "connection" },
+      { text: " wherever it arises." },
+    ],
+  },
+  {
+    id: "grace",
+    title: "Grace",
+    body: [
+      { text: "I pledge", accent: true },
+      {
+        text: " to see the best in people, to have no enemies — but to ",
+      },
+      { text: "fight vigorously", accent: "passion" },
+      {
+        text: " against the evil ideas that possess them.",
+      },
+    ],
+  },
+  {
+    id: "integrity",
+    title: "Integrity",
+    body: [{ text: "I do not lie.", accent: true }],
+  },
+  {
+    id: "path-of-the-sage",
+    title: "The Path of the Sage",
+    body: [
+      { text: "To Sam, " },
+      { text: "I pledge", accent: true },
+      {
+        text: " to be both firm and gentle for all my days. To see the narrow way through.",
       },
     ],
   },

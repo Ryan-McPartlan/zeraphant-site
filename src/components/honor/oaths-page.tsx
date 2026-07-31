@@ -1,10 +1,19 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 import { type Oath, oaths, type OathSegment } from "~/lib/honor/oaths";
 
+function accentClass(accent: NonNullable<OathSegment["accent"]>): string {
+  if (accent === "passion") return "font-fire text-fire";
+  if (accent === "connection") return "font-hand text-gold";
+  return "text-sky font-medium";
+}
+
 function OathSegmentView({ segment }: { segment: OathSegment }) {
   const className = segment.accent
-    ? "text-sky font-medium"
+    ? accentClass(segment.accent)
     : segment.href
       ? "text-sky underline underline-offset-2"
       : undefined;
@@ -36,10 +45,51 @@ function OathBody({ body }: { body: Oath["body"] }) {
   ));
 }
 
-export function OathsPage() {
+function OathPanel({ oath }: { oath: Oath | null }) {
+  if (!oath) {
+    return (
+      <p className="text-mist/55 text-lg leading-relaxed">
+        Select an oath to read it in full.
+      </p>
+    );
+  }
+
   return (
-    <main className="relative min-h-dvh overflow-hidden px-6 py-24 sm:px-12 lg:px-20">
-      <div className="relative z-20 max-w-xl">
+    <div className="animate-page-in">
+      <h2 className="font-display text-iron-bright text-2xl tracking-tight sm:text-3xl">
+        {oath.title}
+      </h2>
+      <div className="mt-5 text-base leading-relaxed sm:text-lg">
+        <p className="text-mist whitespace-pre-wrap">
+          <OathBody body={oath.body} />
+        </p>
+        {oath.pledge ? (
+          <p className="text-sky mt-4 font-medium">{oath.pledge}</p>
+        ) : null}
+        {oath.href ? (
+          <p className="mt-4">
+            <a
+              href={oath.href}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sky underline underline-offset-2"
+            >
+              {oath.hrefLabel ?? oath.href}
+            </a>
+          </p>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+export function OathsPage() {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = oaths.find((oath) => oath.id === selectedId) ?? null;
+
+  return (
+    <main className="relative min-h-dvh overflow-x-hidden px-6 py-24 sm:px-12 lg:px-20">
+      <div className="relative z-20 mx-auto max-w-6xl">
         <Link
           href="/honor"
           className="text-iron-bright/70 hover:text-iron-bright text-sm tracking-[0.18em] uppercase transition-colors"
@@ -52,50 +102,53 @@ export function OathsPage() {
         <h1 className="font-display text-iron-bright mt-3 text-5xl leading-[0.95] tracking-tight sm:text-7xl">
           Oaths
         </h1>
-        <div className="text-mist mt-6 max-w-lg space-y-4 text-lg">
+        <div className="text-mist mt-6 max-w-xl space-y-4 text-lg">
           <p>
-            These are the words I have bound myself to. Click an oath to read it
-            in full.
+            We are always bound. To our principles, to our desires, to our
+            obligations, to our survival. All we are free to choose is our
+            chains.
+          </p>
+          <p>
+            These are the words I have bound myself to. Select an oath to read
+            it in full.
           </p>
         </div>
 
-        <ul className="mt-10 space-y-2">
-          {oaths.map((oath) => (
-            <li key={oath.id}>
-              <details className="honor-oath group border-iron-bright/20 open:border-iron-bright/35 border-b">
-                <summary className="text-iron-bright hover:text-sky flex cursor-pointer list-none items-baseline justify-between gap-4 py-3 text-lg tracking-wide transition-colors marker:content-none [&::-webkit-details-marker]:hidden">
-                  <span>{oath.title}</span>
-                  <span
-                    aria-hidden
-                    className="text-iron-bright/45 text-xl leading-none transition-transform group-open:rotate-45"
+        <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(14rem,20rem)_minmax(0,1fr)] lg:gap-16">
+          <ul className="border-iron-bright/15 space-y-0 border-t">
+            {oaths.map((oath) => {
+              const active = oath.id === selectedId;
+              return (
+                <li key={oath.id} className="border-iron-bright/15 border-b">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedId(oath.id)}
+                    aria-pressed={active}
+                    className={`flex w-full items-baseline justify-between gap-4 py-3 text-left text-lg tracking-wide transition-colors ${
+                      active ? "text-sky" : "text-iron-bright hover:text-sky"
+                    }`}
                   >
-                    +
-                  </span>
-                </summary>
-                <div className="pb-4 text-base leading-relaxed sm:text-lg">
-                  <p className="text-mist whitespace-pre-wrap">
-                    <OathBody body={oath.body} />
-                  </p>
-                  {oath.pledge ? (
-                    <p className="text-sky mt-3 font-medium">{oath.pledge}</p>
-                  ) : null}
-                  {oath.href ? (
-                    <p className="mt-3">
-                      <a
-                        href={oath.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-sky underline underline-offset-2"
-                      >
-                        {oath.hrefLabel ?? oath.href}
-                      </a>
-                    </p>
-                  ) : null}
-                </div>
-              </details>
-            </li>
-          ))}
-        </ul>
+                    <span>{oath.title}</span>
+                    <span
+                      aria-hidden
+                      className={`text-xl leading-none ${
+                        active ? "text-sky" : "text-iron-bright/45"
+                      }`}
+                    >
+                      →
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+
+          <aside className="border-iron-bright/15 lg:border-l lg:pl-12">
+            <div className="lg:sticky lg:top-28">
+              <OathPanel oath={selected} />
+            </div>
+          </aside>
+        </div>
       </div>
     </main>
   );
