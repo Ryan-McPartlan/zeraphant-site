@@ -35,6 +35,21 @@ export default function HonorPage() {
             grants the capacity to navigate the hardest paths.
           </p>
         </div>
+
+        <nav className="mt-10 flex flex-col items-start gap-3">
+          <Link
+            href="/honor/career"
+            className="text-iron-bright hover:text-sky border-iron-bright/35 inline-flex border-b pb-0.5 text-lg tracking-wide transition-colors"
+          >
+            Career - Resume
+          </Link>
+          <Link
+            href="/honor/oaths"
+            className="text-iron-bright hover:text-sky border-iron-bright/35 inline-flex border-b pb-0.5 text-lg tracking-wide transition-colors"
+          >
+            Oaths
+          </Link>
+        </nav>
       </div>
     </main>
   );

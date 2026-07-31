@@ -28,6 +28,18 @@ const ORB_B: Record<string, string> = {
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const theme = themeFromPath(pathname);
+  const isPlainDoc = pathname.startsWith("/honor/career");
+
+  if (isPlainDoc) {
+    return (
+      <div className="relative min-h-dvh bg-[#fafafa]">
+        <NavBubble />
+        <div key={pathname} className="relative z-10">
+          {children}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

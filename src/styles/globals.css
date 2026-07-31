@@ -68,6 +68,18 @@
     text-transform: uppercase;
   }
 
+  .font-resume {
+    font-family: "Times New Roman", Times, "Liberation Serif", Georgia, serif;
+  }
+
+  .honor-resume-bullets {
+    list-style-type: disc;
+  }
+
+  .honor-resume-bullets > li::marker {
+    color: #111;
+  }
+
   .site-grain {
     background-image:
       radial-gradient(
