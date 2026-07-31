@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { OathTaking } from "~/components/honor/oath-taking";
 import { type Oath, oaths, type OathSegment } from "~/lib/honor/oaths";
 
 function accentClass(accent: NonNullable<OathSegment["accent"]>): string {
@@ -71,6 +72,11 @@ function OathPanel({ oath }: { oath: Oath | null }) {
         {oath.pledge ? (
           <p className="text-sky mt-4 font-medium">{oath.pledge}</p>
         ) : null}
+        {oath.note ? (
+          <p className="text-mist/65 mt-4 text-base leading-relaxed italic sm:text-lg">
+            {oath.note}
+          </p>
+        ) : null}
         {oath.href ? (
           <p className="mt-4">
             <a
@@ -84,6 +90,14 @@ function OathPanel({ oath }: { oath: Oath | null }) {
           </p>
         ) : null}
       </div>
+      {oath.personal ? (
+        <p className="border-iron-bright/15 text-mist/70 mt-8 border-t pt-6 text-base leading-relaxed italic sm:text-lg">
+          This oath is personal to me, and would not make sense for you to take
+          now without additional context.
+        </p>
+      ) : (
+        <OathTaking oath={oath} />
+      )}
     </div>
   );
 }

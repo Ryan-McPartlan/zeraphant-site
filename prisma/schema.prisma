@@ -53,3 +53,14 @@ model GardenTip {
 
   @@index([createdAt])
 }
+
+/// Someone who has spoken an Honor oath aloud and recorded their name
+model OathTaking {
+  id        String   @id @default(cuid())
+  oathId    String
+  name      String
+  createdAt DateTime @default(now())
+
+  @@index([oathId])
+  @@index([oathId, createdAt])
+}

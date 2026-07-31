@@ -28,6 +28,11 @@ export type PraiseSubmission = $Result.DefaultSelection<Prisma.$PraiseSubmission
  * Community advice for nurturing connections ("Watering the garden")
  */
 export type GardenTip = $Result.DefaultSelection<Prisma.$GardenTipPayload>
+/**
+ * Model OathTaking
+ * Someone who has spoken an Honor oath aloud and recorded their name
+ */
+export type OathTaking = $Result.DefaultSelection<Prisma.$OathTakingPayload>
 
 /**
  * Enums
@@ -194,6 +199,16 @@ export class PrismaClient<
     * ```
     */
   get gardenTip(): Prisma.GardenTipDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.oathTaking`: Exposes CRUD operations for the **OathTaking** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OathTakings
+    * const oathTakings = await prisma.oathTaking.findMany()
+    * ```
+    */
+  get oathTaking(): Prisma.OathTakingDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -637,7 +652,8 @@ export namespace Prisma {
   export const ModelName: {
     Post: 'Post',
     PraiseSubmission: 'PraiseSubmission',
-    GardenTip: 'GardenTip'
+    GardenTip: 'GardenTip',
+    OathTaking: 'OathTaking'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -656,7 +672,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "praiseSubmission" | "gardenTip"
+      modelProps: "post" | "praiseSubmission" | "gardenTip" | "oathTaking"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -882,6 +898,80 @@ export namespace Prisma {
           }
         }
       }
+      OathTaking: {
+        payload: Prisma.$OathTakingPayload<ExtArgs>
+        fields: Prisma.OathTakingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OathTakingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OathTakingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OathTakingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OathTakingPayload>
+          }
+          findFirst: {
+            args: Prisma.OathTakingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OathTakingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OathTakingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OathTakingPayload>
+          }
+          findMany: {
+            args: Prisma.OathTakingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OathTakingPayload>[]
+          }
+          create: {
+            args: Prisma.OathTakingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OathTakingPayload>
+          }
+          createMany: {
+            args: Prisma.OathTakingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OathTakingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OathTakingPayload>[]
+          }
+          delete: {
+            args: Prisma.OathTakingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OathTakingPayload>
+          }
+          update: {
+            args: Prisma.OathTakingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OathTakingPayload>
+          }
+          deleteMany: {
+            args: Prisma.OathTakingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OathTakingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OathTakingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OathTakingPayload>[]
+          }
+          upsert: {
+            args: Prisma.OathTakingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OathTakingPayload>
+          }
+          aggregate: {
+            args: Prisma.OathTakingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOathTaking>
+          }
+          groupBy: {
+            args: Prisma.OathTakingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OathTakingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OathTakingCountArgs<ExtArgs>
+            result: $Utils.Optional<OathTakingCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -981,6 +1071,7 @@ export namespace Prisma {
     post?: PostOmit
     praiseSubmission?: PraiseSubmissionOmit
     gardenTip?: GardenTipOmit
+    oathTaking?: OathTakingOmit
   }
 
   /* Types for Logging */
@@ -4130,6 +4221,988 @@ export namespace Prisma {
 
 
   /**
+   * Model OathTaking
+   */
+
+  export type AggregateOathTaking = {
+    _count: OathTakingCountAggregateOutputType | null
+    _min: OathTakingMinAggregateOutputType | null
+    _max: OathTakingMaxAggregateOutputType | null
+  }
+
+  export type OathTakingMinAggregateOutputType = {
+    id: string | null
+    oathId: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type OathTakingMaxAggregateOutputType = {
+    id: string | null
+    oathId: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type OathTakingCountAggregateOutputType = {
+    id: number
+    oathId: number
+    name: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type OathTakingMinAggregateInputType = {
+    id?: true
+    oathId?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type OathTakingMaxAggregateInputType = {
+    id?: true
+    oathId?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type OathTakingCountAggregateInputType = {
+    id?: true
+    oathId?: true
+    name?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type OathTakingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OathTaking to aggregate.
+     */
+    where?: OathTakingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OathTakings to fetch.
+     */
+    orderBy?: OathTakingOrderByWithRelationInput | OathTakingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OathTakingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OathTakings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OathTakings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OathTakings
+    **/
+    _count?: true | OathTakingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OathTakingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OathTakingMaxAggregateInputType
+  }
+
+  export type GetOathTakingAggregateType<T extends OathTakingAggregateArgs> = {
+        [P in keyof T & keyof AggregateOathTaking]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOathTaking[P]>
+      : GetScalarType<T[P], AggregateOathTaking[P]>
+  }
+
+
+
+
+  export type OathTakingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OathTakingWhereInput
+    orderBy?: OathTakingOrderByWithAggregationInput | OathTakingOrderByWithAggregationInput[]
+    by: OathTakingScalarFieldEnum[] | OathTakingScalarFieldEnum
+    having?: OathTakingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OathTakingCountAggregateInputType | true
+    _min?: OathTakingMinAggregateInputType
+    _max?: OathTakingMaxAggregateInputType
+  }
+
+  export type OathTakingGroupByOutputType = {
+    id: string
+    oathId: string
+    name: string
+    createdAt: Date
+    _count: OathTakingCountAggregateOutputType | null
+    _min: OathTakingMinAggregateOutputType | null
+    _max: OathTakingMaxAggregateOutputType | null
+  }
+
+  type GetOathTakingGroupByPayload<T extends OathTakingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OathTakingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OathTakingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OathTakingGroupByOutputType[P]>
+            : GetScalarType<T[P], OathTakingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OathTakingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    oathId?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["oathTaking"]>
+
+  export type OathTakingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    oathId?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["oathTaking"]>
+
+  export type OathTakingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    oathId?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["oathTaking"]>
+
+  export type OathTakingSelectScalar = {
+    id?: boolean
+    oathId?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }
+
+  export type OathTakingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "oathId" | "name" | "createdAt", ExtArgs["result"]["oathTaking"]>
+
+  export type $OathTakingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OathTaking"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      oathId: string
+      name: string
+      createdAt: Date
+    }, ExtArgs["result"]["oathTaking"]>
+    composites: {}
+  }
+
+  type OathTakingGetPayload<S extends boolean | null | undefined | OathTakingDefaultArgs> = $Result.GetResult<Prisma.$OathTakingPayload, S>
+
+  type OathTakingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OathTakingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OathTakingCountAggregateInputType | true
+    }
+
+  export interface OathTakingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OathTaking'], meta: { name: 'OathTaking' } }
+    /**
+     * Find zero or one OathTaking that matches the filter.
+     * @param {OathTakingFindUniqueArgs} args - Arguments to find a OathTaking
+     * @example
+     * // Get one OathTaking
+     * const oathTaking = await prisma.oathTaking.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OathTakingFindUniqueArgs>(args: SelectSubset<T, OathTakingFindUniqueArgs<ExtArgs>>): Prisma__OathTakingClient<$Result.GetResult<Prisma.$OathTakingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OathTaking that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OathTakingFindUniqueOrThrowArgs} args - Arguments to find a OathTaking
+     * @example
+     * // Get one OathTaking
+     * const oathTaking = await prisma.oathTaking.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OathTakingFindUniqueOrThrowArgs>(args: SelectSubset<T, OathTakingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OathTakingClient<$Result.GetResult<Prisma.$OathTakingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OathTaking that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OathTakingFindFirstArgs} args - Arguments to find a OathTaking
+     * @example
+     * // Get one OathTaking
+     * const oathTaking = await prisma.oathTaking.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OathTakingFindFirstArgs>(args?: SelectSubset<T, OathTakingFindFirstArgs<ExtArgs>>): Prisma__OathTakingClient<$Result.GetResult<Prisma.$OathTakingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OathTaking that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OathTakingFindFirstOrThrowArgs} args - Arguments to find a OathTaking
+     * @example
+     * // Get one OathTaking
+     * const oathTaking = await prisma.oathTaking.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OathTakingFindFirstOrThrowArgs>(args?: SelectSubset<T, OathTakingFindFirstOrThrowArgs<ExtArgs>>): Prisma__OathTakingClient<$Result.GetResult<Prisma.$OathTakingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OathTakings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OathTakingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OathTakings
+     * const oathTakings = await prisma.oathTaking.findMany()
+     * 
+     * // Get first 10 OathTakings
+     * const oathTakings = await prisma.oathTaking.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const oathTakingWithIdOnly = await prisma.oathTaking.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OathTakingFindManyArgs>(args?: SelectSubset<T, OathTakingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OathTakingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OathTaking.
+     * @param {OathTakingCreateArgs} args - Arguments to create a OathTaking.
+     * @example
+     * // Create one OathTaking
+     * const OathTaking = await prisma.oathTaking.create({
+     *   data: {
+     *     // ... data to create a OathTaking
+     *   }
+     * })
+     * 
+     */
+    create<T extends OathTakingCreateArgs>(args: SelectSubset<T, OathTakingCreateArgs<ExtArgs>>): Prisma__OathTakingClient<$Result.GetResult<Prisma.$OathTakingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OathTakings.
+     * @param {OathTakingCreateManyArgs} args - Arguments to create many OathTakings.
+     * @example
+     * // Create many OathTakings
+     * const oathTaking = await prisma.oathTaking.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OathTakingCreateManyArgs>(args?: SelectSubset<T, OathTakingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OathTakings and returns the data saved in the database.
+     * @param {OathTakingCreateManyAndReturnArgs} args - Arguments to create many OathTakings.
+     * @example
+     * // Create many OathTakings
+     * const oathTaking = await prisma.oathTaking.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OathTakings and only return the `id`
+     * const oathTakingWithIdOnly = await prisma.oathTaking.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OathTakingCreateManyAndReturnArgs>(args?: SelectSubset<T, OathTakingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OathTakingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OathTaking.
+     * @param {OathTakingDeleteArgs} args - Arguments to delete one OathTaking.
+     * @example
+     * // Delete one OathTaking
+     * const OathTaking = await prisma.oathTaking.delete({
+     *   where: {
+     *     // ... filter to delete one OathTaking
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OathTakingDeleteArgs>(args: SelectSubset<T, OathTakingDeleteArgs<ExtArgs>>): Prisma__OathTakingClient<$Result.GetResult<Prisma.$OathTakingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OathTaking.
+     * @param {OathTakingUpdateArgs} args - Arguments to update one OathTaking.
+     * @example
+     * // Update one OathTaking
+     * const oathTaking = await prisma.oathTaking.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OathTakingUpdateArgs>(args: SelectSubset<T, OathTakingUpdateArgs<ExtArgs>>): Prisma__OathTakingClient<$Result.GetResult<Prisma.$OathTakingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OathTakings.
+     * @param {OathTakingDeleteManyArgs} args - Arguments to filter OathTakings to delete.
+     * @example
+     * // Delete a few OathTakings
+     * const { count } = await prisma.oathTaking.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OathTakingDeleteManyArgs>(args?: SelectSubset<T, OathTakingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OathTakings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OathTakingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OathTakings
+     * const oathTaking = await prisma.oathTaking.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OathTakingUpdateManyArgs>(args: SelectSubset<T, OathTakingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OathTakings and returns the data updated in the database.
+     * @param {OathTakingUpdateManyAndReturnArgs} args - Arguments to update many OathTakings.
+     * @example
+     * // Update many OathTakings
+     * const oathTaking = await prisma.oathTaking.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OathTakings and only return the `id`
+     * const oathTakingWithIdOnly = await prisma.oathTaking.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OathTakingUpdateManyAndReturnArgs>(args: SelectSubset<T, OathTakingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OathTakingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OathTaking.
+     * @param {OathTakingUpsertArgs} args - Arguments to update or create a OathTaking.
+     * @example
+     * // Update or create a OathTaking
+     * const oathTaking = await prisma.oathTaking.upsert({
+     *   create: {
+     *     // ... data to create a OathTaking
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OathTaking we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OathTakingUpsertArgs>(args: SelectSubset<T, OathTakingUpsertArgs<ExtArgs>>): Prisma__OathTakingClient<$Result.GetResult<Prisma.$OathTakingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OathTakings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OathTakingCountArgs} args - Arguments to filter OathTakings to count.
+     * @example
+     * // Count the number of OathTakings
+     * const count = await prisma.oathTaking.count({
+     *   where: {
+     *     // ... the filter for the OathTakings we want to count
+     *   }
+     * })
+    **/
+    count<T extends OathTakingCountArgs>(
+      args?: Subset<T, OathTakingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OathTakingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OathTaking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OathTakingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OathTakingAggregateArgs>(args: Subset<T, OathTakingAggregateArgs>): Prisma.PrismaPromise<GetOathTakingAggregateType<T>>
+
+    /**
+     * Group by OathTaking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OathTakingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OathTakingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OathTakingGroupByArgs['orderBy'] }
+        : { orderBy?: OathTakingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OathTakingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOathTakingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OathTaking model
+   */
+  readonly fields: OathTakingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OathTaking.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OathTakingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OathTaking model
+   */
+  interface OathTakingFieldRefs {
+    readonly id: FieldRef<"OathTaking", 'String'>
+    readonly oathId: FieldRef<"OathTaking", 'String'>
+    readonly name: FieldRef<"OathTaking", 'String'>
+    readonly createdAt: FieldRef<"OathTaking", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OathTaking findUnique
+   */
+  export type OathTakingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+    /**
+     * Filter, which OathTaking to fetch.
+     */
+    where: OathTakingWhereUniqueInput
+  }
+
+  /**
+   * OathTaking findUniqueOrThrow
+   */
+  export type OathTakingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+    /**
+     * Filter, which OathTaking to fetch.
+     */
+    where: OathTakingWhereUniqueInput
+  }
+
+  /**
+   * OathTaking findFirst
+   */
+  export type OathTakingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+    /**
+     * Filter, which OathTaking to fetch.
+     */
+    where?: OathTakingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OathTakings to fetch.
+     */
+    orderBy?: OathTakingOrderByWithRelationInput | OathTakingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OathTakings.
+     */
+    cursor?: OathTakingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OathTakings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OathTakings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OathTakings.
+     */
+    distinct?: OathTakingScalarFieldEnum | OathTakingScalarFieldEnum[]
+  }
+
+  /**
+   * OathTaking findFirstOrThrow
+   */
+  export type OathTakingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+    /**
+     * Filter, which OathTaking to fetch.
+     */
+    where?: OathTakingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OathTakings to fetch.
+     */
+    orderBy?: OathTakingOrderByWithRelationInput | OathTakingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OathTakings.
+     */
+    cursor?: OathTakingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OathTakings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OathTakings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OathTakings.
+     */
+    distinct?: OathTakingScalarFieldEnum | OathTakingScalarFieldEnum[]
+  }
+
+  /**
+   * OathTaking findMany
+   */
+  export type OathTakingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+    /**
+     * Filter, which OathTakings to fetch.
+     */
+    where?: OathTakingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OathTakings to fetch.
+     */
+    orderBy?: OathTakingOrderByWithRelationInput | OathTakingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OathTakings.
+     */
+    cursor?: OathTakingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OathTakings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OathTakings.
+     */
+    skip?: number
+    distinct?: OathTakingScalarFieldEnum | OathTakingScalarFieldEnum[]
+  }
+
+  /**
+   * OathTaking create
+   */
+  export type OathTakingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+    /**
+     * The data needed to create a OathTaking.
+     */
+    data: XOR<OathTakingCreateInput, OathTakingUncheckedCreateInput>
+  }
+
+  /**
+   * OathTaking createMany
+   */
+  export type OathTakingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OathTakings.
+     */
+    data: OathTakingCreateManyInput | OathTakingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OathTaking createManyAndReturn
+   */
+  export type OathTakingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+    /**
+     * The data used to create many OathTakings.
+     */
+    data: OathTakingCreateManyInput | OathTakingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OathTaking update
+   */
+  export type OathTakingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+    /**
+     * The data needed to update a OathTaking.
+     */
+    data: XOR<OathTakingUpdateInput, OathTakingUncheckedUpdateInput>
+    /**
+     * Choose, which OathTaking to update.
+     */
+    where: OathTakingWhereUniqueInput
+  }
+
+  /**
+   * OathTaking updateMany
+   */
+  export type OathTakingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OathTakings.
+     */
+    data: XOR<OathTakingUpdateManyMutationInput, OathTakingUncheckedUpdateManyInput>
+    /**
+     * Filter which OathTakings to update
+     */
+    where?: OathTakingWhereInput
+    /**
+     * Limit how many OathTakings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OathTaking updateManyAndReturn
+   */
+  export type OathTakingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+    /**
+     * The data used to update OathTakings.
+     */
+    data: XOR<OathTakingUpdateManyMutationInput, OathTakingUncheckedUpdateManyInput>
+    /**
+     * Filter which OathTakings to update
+     */
+    where?: OathTakingWhereInput
+    /**
+     * Limit how many OathTakings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OathTaking upsert
+   */
+  export type OathTakingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+    /**
+     * The filter to search for the OathTaking to update in case it exists.
+     */
+    where: OathTakingWhereUniqueInput
+    /**
+     * In case the OathTaking found by the `where` argument doesn't exist, create a new OathTaking with this data.
+     */
+    create: XOR<OathTakingCreateInput, OathTakingUncheckedCreateInput>
+    /**
+     * In case the OathTaking was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OathTakingUpdateInput, OathTakingUncheckedUpdateInput>
+  }
+
+  /**
+   * OathTaking delete
+   */
+  export type OathTakingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+    /**
+     * Filter which OathTaking to delete.
+     */
+    where: OathTakingWhereUniqueInput
+  }
+
+  /**
+   * OathTaking deleteMany
+   */
+  export type OathTakingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OathTakings to delete
+     */
+    where?: OathTakingWhereInput
+    /**
+     * Limit how many OathTakings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OathTaking without action
+   */
+  export type OathTakingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OathTaking
+     */
+    select?: OathTakingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OathTaking
+     */
+    omit?: OathTakingOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4174,6 +5247,16 @@ export namespace Prisma {
   };
 
   export type GardenTipScalarFieldEnum = (typeof GardenTipScalarFieldEnum)[keyof typeof GardenTipScalarFieldEnum]
+
+
+  export const OathTakingScalarFieldEnum: {
+    id: 'id',
+    oathId: 'oathId',
+    name: 'name',
+    createdAt: 'createdAt'
+  };
+
+  export type OathTakingScalarFieldEnum = (typeof OathTakingScalarFieldEnum)[keyof typeof OathTakingScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4438,6 +5521,53 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"GardenTip"> | Date | string
   }
 
+  export type OathTakingWhereInput = {
+    AND?: OathTakingWhereInput | OathTakingWhereInput[]
+    OR?: OathTakingWhereInput[]
+    NOT?: OathTakingWhereInput | OathTakingWhereInput[]
+    id?: StringFilter<"OathTaking"> | string
+    oathId?: StringFilter<"OathTaking"> | string
+    name?: StringFilter<"OathTaking"> | string
+    createdAt?: DateTimeFilter<"OathTaking"> | Date | string
+  }
+
+  export type OathTakingOrderByWithRelationInput = {
+    id?: SortOrder
+    oathId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OathTakingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OathTakingWhereInput | OathTakingWhereInput[]
+    OR?: OathTakingWhereInput[]
+    NOT?: OathTakingWhereInput | OathTakingWhereInput[]
+    oathId?: StringFilter<"OathTaking"> | string
+    name?: StringFilter<"OathTaking"> | string
+    createdAt?: DateTimeFilter<"OathTaking"> | Date | string
+  }, "id">
+
+  export type OathTakingOrderByWithAggregationInput = {
+    id?: SortOrder
+    oathId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    _count?: OathTakingCountOrderByAggregateInput
+    _max?: OathTakingMaxOrderByAggregateInput
+    _min?: OathTakingMinOrderByAggregateInput
+  }
+
+  export type OathTakingScalarWhereWithAggregatesInput = {
+    AND?: OathTakingScalarWhereWithAggregatesInput | OathTakingScalarWhereWithAggregatesInput[]
+    OR?: OathTakingScalarWhereWithAggregatesInput[]
+    NOT?: OathTakingScalarWhereWithAggregatesInput | OathTakingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OathTaking"> | string
+    oathId?: StringWithAggregatesFilter<"OathTaking"> | string
+    name?: StringWithAggregatesFilter<"OathTaking"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"OathTaking"> | Date | string
+  }
+
   export type PostCreateInput = {
     name: string
     createdAt?: Date | string
@@ -4600,6 +5730,55 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     fromName?: NullableStringFieldUpdateOperationsInput | string | null
     stamp?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OathTakingCreateInput = {
+    id?: string
+    oathId: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type OathTakingUncheckedCreateInput = {
+    id?: string
+    oathId: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type OathTakingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oathId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OathTakingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oathId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OathTakingCreateManyInput = {
+    id?: string
+    oathId: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type OathTakingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oathId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OathTakingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oathId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4829,6 +6008,27 @@ export namespace Prisma {
 
   export type GardenTipSumOrderByAggregateInput = {
     stamp?: SortOrder
+  }
+
+  export type OathTakingCountOrderByAggregateInput = {
+    id?: SortOrder
+    oathId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OathTakingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    oathId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OathTakingMinOrderByAggregateInput = {
+    id?: SortOrder
+    oathId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {

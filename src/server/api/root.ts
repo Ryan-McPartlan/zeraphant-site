@@ -1,5 +1,6 @@
 import { connectionApplyRouter } from "~/server/api/routers/connection-apply";
 import { gardenTipRouter } from "~/server/api/routers/garden-tip";
+import { oathTakingRouter } from "~/server/api/routers/oath-taking";
 import { postRouter } from "~/server/api/routers/post";
 import { praiseRouter } from "~/server/api/routers/praise";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
@@ -14,6 +15,7 @@ export const appRouter = createTRPCRouter({
   praise: praiseRouter,
   connectionApply: connectionApplyRouter,
   gardenTip: gardenTipRouter,
+  oathTaking: oathTakingRouter,
 });
 
 // export type definition of API

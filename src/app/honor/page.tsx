@@ -61,6 +61,12 @@ export default function HonorPage() {
           >
             World Conquest
           </Link>
+          <Link
+            href="/honor/role-models"
+            className="text-iron-bright hover:text-sky border-iron-bright/35 inline-flex border-b pb-0.5 text-lg tracking-wide transition-colors"
+          >
+            Role Models
+          </Link>
         </nav>
       </div>
     </main>

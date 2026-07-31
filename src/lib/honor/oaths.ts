@@ -5,12 +5,38 @@ export type OathSegment = {
   href?: string;
 };
 
+export const OATH_IDS = [
+  "declaration",
+  "constitution",
+  "pledge-of-allegiance",
+  "scout-law",
+  "scout-oath",
+  "scout-slogan",
+  "integrity",
+  "obligation-of-an-engineer",
+  "effective-altruism",
+  "pledge-to-give",
+  "animal-welfare",
+  "grace",
+  "path-of-the-sage",
+  "pledge-to-love",
+] as const;
+
+export type OathId = (typeof OATH_IDS)[number];
+
+export type OathCohort = "patriots" | "scouts" | "altruists" | "engineers";
+
 export type Oath = {
-  id: string;
+  id: OathId;
   title: string;
   year?: number;
   body: string | OathSegment[];
   pledge?: string;
+  note?: string;
+  /** Personal oaths are not offered for others to take */
+  personal?: boolean;
+  /** Noun used when counting who has bound themselves to this oath */
+  cohort?: OathCohort;
   href?: string;
   hrefLabel?: string;
 };
@@ -20,6 +46,7 @@ export const oaths: Oath[] = [
     id: "declaration",
     title: "The Declaration",
     year: 1996,
+    cohort: "patriots",
     body: "I hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness.",
     pledge:
       "For the support of this Declaration, I pledge my Life, Fortune and sacred Honor.",
@@ -28,6 +55,7 @@ export const oaths: Oath[] = [
     id: "constitution",
     title: "The Constitution",
     year: 1996,
+    cohort: "patriots",
     body: [
       { text: "I pledge myself", accent: true },
       {
@@ -43,6 +71,7 @@ export const oaths: Oath[] = [
     id: "pledge-of-allegiance",
     title: "The Pledge of Allegiance",
     year: 1996,
+    cohort: "patriots",
     body: [
       {
         text: "I pledge allegiance to the Flag of the United States of America",
@@ -57,6 +86,7 @@ export const oaths: Oath[] = [
     id: "scout-law",
     title: "The Scout Law",
     year: 2009,
+    cohort: "scouts",
     body: "A Scout is trustworthy, loyal, helpful, friendly, courteous, kind, obedient, cheerful, thrifty, brave, clean, and reverent.",
     pledge: "I pledge to be a good scout",
   },
@@ -64,6 +94,7 @@ export const oaths: Oath[] = [
     id: "scout-oath",
     title: "The Scout Oath",
     year: 2009,
+    cohort: "scouts",
     body: [
       { text: "On my honor", accent: true },
       { text: " I will do my best to " },
@@ -81,6 +112,7 @@ export const oaths: Oath[] = [
     id: "scout-slogan",
     title: "The Scout Slogan",
     year: 2009,
+    cohort: "scouts",
     body: [
       { text: "I pledge", accent: true },
       { text: " to do a good turn daily." },
@@ -90,12 +122,15 @@ export const oaths: Oath[] = [
     id: "integrity",
     title: "Integrity",
     year: 2014,
+    personal: true,
     body: [{ text: "I do not lie.", accent: true }],
   },
   {
     id: "obligation-of-an-engineer",
     title: "Obligation of an Engineer",
     year: 2018,
+    cohort: "engineers",
+    note: "While my degree (computer science) does not qualify me for membership in the order of engineering, I admire their oath and take it gladly.",
     body: [
       {
         text: "I am an Engineer. In my profession I take deep pride. To it I owe solemn obligations. As an Engineer, ",
@@ -116,6 +151,7 @@ export const oaths: Oath[] = [
     id: "effective-altruism",
     title: "Effective Altruism",
     year: 2022,
+    cohort: "altruists",
     body: [
       { text: "I pledge", accent: true },
       {
@@ -127,6 +163,7 @@ export const oaths: Oath[] = [
     id: "pledge-to-give",
     title: "Pledge to Give",
     year: 2022,
+    cohort: "altruists",
     href: "https://www.givingwhatwecan.org/pledge",
     hrefLabel: "givingwhatwecan.org/pledge",
     body: [
@@ -154,6 +191,7 @@ export const oaths: Oath[] = [
     id: "animal-welfare",
     title: "Animal Welfare",
     year: 2022,
+    cohort: "altruists",
     body: [
       { text: "I pledge", accent: true },
       {
@@ -165,6 +203,7 @@ export const oaths: Oath[] = [
     id: "grace",
     title: "Grace",
     year: 2023,
+    personal: true,
     body: [
       { text: "I pledge", accent: true },
       {
@@ -180,6 +219,7 @@ export const oaths: Oath[] = [
     id: "path-of-the-sage",
     title: "The Path of the Sage",
     year: 2025,
+    personal: true,
     body: [
       { text: "To Sam, " },
       { text: "I pledge", accent: true },
@@ -192,6 +232,7 @@ export const oaths: Oath[] = [
     id: "pledge-to-love",
     title: "Love",
     year: 2025,
+    personal: true,
     body: [
       { text: "I will", accent: true },
       { text: " " },
@@ -200,3 +241,7 @@ export const oaths: Oath[] = [
     ],
   },
 ];
+
+export function oathAudioSrc(oathId: string): string {
+  return `/honor/oaths/audio/${oathId}.mp3`;
+}

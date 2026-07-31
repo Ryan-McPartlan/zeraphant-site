@@ -316,6 +316,11 @@ export const CONNECTION_NODES: ConnectionNode[] = [
         style: "silver",
       },
       {
+        epithet: "Our Mama,",
+        name: "Cely Alvarez",
+        style: "connection",
+      },
+      {
         epithet: "Always in my corner,",
         name: "Alex Grieco",
         style: "passion",
