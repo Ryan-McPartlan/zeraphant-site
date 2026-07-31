@@ -49,6 +49,18 @@ export default function HonorPage() {
           >
             Oaths
           </Link>
+          <Link
+            href="/honor/promises"
+            className="text-iron-bright hover:text-sky border-iron-bright/35 inline-flex border-b pb-0.5 text-lg tracking-wide transition-colors"
+          >
+            Promises
+          </Link>
+          <Link
+            href="/honor/world-conquest"
+            className="text-iron-bright hover:text-sky border-iron-bright/35 inline-flex border-b pb-0.5 text-lg tracking-wide transition-colors"
+          >
+            World Conquest
+          </Link>
         </nav>
       </div>
     </main>

@@ -58,6 +58,11 @@ function OathPanel({ oath }: { oath: Oath | null }) {
     <div className="animate-page-in">
       <h2 className="font-display text-iron-bright text-2xl tracking-tight sm:text-3xl">
         {oath.title}
+        {oath.year != null ? (
+          <span className="text-mist/55 ml-2 text-lg font-normal tracking-normal sm:text-xl">
+            · {oath.year}
+          </span>
+        ) : null}
       </h2>
       <div className="mt-5 text-base leading-relaxed sm:text-lg">
         <p className="text-mist whitespace-pre-wrap">
