@@ -137,6 +137,14 @@ exports.Prisma.PraiseSubmissionScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.GardenTipScalarFieldEnum = {
+  id: 'id',
+  body: 'body',
+  fromName: 'fromName',
+  stamp: 'stamp',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -159,7 +167,8 @@ exports.PraiseKind = exports.$Enums.PraiseKind = {
 
 exports.Prisma.ModelName = {
   Post: 'Post',
-  PraiseSubmission: 'PraiseSubmission'
+  PraiseSubmission: 'PraiseSubmission',
+  GardenTip: 'GardenTip'
 };
 
 /**

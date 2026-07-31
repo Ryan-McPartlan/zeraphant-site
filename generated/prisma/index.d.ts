@@ -23,6 +23,11 @@ export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
  * 
  */
 export type PraiseSubmission = $Result.DefaultSelection<Prisma.$PraiseSubmissionPayload>
+/**
+ * Model GardenTip
+ * Community advice for nurturing connections ("Watering the garden")
+ */
+export type GardenTip = $Result.DefaultSelection<Prisma.$GardenTipPayload>
 
 /**
  * Enums
@@ -179,6 +184,16 @@ export class PrismaClient<
     * ```
     */
   get praiseSubmission(): Prisma.PraiseSubmissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gardenTip`: Exposes CRUD operations for the **GardenTip** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GardenTips
+    * const gardenTips = await prisma.gardenTip.findMany()
+    * ```
+    */
+  get gardenTip(): Prisma.GardenTipDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -621,7 +636,8 @@ export namespace Prisma {
 
   export const ModelName: {
     Post: 'Post',
-    PraiseSubmission: 'PraiseSubmission'
+    PraiseSubmission: 'PraiseSubmission',
+    GardenTip: 'GardenTip'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -640,7 +656,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "praiseSubmission"
+      modelProps: "post" | "praiseSubmission" | "gardenTip"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -792,6 +808,80 @@ export namespace Prisma {
           }
         }
       }
+      GardenTip: {
+        payload: Prisma.$GardenTipPayload<ExtArgs>
+        fields: Prisma.GardenTipFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GardenTipFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GardenTipPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GardenTipFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GardenTipPayload>
+          }
+          findFirst: {
+            args: Prisma.GardenTipFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GardenTipPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GardenTipFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GardenTipPayload>
+          }
+          findMany: {
+            args: Prisma.GardenTipFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GardenTipPayload>[]
+          }
+          create: {
+            args: Prisma.GardenTipCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GardenTipPayload>
+          }
+          createMany: {
+            args: Prisma.GardenTipCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GardenTipCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GardenTipPayload>[]
+          }
+          delete: {
+            args: Prisma.GardenTipDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GardenTipPayload>
+          }
+          update: {
+            args: Prisma.GardenTipUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GardenTipPayload>
+          }
+          deleteMany: {
+            args: Prisma.GardenTipDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GardenTipUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GardenTipUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GardenTipPayload>[]
+          }
+          upsert: {
+            args: Prisma.GardenTipUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GardenTipPayload>
+          }
+          aggregate: {
+            args: Prisma.GardenTipAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGardenTip>
+          }
+          groupBy: {
+            args: Prisma.GardenTipGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GardenTipGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GardenTipCountArgs<ExtArgs>
+            result: $Utils.Optional<GardenTipCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -890,6 +980,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     post?: PostOmit
     praiseSubmission?: PraiseSubmissionOmit
+    gardenTip?: GardenTipOmit
   }
 
   /* Types for Logging */
@@ -3004,6 +3095,1041 @@ export namespace Prisma {
 
 
   /**
+   * Model GardenTip
+   */
+
+  export type AggregateGardenTip = {
+    _count: GardenTipCountAggregateOutputType | null
+    _avg: GardenTipAvgAggregateOutputType | null
+    _sum: GardenTipSumAggregateOutputType | null
+    _min: GardenTipMinAggregateOutputType | null
+    _max: GardenTipMaxAggregateOutputType | null
+  }
+
+  export type GardenTipAvgAggregateOutputType = {
+    stamp: number | null
+  }
+
+  export type GardenTipSumAggregateOutputType = {
+    stamp: number | null
+  }
+
+  export type GardenTipMinAggregateOutputType = {
+    id: string | null
+    body: string | null
+    fromName: string | null
+    stamp: number | null
+    createdAt: Date | null
+  }
+
+  export type GardenTipMaxAggregateOutputType = {
+    id: string | null
+    body: string | null
+    fromName: string | null
+    stamp: number | null
+    createdAt: Date | null
+  }
+
+  export type GardenTipCountAggregateOutputType = {
+    id: number
+    body: number
+    fromName: number
+    stamp: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GardenTipAvgAggregateInputType = {
+    stamp?: true
+  }
+
+  export type GardenTipSumAggregateInputType = {
+    stamp?: true
+  }
+
+  export type GardenTipMinAggregateInputType = {
+    id?: true
+    body?: true
+    fromName?: true
+    stamp?: true
+    createdAt?: true
+  }
+
+  export type GardenTipMaxAggregateInputType = {
+    id?: true
+    body?: true
+    fromName?: true
+    stamp?: true
+    createdAt?: true
+  }
+
+  export type GardenTipCountAggregateInputType = {
+    id?: true
+    body?: true
+    fromName?: true
+    stamp?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GardenTipAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GardenTip to aggregate.
+     */
+    where?: GardenTipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GardenTips to fetch.
+     */
+    orderBy?: GardenTipOrderByWithRelationInput | GardenTipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GardenTipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GardenTips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GardenTips.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GardenTips
+    **/
+    _count?: true | GardenTipCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GardenTipAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GardenTipSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GardenTipMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GardenTipMaxAggregateInputType
+  }
+
+  export type GetGardenTipAggregateType<T extends GardenTipAggregateArgs> = {
+        [P in keyof T & keyof AggregateGardenTip]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGardenTip[P]>
+      : GetScalarType<T[P], AggregateGardenTip[P]>
+  }
+
+
+
+
+  export type GardenTipGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GardenTipWhereInput
+    orderBy?: GardenTipOrderByWithAggregationInput | GardenTipOrderByWithAggregationInput[]
+    by: GardenTipScalarFieldEnum[] | GardenTipScalarFieldEnum
+    having?: GardenTipScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GardenTipCountAggregateInputType | true
+    _avg?: GardenTipAvgAggregateInputType
+    _sum?: GardenTipSumAggregateInputType
+    _min?: GardenTipMinAggregateInputType
+    _max?: GardenTipMaxAggregateInputType
+  }
+
+  export type GardenTipGroupByOutputType = {
+    id: string
+    body: string
+    fromName: string | null
+    stamp: number
+    createdAt: Date
+    _count: GardenTipCountAggregateOutputType | null
+    _avg: GardenTipAvgAggregateOutputType | null
+    _sum: GardenTipSumAggregateOutputType | null
+    _min: GardenTipMinAggregateOutputType | null
+    _max: GardenTipMaxAggregateOutputType | null
+  }
+
+  type GetGardenTipGroupByPayload<T extends GardenTipGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GardenTipGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GardenTipGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GardenTipGroupByOutputType[P]>
+            : GetScalarType<T[P], GardenTipGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GardenTipSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    body?: boolean
+    fromName?: boolean
+    stamp?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["gardenTip"]>
+
+  export type GardenTipSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    body?: boolean
+    fromName?: boolean
+    stamp?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["gardenTip"]>
+
+  export type GardenTipSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    body?: boolean
+    fromName?: boolean
+    stamp?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["gardenTip"]>
+
+  export type GardenTipSelectScalar = {
+    id?: boolean
+    body?: boolean
+    fromName?: boolean
+    stamp?: boolean
+    createdAt?: boolean
+  }
+
+  export type GardenTipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "body" | "fromName" | "stamp" | "createdAt", ExtArgs["result"]["gardenTip"]>
+
+  export type $GardenTipPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GardenTip"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      body: string
+      /**
+       * Optional signer name
+       */
+      fromName: string | null
+      /**
+       * Index into letter stamp set (0 = default / legacy)
+       */
+      stamp: number
+      createdAt: Date
+    }, ExtArgs["result"]["gardenTip"]>
+    composites: {}
+  }
+
+  type GardenTipGetPayload<S extends boolean | null | undefined | GardenTipDefaultArgs> = $Result.GetResult<Prisma.$GardenTipPayload, S>
+
+  type GardenTipCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GardenTipFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GardenTipCountAggregateInputType | true
+    }
+
+  export interface GardenTipDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GardenTip'], meta: { name: 'GardenTip' } }
+    /**
+     * Find zero or one GardenTip that matches the filter.
+     * @param {GardenTipFindUniqueArgs} args - Arguments to find a GardenTip
+     * @example
+     * // Get one GardenTip
+     * const gardenTip = await prisma.gardenTip.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GardenTipFindUniqueArgs>(args: SelectSubset<T, GardenTipFindUniqueArgs<ExtArgs>>): Prisma__GardenTipClient<$Result.GetResult<Prisma.$GardenTipPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GardenTip that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GardenTipFindUniqueOrThrowArgs} args - Arguments to find a GardenTip
+     * @example
+     * // Get one GardenTip
+     * const gardenTip = await prisma.gardenTip.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GardenTipFindUniqueOrThrowArgs>(args: SelectSubset<T, GardenTipFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GardenTipClient<$Result.GetResult<Prisma.$GardenTipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GardenTip that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GardenTipFindFirstArgs} args - Arguments to find a GardenTip
+     * @example
+     * // Get one GardenTip
+     * const gardenTip = await prisma.gardenTip.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GardenTipFindFirstArgs>(args?: SelectSubset<T, GardenTipFindFirstArgs<ExtArgs>>): Prisma__GardenTipClient<$Result.GetResult<Prisma.$GardenTipPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GardenTip that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GardenTipFindFirstOrThrowArgs} args - Arguments to find a GardenTip
+     * @example
+     * // Get one GardenTip
+     * const gardenTip = await prisma.gardenTip.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GardenTipFindFirstOrThrowArgs>(args?: SelectSubset<T, GardenTipFindFirstOrThrowArgs<ExtArgs>>): Prisma__GardenTipClient<$Result.GetResult<Prisma.$GardenTipPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GardenTips that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GardenTipFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GardenTips
+     * const gardenTips = await prisma.gardenTip.findMany()
+     * 
+     * // Get first 10 GardenTips
+     * const gardenTips = await prisma.gardenTip.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gardenTipWithIdOnly = await prisma.gardenTip.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GardenTipFindManyArgs>(args?: SelectSubset<T, GardenTipFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GardenTipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GardenTip.
+     * @param {GardenTipCreateArgs} args - Arguments to create a GardenTip.
+     * @example
+     * // Create one GardenTip
+     * const GardenTip = await prisma.gardenTip.create({
+     *   data: {
+     *     // ... data to create a GardenTip
+     *   }
+     * })
+     * 
+     */
+    create<T extends GardenTipCreateArgs>(args: SelectSubset<T, GardenTipCreateArgs<ExtArgs>>): Prisma__GardenTipClient<$Result.GetResult<Prisma.$GardenTipPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GardenTips.
+     * @param {GardenTipCreateManyArgs} args - Arguments to create many GardenTips.
+     * @example
+     * // Create many GardenTips
+     * const gardenTip = await prisma.gardenTip.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GardenTipCreateManyArgs>(args?: SelectSubset<T, GardenTipCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GardenTips and returns the data saved in the database.
+     * @param {GardenTipCreateManyAndReturnArgs} args - Arguments to create many GardenTips.
+     * @example
+     * // Create many GardenTips
+     * const gardenTip = await prisma.gardenTip.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GardenTips and only return the `id`
+     * const gardenTipWithIdOnly = await prisma.gardenTip.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GardenTipCreateManyAndReturnArgs>(args?: SelectSubset<T, GardenTipCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GardenTipPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GardenTip.
+     * @param {GardenTipDeleteArgs} args - Arguments to delete one GardenTip.
+     * @example
+     * // Delete one GardenTip
+     * const GardenTip = await prisma.gardenTip.delete({
+     *   where: {
+     *     // ... filter to delete one GardenTip
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GardenTipDeleteArgs>(args: SelectSubset<T, GardenTipDeleteArgs<ExtArgs>>): Prisma__GardenTipClient<$Result.GetResult<Prisma.$GardenTipPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GardenTip.
+     * @param {GardenTipUpdateArgs} args - Arguments to update one GardenTip.
+     * @example
+     * // Update one GardenTip
+     * const gardenTip = await prisma.gardenTip.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GardenTipUpdateArgs>(args: SelectSubset<T, GardenTipUpdateArgs<ExtArgs>>): Prisma__GardenTipClient<$Result.GetResult<Prisma.$GardenTipPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GardenTips.
+     * @param {GardenTipDeleteManyArgs} args - Arguments to filter GardenTips to delete.
+     * @example
+     * // Delete a few GardenTips
+     * const { count } = await prisma.gardenTip.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GardenTipDeleteManyArgs>(args?: SelectSubset<T, GardenTipDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GardenTips.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GardenTipUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GardenTips
+     * const gardenTip = await prisma.gardenTip.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GardenTipUpdateManyArgs>(args: SelectSubset<T, GardenTipUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GardenTips and returns the data updated in the database.
+     * @param {GardenTipUpdateManyAndReturnArgs} args - Arguments to update many GardenTips.
+     * @example
+     * // Update many GardenTips
+     * const gardenTip = await prisma.gardenTip.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GardenTips and only return the `id`
+     * const gardenTipWithIdOnly = await prisma.gardenTip.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GardenTipUpdateManyAndReturnArgs>(args: SelectSubset<T, GardenTipUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GardenTipPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GardenTip.
+     * @param {GardenTipUpsertArgs} args - Arguments to update or create a GardenTip.
+     * @example
+     * // Update or create a GardenTip
+     * const gardenTip = await prisma.gardenTip.upsert({
+     *   create: {
+     *     // ... data to create a GardenTip
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GardenTip we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GardenTipUpsertArgs>(args: SelectSubset<T, GardenTipUpsertArgs<ExtArgs>>): Prisma__GardenTipClient<$Result.GetResult<Prisma.$GardenTipPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GardenTips.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GardenTipCountArgs} args - Arguments to filter GardenTips to count.
+     * @example
+     * // Count the number of GardenTips
+     * const count = await prisma.gardenTip.count({
+     *   where: {
+     *     // ... the filter for the GardenTips we want to count
+     *   }
+     * })
+    **/
+    count<T extends GardenTipCountArgs>(
+      args?: Subset<T, GardenTipCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GardenTipCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GardenTip.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GardenTipAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GardenTipAggregateArgs>(args: Subset<T, GardenTipAggregateArgs>): Prisma.PrismaPromise<GetGardenTipAggregateType<T>>
+
+    /**
+     * Group by GardenTip.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GardenTipGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GardenTipGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GardenTipGroupByArgs['orderBy'] }
+        : { orderBy?: GardenTipGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GardenTipGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGardenTipGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GardenTip model
+   */
+  readonly fields: GardenTipFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GardenTip.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GardenTipClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GardenTip model
+   */
+  interface GardenTipFieldRefs {
+    readonly id: FieldRef<"GardenTip", 'String'>
+    readonly body: FieldRef<"GardenTip", 'String'>
+    readonly fromName: FieldRef<"GardenTip", 'String'>
+    readonly stamp: FieldRef<"GardenTip", 'Int'>
+    readonly createdAt: FieldRef<"GardenTip", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GardenTip findUnique
+   */
+  export type GardenTipFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+    /**
+     * Filter, which GardenTip to fetch.
+     */
+    where: GardenTipWhereUniqueInput
+  }
+
+  /**
+   * GardenTip findUniqueOrThrow
+   */
+  export type GardenTipFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+    /**
+     * Filter, which GardenTip to fetch.
+     */
+    where: GardenTipWhereUniqueInput
+  }
+
+  /**
+   * GardenTip findFirst
+   */
+  export type GardenTipFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+    /**
+     * Filter, which GardenTip to fetch.
+     */
+    where?: GardenTipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GardenTips to fetch.
+     */
+    orderBy?: GardenTipOrderByWithRelationInput | GardenTipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GardenTips.
+     */
+    cursor?: GardenTipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GardenTips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GardenTips.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GardenTips.
+     */
+    distinct?: GardenTipScalarFieldEnum | GardenTipScalarFieldEnum[]
+  }
+
+  /**
+   * GardenTip findFirstOrThrow
+   */
+  export type GardenTipFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+    /**
+     * Filter, which GardenTip to fetch.
+     */
+    where?: GardenTipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GardenTips to fetch.
+     */
+    orderBy?: GardenTipOrderByWithRelationInput | GardenTipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GardenTips.
+     */
+    cursor?: GardenTipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GardenTips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GardenTips.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GardenTips.
+     */
+    distinct?: GardenTipScalarFieldEnum | GardenTipScalarFieldEnum[]
+  }
+
+  /**
+   * GardenTip findMany
+   */
+  export type GardenTipFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+    /**
+     * Filter, which GardenTips to fetch.
+     */
+    where?: GardenTipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GardenTips to fetch.
+     */
+    orderBy?: GardenTipOrderByWithRelationInput | GardenTipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GardenTips.
+     */
+    cursor?: GardenTipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GardenTips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GardenTips.
+     */
+    skip?: number
+    distinct?: GardenTipScalarFieldEnum | GardenTipScalarFieldEnum[]
+  }
+
+  /**
+   * GardenTip create
+   */
+  export type GardenTipCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+    /**
+     * The data needed to create a GardenTip.
+     */
+    data: XOR<GardenTipCreateInput, GardenTipUncheckedCreateInput>
+  }
+
+  /**
+   * GardenTip createMany
+   */
+  export type GardenTipCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GardenTips.
+     */
+    data: GardenTipCreateManyInput | GardenTipCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GardenTip createManyAndReturn
+   */
+  export type GardenTipCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+    /**
+     * The data used to create many GardenTips.
+     */
+    data: GardenTipCreateManyInput | GardenTipCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GardenTip update
+   */
+  export type GardenTipUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+    /**
+     * The data needed to update a GardenTip.
+     */
+    data: XOR<GardenTipUpdateInput, GardenTipUncheckedUpdateInput>
+    /**
+     * Choose, which GardenTip to update.
+     */
+    where: GardenTipWhereUniqueInput
+  }
+
+  /**
+   * GardenTip updateMany
+   */
+  export type GardenTipUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GardenTips.
+     */
+    data: XOR<GardenTipUpdateManyMutationInput, GardenTipUncheckedUpdateManyInput>
+    /**
+     * Filter which GardenTips to update
+     */
+    where?: GardenTipWhereInput
+    /**
+     * Limit how many GardenTips to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GardenTip updateManyAndReturn
+   */
+  export type GardenTipUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+    /**
+     * The data used to update GardenTips.
+     */
+    data: XOR<GardenTipUpdateManyMutationInput, GardenTipUncheckedUpdateManyInput>
+    /**
+     * Filter which GardenTips to update
+     */
+    where?: GardenTipWhereInput
+    /**
+     * Limit how many GardenTips to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GardenTip upsert
+   */
+  export type GardenTipUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+    /**
+     * The filter to search for the GardenTip to update in case it exists.
+     */
+    where: GardenTipWhereUniqueInput
+    /**
+     * In case the GardenTip found by the `where` argument doesn't exist, create a new GardenTip with this data.
+     */
+    create: XOR<GardenTipCreateInput, GardenTipUncheckedCreateInput>
+    /**
+     * In case the GardenTip was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GardenTipUpdateInput, GardenTipUncheckedUpdateInput>
+  }
+
+  /**
+   * GardenTip delete
+   */
+  export type GardenTipDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+    /**
+     * Filter which GardenTip to delete.
+     */
+    where: GardenTipWhereUniqueInput
+  }
+
+  /**
+   * GardenTip deleteMany
+   */
+  export type GardenTipDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GardenTips to delete
+     */
+    where?: GardenTipWhereInput
+    /**
+     * Limit how many GardenTips to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GardenTip without action
+   */
+  export type GardenTipDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GardenTip
+     */
+    select?: GardenTipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GardenTip
+     */
+    omit?: GardenTipOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3037,6 +4163,17 @@ export namespace Prisma {
   };
 
   export type PraiseSubmissionScalarFieldEnum = (typeof PraiseSubmissionScalarFieldEnum)[keyof typeof PraiseSubmissionScalarFieldEnum]
+
+
+  export const GardenTipScalarFieldEnum: {
+    id: 'id',
+    body: 'body',
+    fromName: 'fromName',
+    stamp: 'stamp',
+    createdAt: 'createdAt'
+  };
+
+  export type GardenTipScalarFieldEnum = (typeof GardenTipScalarFieldEnum)[keyof typeof GardenTipScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3247,6 +4384,60 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"PraiseSubmission"> | Date | string
   }
 
+  export type GardenTipWhereInput = {
+    AND?: GardenTipWhereInput | GardenTipWhereInput[]
+    OR?: GardenTipWhereInput[]
+    NOT?: GardenTipWhereInput | GardenTipWhereInput[]
+    id?: StringFilter<"GardenTip"> | string
+    body?: StringFilter<"GardenTip"> | string
+    fromName?: StringNullableFilter<"GardenTip"> | string | null
+    stamp?: IntFilter<"GardenTip"> | number
+    createdAt?: DateTimeFilter<"GardenTip"> | Date | string
+  }
+
+  export type GardenTipOrderByWithRelationInput = {
+    id?: SortOrder
+    body?: SortOrder
+    fromName?: SortOrderInput | SortOrder
+    stamp?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GardenTipWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GardenTipWhereInput | GardenTipWhereInput[]
+    OR?: GardenTipWhereInput[]
+    NOT?: GardenTipWhereInput | GardenTipWhereInput[]
+    body?: StringFilter<"GardenTip"> | string
+    fromName?: StringNullableFilter<"GardenTip"> | string | null
+    stamp?: IntFilter<"GardenTip"> | number
+    createdAt?: DateTimeFilter<"GardenTip"> | Date | string
+  }, "id">
+
+  export type GardenTipOrderByWithAggregationInput = {
+    id?: SortOrder
+    body?: SortOrder
+    fromName?: SortOrderInput | SortOrder
+    stamp?: SortOrder
+    createdAt?: SortOrder
+    _count?: GardenTipCountOrderByAggregateInput
+    _avg?: GardenTipAvgOrderByAggregateInput
+    _max?: GardenTipMaxOrderByAggregateInput
+    _min?: GardenTipMinOrderByAggregateInput
+    _sum?: GardenTipSumOrderByAggregateInput
+  }
+
+  export type GardenTipScalarWhereWithAggregatesInput = {
+    AND?: GardenTipScalarWhereWithAggregatesInput | GardenTipScalarWhereWithAggregatesInput[]
+    OR?: GardenTipScalarWhereWithAggregatesInput[]
+    NOT?: GardenTipScalarWhereWithAggregatesInput | GardenTipScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GardenTip"> | string
+    body?: StringWithAggregatesFilter<"GardenTip"> | string
+    fromName?: StringNullableWithAggregatesFilter<"GardenTip"> | string | null
+    stamp?: IntWithAggregatesFilter<"GardenTip"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"GardenTip"> | Date | string
+  }
+
   export type PostCreateInput = {
     name: string
     createdAt?: Date | string
@@ -3353,6 +4544,62 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     fromName?: NullableStringFieldUpdateOperationsInput | string | null
     mediaData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GardenTipCreateInput = {
+    id?: string
+    body: string
+    fromName?: string | null
+    stamp?: number
+    createdAt?: Date | string
+  }
+
+  export type GardenTipUncheckedCreateInput = {
+    id?: string
+    body: string
+    fromName?: string | null
+    stamp?: number
+    createdAt?: Date | string
+  }
+
+  export type GardenTipUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    fromName?: NullableStringFieldUpdateOperationsInput | string | null
+    stamp?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GardenTipUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    fromName?: NullableStringFieldUpdateOperationsInput | string | null
+    stamp?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GardenTipCreateManyInput = {
+    id?: string
+    body: string
+    fromName?: string | null
+    stamp?: number
+    createdAt?: Date | string
+  }
+
+  export type GardenTipUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    fromName?: NullableStringFieldUpdateOperationsInput | string | null
+    stamp?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GardenTipUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    fromName?: NullableStringFieldUpdateOperationsInput | string | null
+    stamp?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -3550,6 +4797,38 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type GardenTipCountOrderByAggregateInput = {
+    id?: SortOrder
+    body?: SortOrder
+    fromName?: SortOrder
+    stamp?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GardenTipAvgOrderByAggregateInput = {
+    stamp?: SortOrder
+  }
+
+  export type GardenTipMaxOrderByAggregateInput = {
+    id?: SortOrder
+    body?: SortOrder
+    fromName?: SortOrder
+    stamp?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GardenTipMinOrderByAggregateInput = {
+    id?: SortOrder
+    body?: SortOrder
+    fromName?: SortOrder
+    stamp?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GardenTipSumOrderByAggregateInput = {
+    stamp?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {

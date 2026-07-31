@@ -7,6 +7,14 @@ const FAVORITE_MEALS = [
   "Literally anything if I am inside of YARD HOUSE, the GREATEST APPLEBEE'S-LIKE restaurant of all time (don't get me started)",
 ] as const;
 
+const MAC_NOTES = [
+  "Triple the garlic",
+  "Southwest spice blend is cumin / cayenne / garlic to taste — I basically double the cumin",
+  "Pasta super al dente (it softens in the cheese) — take about 3 minutes off whatever HelloFresh says",
+  "Cream sauce base is just milk and flour — mix in by eye for consistency",
+  "I like to add a yellow onion",
+] as const;
+
 export function FoodPage() {
   return (
     <main className="relative min-h-dvh px-6 py-24 sm:px-12 lg:px-20">
@@ -29,11 +37,37 @@ export function FoodPage() {
         </p>
 
         <div className="text-mist mt-8 max-w-2xl space-y-5 text-lg">
-          <p>
-            My signature dish is southwest mac and cheese, adapted from Hello
-            Fresh&apos;s recipe but made mine. (Lots of garlic and cumin, the
-            only things almost as yummy as cilantro).
-          </p>
+          <section>
+            <h2 className="font-display text-fire-gold text-2xl tracking-tight sm:text-3xl">
+              Southwest mac &amp; cheese
+            </h2>
+            <p className="mt-3">
+              My signature dish — adapted from HelloFresh&apos;s{" "}
+              <a
+                href="https://www.hellofresh.com/recipes/lone-star-poblano-mac-cheese-6182a16831db7215d52e870a"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-fire-gold decoration-fire-gold/40 underline underline-offset-4 transition-colors hover:text-white hover:decoration-white"
+              >
+                Lone Star Poblano Mac &amp; Cheese
+              </a>
+              , but made mine. (Lots of garlic and cumin, the only things almost
+              as yummy as cilantro).
+            </p>
+            <p className="text-fire-gold/70 mt-4 text-sm tracking-[0.14em] uppercase">
+              How I make it
+            </p>
+            <ul className="mt-3 space-y-3">
+              {MAC_NOTES.map((note) => (
+                <li
+                  key={note}
+                  className="border-fire/35 bg-fire/10 rounded-2xl border px-5 py-4"
+                >
+                  <span className="font-display text-fire-gold">→</span> {note}
+                </li>
+              ))}
+            </ul>
+          </section>
 
           <div>
             <h2 className="font-display text-fire-gold text-2xl tracking-tight">

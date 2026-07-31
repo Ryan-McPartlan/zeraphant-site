@@ -51,6 +51,10 @@ export function GamingPage() {
                 </li>
               ))}
             </ul>
+            <p className="mt-4">
+              Games like these, filled with unexpected puzzles and delights and
+              surprises, are a major inspiration for this site!
+            </p>
           </div>
 
           <p>

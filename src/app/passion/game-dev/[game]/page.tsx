@@ -1,51 +1,36 @@
 import { type Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { GAME_DEV_GAMES, gameDevGameFromSlug } from "~/lib/game-dev";
+import { RedirectToGameDevHash } from "~/components/passion/redirect-to-game-dev-hash";
+import { GAME_DEV_DIRECTORY } from "~/lib/game-dev";
 
 type Props = {
   params: Promise<{ game: string }>;
 };
 
+const LEGACY_SLUGS: Record<string, string> = {
+  "gift-games": "keto-kwest",
+};
+
 export function generateStaticParams() {
-  return GAME_DEV_GAMES.map((game) => ({ game: game.slug }));
+  return GAME_DEV_DIRECTORY.map((entry) => ({ game: entry.id })).concat(
+    Object.keys(LEGACY_SLUGS).map((game) => ({ game })),
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { game: slug } = await params;
-  const game = gameDevGameFromSlug(slug);
+  const hash = LEGACY_SLUGS[slug] ?? slug;
+  const entry = GAME_DEV_DIRECTORY.find((item) => item.id === hash);
   return {
-    title: game ? `${game.label} · Game Dev` : "Game Dev",
+    title: entry ? `${entry.label} · Game Dev` : "Game Dev",
   };
 }
 
 export default async function GameDevGameRoute({ params }: Props) {
   const { game: slug } = await params;
-  const game = gameDevGameFromSlug(slug);
-  if (!game) notFound();
+  const hash = LEGACY_SLUGS[slug] ?? slug;
+  if (!GAME_DEV_DIRECTORY.some((entry) => entry.id === hash)) notFound();
 
-  return (
-    <main className="relative flex min-h-dvh flex-col justify-end px-6 py-24 sm:px-12 lg:px-20">
-      <div className="max-w-3xl">
-        <Link
-          href="/passion/game-dev"
-          className="text-fire-gold/70 hover:text-fire-gold text-sm tracking-[0.18em] uppercase transition-colors"
-        >
-          ← Back to Game Dev
-        </Link>
-        <h1 className="font-fire text-fire-gold mt-6 text-5xl leading-[0.95] tracking-wide sm:text-7xl">
-          {game.label}
-        </h1>
-        <p className="text-mist mt-5 max-w-md text-lg">{game.blurb}</p>
-        <p className="border-fire-gold/40 bg-fire/20 text-fire-gold mt-10 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm shadow-[0_0_30px_rgba(255,90,20,0.35)] backdrop-blur-sm">
-          <span
-            aria-hidden
-            className="size-2 animate-pulse rounded-full bg-current"
-          />
-          Game page still kindling — details soon
-        </p>
-      </div>
-    </main>
-  );
+  return <RedirectToGameDevHash hash={hash} />;
 }

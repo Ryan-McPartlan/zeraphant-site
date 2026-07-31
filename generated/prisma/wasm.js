@@ -109,6 +109,14 @@ exports.Prisma.PraiseSubmissionScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.GardenTipScalarFieldEnum = {
+  id: 'id',
+  body: 'body',
+  fromName: 'fromName',
+  stamp: 'stamp',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -131,7 +139,8 @@ exports.PraiseKind = exports.$Enums.PraiseKind = {
 
 exports.Prisma.ModelName = {
   Post: 'Post',
-  PraiseSubmission: 'PraiseSubmission'
+  PraiseSubmission: 'PraiseSubmission',
+  GardenTip: 'GardenTip'
 };
 /**
  * Create the Client
@@ -172,6 +181,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -180,13 +190,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([name])\n}\n\nenum PraiseKind {\n  MESSAGE\n  AUDIO\n  DRAWING\n}\n\nmodel PraiseSubmission {\n  id        String     @id @default(cuid())\n  kind      PraiseKind\n  /// Admiration text, or optional note for audio/drawing\n  message   String?\n  /// Optional signer name\n  fromName  String?\n  /// data URL for audio (webm/ogg) or drawing (png)\n  mediaData String?\n  createdAt DateTime   @default(now())\n\n  @@index([kind])\n  @@index([createdAt])\n}\n",
-  "inlineSchemaHash": "d53c6a96bfb0af1d1499ecf5dfc2eac80e057ec3249a5c8cac209606d00d8596",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([name])\n}\n\nenum PraiseKind {\n  MESSAGE\n  AUDIO\n  DRAWING\n}\n\nmodel PraiseSubmission {\n  id        String     @id @default(cuid())\n  kind      PraiseKind\n  /// Admiration text, or optional note for audio/drawing\n  message   String?\n  /// Optional signer name\n  fromName  String?\n  /// data URL for audio (webm/ogg) or drawing (png)\n  mediaData String?\n  createdAt DateTime   @default(now())\n\n  @@index([kind])\n  @@index([createdAt])\n}\n\n/// Community advice for nurturing connections (\"Watering the garden\")\nmodel GardenTip {\n  id        String   @id @default(cuid())\n  body      String\n  /// Optional signer name\n  fromName  String?\n  /// Index into letter stamp set (0 = default / legacy)\n  stamp     Int      @default(0)\n  createdAt DateTime @default(now())\n\n  @@index([createdAt])\n}\n",
+  "inlineSchemaHash": "574a5f34bb5ff05a4aece0bae57345164ddd774dc588cc7eb56d6e1bfb4bb58d",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"PraiseSubmission\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"kind\",\"kind\":\"enum\",\"type\":\"PraiseKind\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fromName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"mediaData\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"PraiseSubmission\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"kind\",\"kind\":\"enum\",\"type\":\"PraiseKind\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fromName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"mediaData\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"GardenTip\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"body\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fromName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"stamp\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

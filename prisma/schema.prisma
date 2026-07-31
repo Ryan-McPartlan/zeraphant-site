@@ -40,3 +40,16 @@ model PraiseSubmission {
   @@index([kind])
   @@index([createdAt])
 }
+
+/// Community advice for nurturing connections ("Watering the garden")
+model GardenTip {
+  id        String   @id @default(cuid())
+  body      String
+  /// Optional signer name
+  fromName  String?
+  /// Index into letter stamp set (0 = default / legacy)
+  stamp     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
