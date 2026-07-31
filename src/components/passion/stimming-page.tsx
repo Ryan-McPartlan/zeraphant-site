@@ -256,14 +256,14 @@ function StimDial({
 export function StimmingPage() {
   const [levels, setLevels] = useState<Record<StimphonyDialId, number>>(
     () =>
-      Object.fromEntries(STIMPHONY_DIALS.map((d) => [d.id, 0])) as Record<
+      Object.fromEntries(STIMPHONY_DIALS.map((d) => [d.id, 6])) as Record<
         StimphonyDialId,
         number
       >,
   );
   const [volumes, setVolumes] = useState<Record<StimphonyDialId, number>>(
     () =>
-      Object.fromEntries(STIMPHONY_DIALS.map((d) => [d.id, 0.85])) as Record<
+      Object.fromEntries(STIMPHONY_DIALS.map((d) => [d.id, 0.02])) as Record<
         StimphonyDialId,
         number
       >,
@@ -345,7 +345,7 @@ export function StimmingPage() {
                 key={dial.id}
                 dial={dial}
                 level={levels[dial.id] ?? 0}
-                volume={volumes[dial.id] ?? 0.85}
+                volume={volumes[dial.id] ?? 0.2}
                 onLevelChange={(next) =>
                   setLevels((prev) => ({ ...prev, [dial.id]: next }))
                 }

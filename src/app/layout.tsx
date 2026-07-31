@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     default: "Zeraphant",
     template: "%s · Zeraphant",
   },
-  description: "A personal site with too much personality and a weird cursor.",
+  description: "Ryan's personal site",
   icons: [
     { rel: "icon", url: "/zeraph.png", type: "image/png" },
     { rel: "apple-touch-icon", url: "/zeraph.png" },

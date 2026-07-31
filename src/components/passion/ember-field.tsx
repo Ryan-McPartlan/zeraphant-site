@@ -393,7 +393,7 @@ export function EmberField() {
       setEmbers((prev) =>
         prev.map((e) => (e.slug === slug ? { ...e, phase: "hidden" } : e)),
       );
-      schedule(slug, rand(1200, 10000), () => ignite(slug));
+      schedule(slug, rand(840, 7000), () => ignite(slug));
     };
 
     const beginAsh = (slug: string) => {
@@ -412,7 +412,7 @@ export function EmberField() {
     const ignite = (slug: string) => {
       const engine = engineRef.current;
       if (!engine) {
-        schedule(slug, rand(200, 900), () => ignite(slug));
+        schedule(slug, rand(140, 630), () => ignite(slug));
         return;
       }
 
@@ -494,7 +494,7 @@ export function EmberField() {
 
     const order = [...PASSION_TOPICS].sort(() => Math.random() - 0.5);
     for (const topic of order) {
-      schedule(topic.slug, rand(150, 20000), () => ignite(topic.slug));
+      schedule(topic.slug, rand(105, 14000), () => ignite(topic.slug));
     }
 
     return () => {

@@ -91,18 +91,18 @@ export const STIMPHONY_PRESETS: StimphonyPreset[] = [
   {
     id: "asmr",
     label: "ASMR",
-    levels: [0, 10, 0, 0],
-    volumes: [50, 6, 50, 50],
+    levels: [0, 11, 0, 0],
+    volumes: [50, 5, 50, 50],
   },
   {
     id: "theater-kid",
     label: "Theater Kid",
     levels: [5, 10, 0, 10],
-    volumes: [65, 20, 50, 60],
+    volumes: [65, 20, 50, 70],
   },
   {
-    id: "stage-pull",
-    label: "Stage pull",
+    id: "get-off-the-stage",
+    label: "Get off the stage",
     levels: [0, 0, 4, 0],
     volumes: [50, 50, 100, 50],
   },
@@ -115,8 +115,8 @@ export const STIMPHONY_PRESETS: StimphonyPreset[] = [
   {
     id: "rockstar",
     label: "Rockstar",
-    levels: [5, 8, 0, 9],
-    volumes: [55, 6, 50, 10],
+    levels: [8, 8, 11, 9],
+    volumes: [100, 6, 5, 20],
   },
 ];
 
