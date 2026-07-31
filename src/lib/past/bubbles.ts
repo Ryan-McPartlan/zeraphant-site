@@ -31,13 +31,13 @@ export const TIMELINE_BUBBLES: TimelineBubble[] = [
     thread: "void",
     year: 2019.5,
     title: "Start existential crisis",
-    body: "Placeholder — the void opens. (Copy coming.)",
+    body: "Placeholder",
   },
   {
     id: "2019-crisis-end",
     thread: "silver",
     year: 2019.75,
     title: "End existential crisis",
-    body: "Placeholder — honor, passion, and connection converge. (Copy coming.)",
+    body: "Placeholder",
   },
 ];

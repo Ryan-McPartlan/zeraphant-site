@@ -53,6 +53,7 @@ export const praiseRouter = createTRPCRouter({
             "Expected an audio data URL",
           ),
         fromName: z.string().trim().max(MAX_NAME).optional(),
+        leaderboardConsent: z.boolean().optional(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -60,6 +61,7 @@ export const praiseRouter = createTRPCRouter({
         emailPraiseAudio({
           mediaData: input.mediaData,
           fromName: input.fromName,
+          leaderboardConsent: input.leaderboardConsent ?? false,
         }),
       );
     }),

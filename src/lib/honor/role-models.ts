@@ -43,7 +43,7 @@ export const ROLE_MODEL_TABS: RoleModelTab[] = [
         ],
       },
       { id: "betty-malone", name: "Betty Malone" },
-      { id: "alex-greico", name: "Alex Greico" },
+      { id: "alex-grieco", name: "Alex Grieco" },
       {
         id: "cole-rosado",
         name: "Cole Rosado",
@@ -60,8 +60,8 @@ export const ROLE_MODEL_TABS: RoleModelTab[] = [
     id: "media",
     label: "Media Figures",
     models: [
-      { id: "steven-bonnell", name: "Steven Bonnell" },
-      { id: "greg-guevara", name: "Greg Guevara" },
+      { id: "steven-bonnell", name: "Steven Kenneth Bonnell II" },
+      { id: "gregory-guevara", name: "Gregory Guevara" },
       { id: "jordan-peterson", name: "Jordan Peterson" },
       { id: "ben-shapiro", name: "Ben Shapiro" },
     ],

@@ -67,6 +67,12 @@ export default function HonorPage() {
           >
             Role Models
           </Link>
+          <Link
+            href="/honor/the-path"
+            className="text-iron-bright hover:text-sky border-iron-bright/35 inline-flex border-b pb-0.5 text-lg tracking-wide transition-colors"
+          >
+            My Path
+          </Link>
         </nav>
       </div>
     </main>

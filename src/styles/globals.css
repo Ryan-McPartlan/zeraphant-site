@@ -219,6 +219,59 @@
     animation: fire-flicker 2.6s ease-in-out infinite reverse;
   }
 
+  .good-boy-send {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+  }
+
+  .good-boy-send__embers {
+    pointer-events: none;
+    position: absolute;
+    inset: -0.75rem -0.5rem -0.35rem;
+    overflow: hidden;
+    border-radius: 999px;
+    z-index: 0;
+  }
+
+  .good-boy-send__ember {
+    position: absolute;
+    bottom: 10%;
+    border-radius: 999px;
+    background: radial-gradient(
+      circle,
+      #fff1a8 0%,
+      #ff7a18 40%,
+      #ff3b1f 75%,
+      transparent 100%
+    );
+    box-shadow: 0 0 8px rgba(255, 90, 20, 0.85);
+    opacity: 0;
+    animation: good-boy-ember-rise ease-out infinite;
+  }
+
+  .good-boy-send:disabled .good-boy-send__ember {
+    animation-play-state: paused;
+    opacity: 0;
+  }
+
+  @keyframes good-boy-ember-rise {
+    0% {
+      transform: translate3d(0, 6px, 0) scale(0.7);
+      opacity: 0;
+    }
+    12% {
+      opacity: 1;
+    }
+    65% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: translate3d(var(--ember-drift, 8px), -42px, 0) scale(0.15);
+      opacity: 0;
+    }
+  }
+
   .site-noise::before {
     content: "";
     pointer-events: none;
@@ -315,6 +368,70 @@
 
   .animate-page-in {
     animation: page-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes construction-truck-right {
+    0% {
+      left: -12rem;
+      transform: scaleX(-1);
+    }
+    49% {
+      left: calc(100% + 2rem);
+      transform: scaleX(-1);
+    }
+    50% {
+      left: calc(100% + 2rem);
+      transform: scaleX(1);
+    }
+    100% {
+      left: -12rem;
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes construction-truck-left {
+    0% {
+      left: calc(100% + 2rem);
+      transform: scaleX(1);
+    }
+    49% {
+      left: -12rem;
+      transform: scaleX(1);
+    }
+    50% {
+      left: -12rem;
+      transform: scaleX(-1);
+    }
+    100% {
+      left: calc(100% + 2rem);
+      transform: scaleX(-1);
+    }
+  }
+
+  @keyframes construction-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  .construction-truck-right {
+    animation: construction-truck-right 22s linear infinite;
+  }
+
+  .construction-truck-left {
+    animation: construction-truck-left 28s linear infinite;
+  }
+
+  .construction-barrel {
+    animation: construction-bob 2.8s ease-in-out infinite;
+  }
+
+  .construction-flag-bob {
+    animation: construction-bob 3.4s ease-in-out infinite;
   }
 
   .animate-float-orb {
@@ -1224,6 +1341,10 @@
     .animate-hourglass-sand-top,
     .animate-hourglass-sand-bottom,
     .animate-hourglass-stream,
+    .construction-truck-right,
+    .construction-truck-left,
+    .construction-barrel,
+    .construction-flag-bob,
     .animate-hourglass-grain,
     .home-slab--honor .home-slab__shine,
     .home-slab--connection .home-slab__shine,

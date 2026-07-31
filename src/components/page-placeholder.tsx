@@ -34,7 +34,7 @@ export function PagePlaceholder({
             aria-hidden
             className="size-2 animate-pulse rounded-full bg-current"
           />
-          Placeholder room — furniture arriving soon
+          Placeholder
         </p>
       </div>
     </main>

@@ -186,6 +186,17 @@ export const CONNECTION_NODES: ConnectionNode[] = [
     glow: 2,
   },
   {
+    id: "jreg-community",
+    label: "CANADIAN CYBERNETIC CULTURAL RESEARCH UNIT",
+    shortLabel: "CCCRU",
+    subtitle: "Jreg's asylum",
+    blurb:
+      'My framework of "connection" is modeled directly off Jreg\'s devotion to "Community". I admire the work he did to build his community, and it\'s a major inspiration for my future community building projects.\n\nI am optimistic about integrating with these guys at some point — once I am full steam ahead on community building I\'ll probably reach out.\n\nJreg told me at the NY event "Ya, ya you seem cool, ya, you could — you would be cool to visit." but he was kinda wincing like he was trying to let me down easy. He\'s a hard guy to read so I\'m going to assume he wants me to be his best friend.',
+    image: "/connection/cccru.png",
+    size: "sm",
+    glow: 3,
+  },
+  {
     id: "dggp",
     label: "Digital Ground Game",
     shortLabel: "Digital Ground Game",
@@ -600,6 +611,7 @@ export const CONNECTION_EDGES: ConnectionEdge[] = [
   { from: "community", to: "gaming", stiffness: 0.014 },
   { from: "dgg", to: "dggp", stiffness: 0.01 },
   { from: "dgg", to: "superego", stiffness: 0.016 },
+  { from: "dgg", to: "jreg-community", stiffness: 0.014 },
   { from: "ea", to: "fractal", stiffness: 0.016 },
   { from: "fractal", to: "nyc", stiffness: 0.016 },
   { from: "fractal", to: "software-startups", stiffness: 0.014 },

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -309,11 +310,17 @@ export function LifeTimeline() {
       {mounted ? createPortal(yearNav, document.body) : null}
 
       <div className="pointer-events-none fixed top-20 left-6 z-20 max-w-xs sm:left-12 lg:left-20">
-        <p className="text-mist/70 text-sm tracking-[0.22em] uppercase">
-          The past
+        <Link
+          href="/honor"
+          className="text-mist/70 hover:text-foam pointer-events-auto text-sm tracking-[0.18em] uppercase transition-colors"
+        >
+          ← Honor
+        </Link>
+        <p className="text-mist/70 mt-6 text-sm tracking-[0.22em] uppercase">
+          Honor
         </p>
         <h1 className="font-display text-foam mt-2 text-4xl tracking-tight sm:text-5xl">
-          Life line
+          My Path
         </h1>
         <p className="text-mist/75 mt-3 text-sm">
           One scroll = one year. Open a bubble for story, picture, and stats

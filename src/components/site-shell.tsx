@@ -5,7 +5,9 @@ import { usePathname } from "next/navigation";
 import { ClickParticles } from "~/components/click-particles";
 import { FunnyCursor } from "~/components/funny-cursor";
 import { NavBubble } from "~/components/nav-bubble";
+import { UnderConstructionDecor } from "~/components/under-construction";
 import { themeFromPath } from "~/lib/themes";
+import { isUnderConstruction } from "~/lib/under-construction";
 
 const ORB_A: Record<string, string> = {
   home: "bg-silver/25",
@@ -29,6 +31,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const theme = themeFromPath(pathname);
   const isPlainDoc = pathname.startsWith("/honor/career");
+  const underConstruction = isUnderConstruction(pathname);
 
   if (isPlainDoc) {
     return (
@@ -67,6 +70,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <NavBubble />
       <FunnyCursor themeId={theme.id} pathname={pathname} />
       <ClickParticles pathname={pathname} />
+
+      {underConstruction ? <UnderConstructionDecor /> : null}
 
       <div key={pathname} className="animate-page-in relative z-10">
         {children}

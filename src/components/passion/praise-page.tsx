@@ -53,6 +53,19 @@ const BACKDROPS: Record<TabId, string> = {
     "bg-[radial-gradient(ellipse_70%_55%_at_50%_10%,rgba(255,210,74,0.32),transparent_55%),radial-gradient(ellipse_50%_40%_at_70%_90%,rgba(255,209,102,0.14),transparent_50%),linear-gradient(165deg,#141004_0%,#1a1404_50%,#3a2a08_100%)]",
 };
 
+const GOOD_BOY_EMBERS = [
+  { left: "8%", size: "5px", dur: "1.1s", delay: "0s", drift: "10px" },
+  { left: "22%", size: "4px", dur: "1.35s", delay: "0.2s", drift: "-8px" },
+  { left: "38%", size: "6px", dur: "1.05s", delay: "0.45s", drift: "14px" },
+  { left: "52%", size: "4px", dur: "1.4s", delay: "0.1s", drift: "-12px" },
+  { left: "66%", size: "5px", dur: "1.15s", delay: "0.55s", drift: "6px" },
+  { left: "78%", size: "3px", dur: "1.25s", delay: "0.3s", drift: "-10px" },
+  { left: "90%", size: "5px", dur: "1.2s", delay: "0.7s", drift: "8px" },
+  { left: "30%", size: "3px", dur: "0.95s", delay: "0.85s", drift: "-6px" },
+  { left: "58%", size: "4px", dur: "1.3s", delay: "0.4s", drift: "11px" },
+  { left: "14%", size: "3px", dur: "1.1s", delay: "0.95s", drift: "-14px" },
+] as const;
+
 export function PraisePage() {
   const [tab, setTab] = useState<TabId>("muscle");
 
@@ -207,24 +220,46 @@ function GoodManPanel() {
 }
 
 function GoodBoyPanel() {
+  const [unlocked, setUnlocked] = useState(false);
   const [fromName, setFromName] = useState("");
+  const [leaderboardConsent, setLeaderboardConsent] = useState(false);
   const [recording, setRecording] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
   const [dataUrl, setDataUrl] = useState<string | null>(null);
   const [done, setDone] = useState(false);
   const [micError, setMicError] = useState<string | null>(null);
+  type BoardEntry = { rank: number; name: string; src: string };
+  const [board, setBoard] = useState<BoardEntry[]>([]);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
   const tickRef = useRef<number | null>(null);
+  const boardAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    void fetch("/api/praise/good-boy-leaderboard")
+      .then((res) => res.json() as Promise<{ entries?: BoardEntry[] }>)
+      .then((data) => {
+        if (Array.isArray(data.entries)) setBoard(data.entries);
+      })
+      .catch(() => {
+        setBoard([]);
+      });
+
+    return () => {
+      boardAudioRef.current?.pause();
+      boardAudioRef.current = null;
+    };
+  }, []);
 
   const submit = api.praise.submitAudio.useMutation({
     onSuccess: () => {
       setDone(true);
       cleanupPreview();
       setFromName("");
+      setLeaderboardConsent(false);
     },
   });
 
@@ -311,6 +346,7 @@ function GoodBoyPanel() {
     submit.mutate({
       mediaData: dataUrl,
       fromName: fromName.trim() || undefined,
+      leaderboardConsent,
     });
   }
 
@@ -324,71 +360,171 @@ function GoodBoyPanel() {
       <h2 className="font-display text-fire text-3xl leading-[1.05] tracking-tight sm:text-4xl">
         Tell me I&apos;m a Good Boy.
       </h2>
-      <p className="mt-3 text-[#f0a898]">
-        Record your most salacious &ldquo;good boy&rdquo; for me. Ten seconds.
-        Make it count.
-      </p>
 
-      {done ? (
-        <p className="font-display text-fire-gold mt-10 text-2xl">
-          Locked in. My ears are tingling.
-        </p>
-      ) : (
-        <div className="mt-8 space-y-6">
-          <div className="flex flex-wrap items-center gap-4">
-            {!recording ? (
-              <button
-                type="button"
-                onClick={startRecording}
-                className="bg-fire rounded-full px-7 py-3 text-sm font-semibold tracking-[0.14em] text-white uppercase shadow-[0_0_28px_rgba(255,59,31,0.45)] transition hover:brightness-110"
-              >
-                {blobUrl ? "Re-record" : "Hold the mic"}
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={stopRecording}
-                className="border-fire bg-fire/20 text-fire-gold animate-pulse rounded-full border-2 px-7 py-3 text-sm font-semibold tracking-[0.14em] uppercase"
-              >
-                Stop · {seconds}s
-              </button>
-            )}
-            {blobUrl && !recording ? (
-              <button
-                type="button"
-                onClick={send}
-                disabled={!dataUrl || submit.isPending}
-                className="bg-fire-gold rounded-full px-7 py-3 text-sm font-semibold tracking-[0.14em] text-[#1a0604] uppercase transition hover:brightness-105 disabled:opacity-40"
-              >
-                {submit.isPending ? "Sending…" : "Send good boy"}
-              </button>
-            ) : null}
-          </div>
+      <div className="relative mt-3 min-h-[24rem]">
+        {!unlocked ? (
+          <button
+            type="button"
+            onClick={() => setUnlocked(true)}
+            className="border-fire/40 hover:border-fire/70 absolute inset-0 z-20 flex cursor-pointer flex-col items-center justify-center rounded-3xl border bg-gradient-to-b from-[#1a0604]/97 to-[#3a0c08]/95 px-6 py-16 text-center shadow-[0_0_48px_rgba(255,59,31,0.25)] backdrop-blur-md transition hover:shadow-[0_0_56px_rgba(255,59,31,0.4)]"
+          >
+            <span className="text-fire-gold text-sm tracking-[0.28em] uppercase">
+              Trigger warning
+            </span>
+            <span className="font-fire text-fire mt-4 text-3xl tracking-wide sm:text-4xl">
+              Salacious good boys
+            </span>
+            <span className="mt-6 text-sm text-[#f0a898]/85">
+              Tap anywhere to continue
+            </span>
+          </button>
+        ) : null}
 
-          {blobUrl ? (
-            <audio controls src={blobUrl} className="w-full max-w-md" />
-          ) : null}
+        <div
+          aria-hidden={!unlocked}
+          inert={!unlocked ? true : undefined}
+          className={!unlocked ? "blur-[2px] select-none" : undefined}
+        >
+          <p className="text-[#f0a898]">
+            Record your most salacious &ldquo;good boy&rdquo; for me.
+          </p>
 
-          <label className="block max-w-md">
-            <span className="sr-only">Your name</span>
-            <input
-              type="text"
-              value={fromName}
-              onChange={(e) => setFromName(e.target.value)}
-              maxLength={80}
-              placeholder="Your name (optional)"
-              className="border-fire/40 focus:border-fire-gold focus:ring-fire-gold/30 w-full rounded-2xl border bg-[#1a0604]/70 px-5 py-3 text-[#ffe8e0] outline-none placeholder:text-[#c08070]/70 focus:ring-2"
-            />
-          </label>
-
-          {micError ? <p className="text-coral text-sm">{micError}</p> : null}
-          {submit.error ? (
-            <p className="text-coral text-sm">
-              Couldn&apos;t send — try a shorter take.
+          {done ? (
+            <p className="font-display text-fire-gold mt-10 text-2xl">
+              Locked in. My ears are tingling.
             </p>
-          ) : null}
+          ) : (
+            <div className="mt-8 space-y-6">
+              <div className="flex flex-wrap items-center gap-4">
+                {!recording ? (
+                  <button
+                    type="button"
+                    onClick={startRecording}
+                    className="bg-fire rounded-full px-7 py-3 text-sm font-semibold tracking-[0.14em] text-white uppercase shadow-[0_0_28px_rgba(255,59,31,0.45)] transition hover:brightness-110"
+                  >
+                    {blobUrl ? "Re-record" : "Hold the mic"}
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={stopRecording}
+                    className="border-fire bg-fire/20 text-fire-gold animate-pulse rounded-full border-2 px-7 py-3 text-sm font-semibold tracking-[0.14em] uppercase"
+                  >
+                    Stop · {seconds}s
+                  </button>
+                )}
+                {blobUrl && !recording ? (
+                  <button
+                    type="button"
+                    onClick={send}
+                    disabled={!dataUrl || submit.isPending}
+                    className="good-boy-send bg-fire animate-fire-flicker rounded-full px-7 py-3 text-sm font-semibold tracking-[0.14em] text-white uppercase shadow-[0_0_32px_rgba(255,59,31,0.65)] transition hover:brightness-110 disabled:opacity-40"
+                  >
+                    <span aria-hidden className="good-boy-send__embers">
+                      {GOOD_BOY_EMBERS.map((ember, index) => (
+                        <span
+                          key={index}
+                          className="good-boy-send__ember"
+                          style={{
+                            left: ember.left,
+                            width: ember.size,
+                            height: ember.size,
+                            animationDuration: ember.dur,
+                            animationDelay: ember.delay,
+                            ["--ember-drift" as string]: ember.drift,
+                          }}
+                        />
+                      ))}
+                    </span>
+                    <span className="relative z-10">
+                      {submit.isPending ? "Sending…" : "Send good boy"}
+                    </span>
+                  </button>
+                ) : null}
+              </div>
+
+              {blobUrl ? (
+                <audio controls src={blobUrl} className="w-full max-w-md" />
+              ) : null}
+
+              <label className="block max-w-md">
+                <span className="sr-only">Your name</span>
+                <input
+                  type="text"
+                  value={fromName}
+                  onChange={(e) => setFromName(e.target.value)}
+                  maxLength={80}
+                  placeholder="Your name (optional)"
+                  className="border-fire/40 focus:border-fire-gold focus:ring-fire-gold/30 w-full rounded-2xl border bg-[#1a0604]/70 px-5 py-3 text-[#ffe8e0] outline-none placeholder:text-[#c08070]/70 focus:ring-2"
+                />
+              </label>
+
+              <label className="flex max-w-lg cursor-pointer items-start gap-3 text-sm text-[#f0a898]">
+                <input
+                  type="checkbox"
+                  checked={leaderboardConsent}
+                  onChange={(e) => setLeaderboardConsent(e.target.checked)}
+                  className="border-fire/50 text-fire focus:ring-fire mt-0.5 size-4 shrink-0 rounded accent-[#ff3b1f]"
+                />
+                <span>
+                  I consent to have my good boy ranked on the public leaderboard
+                </span>
+              </label>
+
+              {micError ? (
+                <p className="text-coral text-sm">{micError}</p>
+              ) : null}
+              {submit.error ? (
+                <p className="text-coral text-sm">
+                  Couldn&apos;t send — try a shorter take.
+                </p>
+              ) : null}
+            </div>
+          )}
+
+          <section className="border-fire/25 mt-12 border-t pt-8">
+            <h3 className="font-fire text-fire-gold text-2xl tracking-wide sm:text-3xl">
+              Good Boy leaderboard
+            </h3>
+            <p className="mt-2 text-sm text-[#f0a898]/80">
+              Ranked by salaciousness. Tap to listen.
+            </p>
+
+            {board.length === 0 ? (
+              <p className="text-mist/70 mt-6 text-sm">
+                No rankings yet — be the first to earn a spot.
+              </p>
+            ) : (
+              <ol className="mt-6 space-y-2">
+                {board.map((entry) => (
+                  <li key={`${entry.rank}-${entry.name}-${entry.src}`}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        boardAudioRef.current?.pause();
+                        const audio = new Audio(entry.src);
+                        boardAudioRef.current = audio;
+                        void audio.play().catch(() => undefined);
+                      }}
+                      className="border-fire/25 hover:border-fire/50 hover:bg-fire/10 group flex w-full items-center gap-4 rounded-2xl border bg-[#1a0604]/55 px-4 py-3 text-left transition-colors"
+                    >
+                      <span className="font-display text-fire-gold w-8 shrink-0 text-lg tabular-nums">
+                        {entry.rank}
+                      </span>
+                      <span className="font-display group-hover:text-fire-gold text-lg text-[#ffe8e0]">
+                        {entry.name}
+                      </span>
+                      <span className="text-fire/70 ml-auto text-xs tracking-[0.14em] uppercase">
+                        Play
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </section>
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -501,7 +637,7 @@ function GoodPersonPanel() {
         Tell me I&apos;m a Good Person.
       </h2>
       <p className="mt-3 text-[#e8d49a]">
-        Draw a symbol of a day I made you smile.
+        Remind me of a time we shared a smile with a captioned drawing.
       </p>
 
       {done ? (
@@ -517,7 +653,7 @@ function GoodPersonPanel() {
             onPointerUp={onPointerUp}
             onPointerLeave={onPointerUp}
             className="border-gold/45 h-64 w-full touch-none rounded-2xl border shadow-[0_0_40px_rgba(255,210,74,0.15)] sm:h-72"
-            aria-label="Drawing canvas for a symbol of a day I made you smile"
+            aria-label="Drawing canvas for a shared smile memory"
           />
           <div className="flex flex-wrap gap-3">
             <button
@@ -533,7 +669,7 @@ function GoodPersonPanel() {
               disabled={!hasMarks || submit.isPending}
               className="bg-gold rounded-full px-7 py-2.5 text-sm font-semibold tracking-[0.14em] text-[#1a1404] uppercase transition hover:brightness-105 disabled:opacity-40"
             >
-              {submit.isPending ? "Sending…" : "Send drawing"}
+              {submit.isPending ? "Sending…" : "Send a smile"}
             </button>
           </div>
           <label className="block">

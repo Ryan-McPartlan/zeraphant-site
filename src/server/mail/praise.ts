@@ -51,14 +51,18 @@ export async function emailPraiseMessage(opts: {
 export async function emailPraiseAudio(opts: {
   mediaData: string;
   fromName?: string;
+  leaderboardConsent?: boolean;
 }) {
   const who = opts.fromName?.trim() || "Anonymous";
   const { base64, extension } = parseDataUrl(opts.mediaData);
+  const consentLine = opts.leaderboardConsent
+    ? "Leaderboard consent: YES — may rank publicly."
+    : "Leaderboard consent: no.";
   const { error } = await resend.emails.send({
     from: env.PRAISE_FROM_EMAIL,
     to: INBOX,
     subject: `Praise · Good Boy — from ${who}`,
-    text: `${who} sent a good boy.\n\nAudio attached.`,
+    text: `${who} sent a good boy.\n\n${consentLine}\n\nAudio attached.`,
     attachments: [
       {
         filename: `good-boy-${Date.now()}.${extension}`,

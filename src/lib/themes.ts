@@ -101,8 +101,8 @@ export const THEMES: Record<ParticleThemeId, ThemeConfig> = {
 export function themeFromPath(pathname: string): ThemeConfig {
   if (pathname === "/") return THEMES.home;
   if (pathname.startsWith("/passion")) return THEMES.passion;
+  if (pathname.startsWith("/honor/the-path")) return THEMES.past;
   if (pathname.startsWith("/honor")) return THEMES.honor;
   if (pathname.startsWith("/connection")) return THEMES.connection;
-  if (pathname.startsWith("/the-past")) return THEMES.past;
   return THEMES.default;
 }
