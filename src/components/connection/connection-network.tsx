@@ -235,11 +235,6 @@ export function ConnectionNetwork() {
   const nodeRefs = useRef<Map<string, HTMLElement>>(new Map());
   const bodiesRef = useRef<Map<string, Matter.Body>>(new Map());
   const engineRef = useRef<Matter.Engine | null>(null);
-  const mouseRef = useRef<Matter.Mouse | null>(null);
-  const dragMoved = useRef(false);
-  const pointerDownAt = useRef<{ x: number; y: number; id: string } | null>(
-    null,
-  );
   const shockId = useRef(0);
 
   const [openId, setOpenId] = useState<string | null>(null);
@@ -283,17 +278,8 @@ export function ConnectionNetwork() {
     const root = containerRef.current;
     if (!root) return;
 
-    const {
-      Engine,
-      Bodies,
-      Composite,
-      Runner,
-      Events,
-      Body,
-      Constraint,
-      Mouse,
-      MouseConstraint,
-    } = Matter;
+    const { Engine, Bodies, Composite, Runner, Events, Body, Constraint } =
+      Matter;
 
     const engine = Engine.create({
       gravity: { x: 0, y: 0, scale: 0.001 },
@@ -379,26 +365,6 @@ export function ConnectionNetwork() {
         }),
       );
     }
-
-    const mouse = Mouse.create(root);
-    mouseRef.current = mouse;
-    mouse.pixelRatio = window.devicePixelRatio || 1;
-    const mouseConstraint = MouseConstraint.create(engine, {
-      mouse,
-      constraint: {
-        stiffness: 0.18,
-        damping: 0.12,
-        render: { visible: false },
-      },
-    });
-    Composite.add(engine.world, mouseConstraint);
-
-    Events.on(mouseConstraint, "startdrag", () => {
-      dragMoved.current = false;
-    });
-    Events.on(mouseConstraint, "enddrag", () => {
-      // handled in pointerup
-    });
 
     Events.on(engine, "beforeUpdate", () => {
       const bodies = [...bodiesRef.current.values()];
@@ -515,24 +481,6 @@ export function ConnectionNetwork() {
     };
   }, [reduceMotion]);
 
-  // Sync mouse offset for scrolled containers
-  useEffect(() => {
-    const root = containerRef.current;
-    const mouse = mouseRef.current;
-    if (!root || !mouse) return;
-    const sync = () => {
-      const rect = root.getBoundingClientRect();
-      Matter.Mouse.setOffset(mouse, { x: -rect.left, y: -rect.top });
-    };
-    sync();
-    window.addEventListener("scroll", sync, true);
-    window.addEventListener("resize", sync);
-    return () => {
-      window.removeEventListener("scroll", sync, true);
-      window.removeEventListener("resize", sync);
-    };
-  }, [reduceMotion]);
-
   const shockFromEvent = (e: React.PointerEvent, strength = 0.1) => {
     const root = containerRef.current;
     if (!root) return;
@@ -548,9 +496,6 @@ export function ConnectionNetwork() {
 
   const onPointerDown = (id: string, e: React.PointerEvent) => {
     e.stopPropagation();
-    pointerDownAt.current = { x: e.clientX, y: e.clientY, id };
-    dragMoved.current = false;
-    // Open immediately so small bubbles don't bounce away before pointerup
     setOpenId(id);
     const clientX = e.clientX;
     const clientY = e.clientY;
@@ -560,18 +505,6 @@ export function ConnectionNetwork() {
       const rect = root.getBoundingClientRect();
       applyShockwave(clientX - rect.left, clientY - rect.top, 0.08);
     }, 120);
-  };
-
-  const onPointerMove = (e: React.PointerEvent) => {
-    const start = pointerDownAt.current;
-    if (!start) return;
-    if (Math.hypot(e.clientX - start.x, e.clientY - start.y) > 8) {
-      dragMoved.current = true;
-    }
-  };
-
-  const onPointerUp = (_id: string, _e: React.PointerEvent) => {
-    pointerDownAt.current = null;
   };
 
   const openNode = openId ? connectionNodeById(openId) : null;
@@ -602,7 +535,6 @@ export function ConnectionNetwork() {
         ref={containerRef}
         className="relative h-full w-full touch-none overflow-hidden"
         onPointerDown={onBackgroundPointerDown}
-        onPointerMove={onPointerMove}
       >
         <svg
           ref={svgRef}
@@ -664,7 +596,6 @@ export function ConnectionNetwork() {
                 willChange: "transform",
               }}
               onPointerDown={(e) => onPointerDown(node.id, e)}
-              onPointerUp={(e) => onPointerUp(node.id, e)}
             >
               <div style={{ width: r * 2, height: r * 2 }}>
                 <BubbleFace node={node} radius={r} />

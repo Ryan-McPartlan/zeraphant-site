@@ -49,6 +49,8 @@ model GardenTip {
   fromName  String?
   /// Index into letter stamp set (0 = default / legacy)
   stamp     Int      @default(0)
+  /// Soft gold backglow on the letter ball (set in DB / Prisma Studio)
+  backglow  Boolean  @default(false)
   createdAt DateTime @default(now())
 
   @@index([createdAt])

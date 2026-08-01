@@ -18,10 +18,11 @@ export const gardenTipRouter = createTRPCRouter({
         body: string;
         fromName: string | null;
         stamp: number;
+        backglow: boolean;
         createdAt: Date;
       }>
     >(
-      `SELECT id, body, "fromName", stamp, "createdAt" FROM "GardenTip" ORDER BY RANDOM() LIMIT ${BALL_SAMPLE_SIZE}`,
+      `SELECT id, body, "fromName", stamp, backglow, "createdAt" FROM "GardenTip" ORDER BY RANDOM() LIMIT ${BALL_SAMPLE_SIZE}`,
     );
   }),
 
@@ -47,6 +48,7 @@ export const gardenTipRouter = createTRPCRouter({
             body: true,
             fromName: true,
             stamp: true,
+            backglow: true,
             createdAt: true,
           },
         });

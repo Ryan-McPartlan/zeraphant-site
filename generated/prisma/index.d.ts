@@ -3392,6 +3392,7 @@ export namespace Prisma {
     body: string | null
     fromName: string | null
     stamp: number | null
+    backglow: boolean | null
     createdAt: Date | null
   }
 
@@ -3400,6 +3401,7 @@ export namespace Prisma {
     body: string | null
     fromName: string | null
     stamp: number | null
+    backglow: boolean | null
     createdAt: Date | null
   }
 
@@ -3408,6 +3410,7 @@ export namespace Prisma {
     body: number
     fromName: number
     stamp: number
+    backglow: number
     createdAt: number
     _all: number
   }
@@ -3426,6 +3429,7 @@ export namespace Prisma {
     body?: true
     fromName?: true
     stamp?: true
+    backglow?: true
     createdAt?: true
   }
 
@@ -3434,6 +3438,7 @@ export namespace Prisma {
     body?: true
     fromName?: true
     stamp?: true
+    backglow?: true
     createdAt?: true
   }
 
@@ -3442,6 +3447,7 @@ export namespace Prisma {
     body?: true
     fromName?: true
     stamp?: true
+    backglow?: true
     createdAt?: true
     _all?: true
   }
@@ -3537,6 +3543,7 @@ export namespace Prisma {
     body: string
     fromName: string | null
     stamp: number
+    backglow: boolean
     createdAt: Date
     _count: GardenTipCountAggregateOutputType | null
     _avg: GardenTipAvgAggregateOutputType | null
@@ -3564,6 +3571,7 @@ export namespace Prisma {
     body?: boolean
     fromName?: boolean
     stamp?: boolean
+    backglow?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["gardenTip"]>
 
@@ -3572,6 +3580,7 @@ export namespace Prisma {
     body?: boolean
     fromName?: boolean
     stamp?: boolean
+    backglow?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["gardenTip"]>
 
@@ -3580,6 +3589,7 @@ export namespace Prisma {
     body?: boolean
     fromName?: boolean
     stamp?: boolean
+    backglow?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["gardenTip"]>
 
@@ -3588,10 +3598,11 @@ export namespace Prisma {
     body?: boolean
     fromName?: boolean
     stamp?: boolean
+    backglow?: boolean
     createdAt?: boolean
   }
 
-  export type GardenTipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "body" | "fromName" | "stamp" | "createdAt", ExtArgs["result"]["gardenTip"]>
+  export type GardenTipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "body" | "fromName" | "stamp" | "backglow" | "createdAt", ExtArgs["result"]["gardenTip"]>
 
   export type $GardenTipPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "GardenTip"
@@ -3607,6 +3618,10 @@ export namespace Prisma {
        * Index into letter stamp set (0 = default / legacy)
        */
       stamp: number
+      /**
+       * Soft gold backglow on the letter ball (set in DB / Prisma Studio)
+       */
+      backglow: boolean
       createdAt: Date
     }, ExtArgs["result"]["gardenTip"]>
     composites: {}
@@ -4035,6 +4050,7 @@ export namespace Prisma {
     readonly body: FieldRef<"GardenTip", 'String'>
     readonly fromName: FieldRef<"GardenTip", 'String'>
     readonly stamp: FieldRef<"GardenTip", 'Int'>
+    readonly backglow: FieldRef<"GardenTip", 'Boolean'>
     readonly createdAt: FieldRef<"GardenTip", 'DateTime'>
   }
     
@@ -7392,6 +7408,7 @@ export namespace Prisma {
     body: 'body',
     fromName: 'fromName',
     stamp: 'stamp',
+    backglow: 'backglow',
     createdAt: 'createdAt'
   };
 
@@ -7510,6 +7527,13 @@ export namespace Prisma {
    * Reference to a field of type 'PraiseKind[]'
    */
   export type ListEnumPraiseKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PraiseKind[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -7644,6 +7668,7 @@ export namespace Prisma {
     body?: StringFilter<"GardenTip"> | string
     fromName?: StringNullableFilter<"GardenTip"> | string | null
     stamp?: IntFilter<"GardenTip"> | number
+    backglow?: BoolFilter<"GardenTip"> | boolean
     createdAt?: DateTimeFilter<"GardenTip"> | Date | string
   }
 
@@ -7652,6 +7677,7 @@ export namespace Prisma {
     body?: SortOrder
     fromName?: SortOrderInput | SortOrder
     stamp?: SortOrder
+    backglow?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -7663,6 +7689,7 @@ export namespace Prisma {
     body?: StringFilter<"GardenTip"> | string
     fromName?: StringNullableFilter<"GardenTip"> | string | null
     stamp?: IntFilter<"GardenTip"> | number
+    backglow?: BoolFilter<"GardenTip"> | boolean
     createdAt?: DateTimeFilter<"GardenTip"> | Date | string
   }, "id">
 
@@ -7671,6 +7698,7 @@ export namespace Prisma {
     body?: SortOrder
     fromName?: SortOrderInput | SortOrder
     stamp?: SortOrder
+    backglow?: SortOrder
     createdAt?: SortOrder
     _count?: GardenTipCountOrderByAggregateInput
     _avg?: GardenTipAvgOrderByAggregateInput
@@ -7687,6 +7715,7 @@ export namespace Prisma {
     body?: StringWithAggregatesFilter<"GardenTip"> | string
     fromName?: StringNullableWithAggregatesFilter<"GardenTip"> | string | null
     stamp?: IntWithAggregatesFilter<"GardenTip"> | number
+    backglow?: BoolWithAggregatesFilter<"GardenTip"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"GardenTip"> | Date | string
   }
 
@@ -7945,6 +7974,7 @@ export namespace Prisma {
     body: string
     fromName?: string | null
     stamp?: number
+    backglow?: boolean
     createdAt?: Date | string
   }
 
@@ -7953,6 +7983,7 @@ export namespace Prisma {
     body: string
     fromName?: string | null
     stamp?: number
+    backglow?: boolean
     createdAt?: Date | string
   }
 
@@ -7961,6 +7992,7 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     fromName?: NullableStringFieldUpdateOperationsInput | string | null
     stamp?: IntFieldUpdateOperationsInput | number
+    backglow?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7969,6 +8001,7 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     fromName?: NullableStringFieldUpdateOperationsInput | string | null
     stamp?: IntFieldUpdateOperationsInput | number
+    backglow?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7977,6 +8010,7 @@ export namespace Prisma {
     body: string
     fromName?: string | null
     stamp?: number
+    backglow?: boolean
     createdAt?: Date | string
   }
 
@@ -7985,6 +8019,7 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     fromName?: NullableStringFieldUpdateOperationsInput | string | null
     stamp?: IntFieldUpdateOperationsInput | number
+    backglow?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7993,6 +8028,7 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     fromName?: NullableStringFieldUpdateOperationsInput | string | null
     stamp?: IntFieldUpdateOperationsInput | number
+    backglow?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -8339,11 +8375,17 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type GardenTipCountOrderByAggregateInput = {
     id?: SortOrder
     body?: SortOrder
     fromName?: SortOrder
     stamp?: SortOrder
+    backglow?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -8356,6 +8398,7 @@ export namespace Prisma {
     body?: SortOrder
     fromName?: SortOrder
     stamp?: SortOrder
+    backglow?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -8364,11 +8407,20 @@ export namespace Prisma {
     body?: SortOrder
     fromName?: SortOrder
     stamp?: SortOrder
+    backglow?: SortOrder
     createdAt?: SortOrder
   }
 
   export type GardenTipSumOrderByAggregateInput = {
     stamp?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type OathTakingCountOrderByAggregateInput = {
@@ -8456,6 +8508,10 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -8609,6 +8665,19 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
 

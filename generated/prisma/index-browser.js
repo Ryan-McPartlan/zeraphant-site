@@ -142,6 +142,7 @@ exports.Prisma.GardenTipScalarFieldEnum = {
   body: 'body',
   fromName: 'fromName',
   stamp: 'stamp',
+  backglow: 'backglow',
   createdAt: 'createdAt'
 };
 

@@ -21,6 +21,7 @@ type Tip = {
   body: string;
   fromName?: string | null;
   stamp?: number | null;
+  backglow?: boolean | null;
 };
 
 const MAX_BODY = 800;
@@ -668,7 +669,9 @@ function TipBallPit({
             key={tip.id}
             type="button"
             onClick={() => onSelect(tip)}
-            className="garden-letter-ball font-hand pointer-events-auto absolute flex size-[84px] items-center justify-center px-2 text-center text-[0.65rem] leading-tight text-[#2a1f0a] transition-shadow hover:brightness-105"
+            className={`garden-letter-ball font-hand pointer-events-auto absolute flex size-[84px] items-center justify-center px-2 text-center text-[0.65rem] leading-tight text-[#2a1f0a] transition-shadow hover:brightness-105 ${
+              tip.backglow ? "garden-letter-ball--backglow" : ""
+            }`}
             style={{
               left: pos.x,
               top: pos.y,
